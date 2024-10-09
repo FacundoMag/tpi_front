@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { Redirect, Route, Switch } from "wouter";
+import Home from "./home/Home";
 import './App.css';
 
 export default class App extends Component {
@@ -12,7 +13,9 @@ export default class App extends Component {
     return(
       <>
         <Switch>
-          
+          <Route path="/home">
+            <Home />
+          </Route>
         </Switch>
       </>
     )
