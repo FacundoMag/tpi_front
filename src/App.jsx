@@ -13,6 +13,8 @@ export default class App extends Component {
     return(
       <>
         <Switch>
+          <Route path="/"><Redirect to="/home"/></Route>
+          
           <Route path="/home">
             <Home />
           </Route>
