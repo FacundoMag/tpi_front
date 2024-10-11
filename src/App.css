@@ -48,6 +48,8 @@ p {
   height: 100px;
   padding: 5px;
   color: #000039;
+  font-size: x-large;
+  font-family: "Lexend", sans-serif;
   text-decoration: underline white;
   border-radius: 5%;
   margin-left: 5px;
@@ -59,19 +61,10 @@ p {
   height: 100px;
   padding: 5px;
   color: white;
+  font-family: "Lexend", sans-serif;
+  font-size: x-large;
   border: 1px solid white;
   border-radius: 5%;
   text-decoration: underline #000039;
   margin-right: 5px;
-}
-
-.Buscador {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-image: url(https://tanakarushuaia.tur.ar/wp-content/uploads/2022/05/Tanakar-Ushuaua-Laguna-Esmeralda-Invierno-3.jpg);
-  background-size: cover;
-  height: 500px;
-  width: 100%;
 }

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import HeaderSinLogin from '../comun/HeaderSinLogin';
-import Buscador from './Buscador'
+import Buscador from './buscador/Buscador'
 import Footer from "../comun/Footer"
 
 export default class Home extends Component {
