@@ -20,7 +20,7 @@ export default class Home extends Component {
                     <img 
                         src={casa} 
                         alt="ERROR"
-                        style={{height: "30px", position: 'relative', top: "8.5px"}}  
+                        style={{height: "25px", position: 'relative', top: "3px", right: "5px"}}  
                     />
 
                     <select className='BuscadorSelect'>
