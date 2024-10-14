@@ -6,6 +6,11 @@ export default class VisualizacionDeCasas extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            casa: [
+                {direccion: "Kuanip 1253", precio: 80000, habitaciones: 3, baños: 2, tipo: "casa"}, 
+                {direccion: "Kuanip 1253", precio: 80000, habitaciones: 3, baños: 2, tipo: "casa"}, 
+                {direccion: "Kuanip 1253", precio: 80000, habitaciones: 3, baños: 2, tipo: "casa"}, 
+            ],
             mostrarVisualizacion: false,
         };
     }
