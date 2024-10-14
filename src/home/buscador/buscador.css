@@ -1,0 +1,45 @@
+.Buscador {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: url('../../assets/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 550px;
+    width: 100%;
+    font-family: "Plus Jakarta Sans", sans-serif;
+  }
+  
+  .BuscadorDiv {
+    padding: 10px;
+    padding-right: 20px;
+    flex-Direction: row;
+    padding-left: 40px; 
+    height: 50px; 
+    /* width: 30%;  */
+    background-Color: white; 
+    border-Radius: 15%;
+  }
+  
+  .BuscadorSelect {
+    color: #979797;
+    height: 50px;
+    font-size: x-large;
+    border: none;
+    outline: none; /* Elimina el borde de enfoque */
+    -webkit-appearance: none; /* Quita el estilo predeterminado en WebKit (Chrome, Safari) */
+    -moz-appearance: none; /* Quita el estilo predeterminado en Firefox */
+    appearance: none; /* Quita el estilo predeterminado en navegadores compatibles con appearance */
+    background-color: transparent;
+  }
+  
+  .BuscadorButton {
+    margin-left: 20px;
+    background-color: #404092;
+    border-radius: 50%;
+    border: none;
+    height: 40px;
+    width: 40px;
+  }

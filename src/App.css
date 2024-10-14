@@ -11,32 +11,56 @@
   will-change: filter;
   transition: filter 300ms;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+h1 {
+  color: white;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+p {
+  color: white;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.Secciones{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100px;
+  font-size: xx-large;
+  color: white;
 }
 
-.card {
-  padding: 2em;
+.BotonIs {
+  flex: 1;
+  background-color: white;
+  height: 100px;
+  padding: 5px;
+  color: #000039;
+  text-decoration: underline white;
+  border-radius: 5%;
+  margin-left: 5px;
 }
 
-.read-the-docs {
-  color: #888;
+.BotonCc {
+  flex: 1;
+  background-color: transparent;
+  height: 100px;
+  padding: 5px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5%;
+  text-decoration: underline #000039;
+  margin-right: 5px;
+}
+
+.Buscador {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: url(https://tanakarushuaia.tur.ar/wp-content/uploads/2022/05/Tanakar-Ushuaua-Laguna-Esmeralda-Invierno-3.jpg);
+  background-size: cover;
+  height: 500px;
+  width: 100%;
 }
