@@ -1,18 +1,26 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './login/login';
-import Register from './register/register';
+import { Component } from "react";
+import { Redirect, Route, Switch } from "wouter";
+import Home from "./home/Home";
+import './App.css';
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Login />} />
-      </Routes>
-    </Router>
-  );
+export default class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {}
+  }
+
+  render(){
+    return(
+      <>
+        <Switch>
+          <Route path="/"><Redirect to="/home"/></Route>
+          
+          <Route path="/home">
+            <Home />
+          </Route>
+        </Switch>
+      </>
+    )
+  }
+
 }
-
-export default App;
