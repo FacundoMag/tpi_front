@@ -41,16 +41,18 @@ p {
   font-size: xx-large;
   color: white;
 }
-
+a{
+  text-decoration: none;
+}
 .BotonIs {
   flex: 1;
   background-color: white;
-  height: 100px;
+  text-align: center;
   padding: 5px;
   color: #000039;
   font-size: x-large;
   font-family: "Lexend", sans-serif;
-  text-decoration: underline white;
+  text-decoration: none;
   border-radius: 5%;
   margin-left: 5px;
 }
@@ -58,7 +60,7 @@ p {
 .BotonCc {
   flex: 1;
   background-color: transparent;
-  height: 100px;
+  text-align: center;
   padding: 5px;
   color: white;
   font-family: "Lexend", sans-serif;

@@ -13,7 +13,7 @@ export default class HeaderSinLogin extends Component {
 
                 <div className="Secciones"></div>
 
-                <div className="Secciones">
+                <div className="Secciones" style={{paddingRight: "20px"}}>
                     <Boton ruta="/crear-cuenta" estilo="BotonCc">Crear cuenta</Boton>
                     <Boton ruta="/iniciar-sesion" estilo="BotonIs">Iniciar sesión</Boton>
                 </div>
