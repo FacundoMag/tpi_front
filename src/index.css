@@ -2,3 +2,7 @@
     background-color: #EAEAE6;
     background-size: cover;
 }
+
+body {
+    margin: 0;
+}
