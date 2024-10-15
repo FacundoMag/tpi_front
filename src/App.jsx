@@ -21,7 +21,6 @@ export default class App extends Component {
 
           <Route path="/crear-cuenta">
             
-        
           </Route>
 
           <Route path="/iniciar-sesion">
