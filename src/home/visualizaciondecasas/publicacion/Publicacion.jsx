@@ -33,8 +33,7 @@ export default class Publicacion extends Component {
                 <img 
                     src={this.state.corazon} 
                     alt="ERROR" 
-                    className="ImagenCorazon" 
-                    onClick={this.setState({corazon: corazonRojo})}
+                    className="ImagenCorazon"
                 />
             </div>
         )
