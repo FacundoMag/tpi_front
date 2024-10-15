@@ -8,12 +8,8 @@ export default class Boton extends Component {
 
   render() {
     return (
-        <Link to={this.props.ruta}>
-            <span 
-                className={this.props.estilo}
-            >
-                {this.props.children}
-            </span>
+        <Link to={this.props.ruta} className={this.props.estilo}>
+            {this.props.children}
         </Link>
     )
   }
