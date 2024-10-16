@@ -8,12 +8,26 @@ export default class Publicacion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            corazon: corazonBlanco,
+            corazon: corazonBlanco
+        };
+        // Enlaza el método con "this" para que funcione correctamente en el evento onClick
+        this.botonCorazon = this.botonCorazon.bind(this);
+    }
+
+    botonCorazon() {
+        if (this.state.corazon === corazonBlanco) {
+            this.setState({
+                corazon: corazonRojo
+            });
+        } else {
+            this.setState({
+                corazon: corazonBlanco
+            });
         }
     }
 
     render() {
-        return(
+        return (
             <div className="Publicacion">
                 <Link to="/ver-casa">
                     <img src={this.props.imagen} alt="ERROR" className="Imagen" />
@@ -22,6 +36,16 @@ export default class Publicacion extends Component {
                     <h3 style={{color: "#E93740"}}>${this.props.precio}</h3>
                     <h3>/ día</h3>
                 </div>
+                <button 
+                    className="BotonInvisible"
+                    onClick={this.botonCorazon}
+                >
+                    <img
+                        alt="ERROR" 
+                        className="Corazon"
+                        src={this.state.corazon}
+                    />
+                </button>
                 <h3 style={{marginLeft: "20px"}}>{this.props.direccion}</h3>
                 <div className="DatosExtra">
                     <h4>{this.props.habitaciones} Habitaciones</h4>
@@ -30,12 +54,7 @@ export default class Publicacion extends Component {
                     <h4>|</h4>
                     <h4>{this.props.tipo}</h4>
                 </div>
-                <img 
-                    src={this.state.corazon} 
-                    alt="ERROR" 
-                    className="ImagenCorazon"
-                />
             </div>
-        )
+        );
     }
 }

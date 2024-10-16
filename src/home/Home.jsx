@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import HeaderConLogin from '../comun/headerConLogin/HeaderConLogin'
 import HeaderSinLogin from '../comun/HeaderSinLogin';
 import Buscador from './buscador/Buscador';
 import VisualizacionDeCasas from './visualizaciondecasas/VisualizacionDeCasas'
@@ -8,6 +9,7 @@ export default class Home extends Component {
     constructor(props){
         super(props);
         this.state = {
+            header: false,
             casas: [],
         }
     }
@@ -15,7 +17,12 @@ export default class Home extends Component {
     render() {
         return(
             <>
-                <HeaderSinLogin />
+                {this.state.header ? (
+                    <HeaderConLogin />
+                ) : (
+                    <HeaderSinLogin />   
+                )}
+
 
                 <Buscador />
 

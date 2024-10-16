@@ -1,0 +1,118 @@
+/* src/login/Login.css */
+
+.login-container {
+    background-color: #f2f2f2;
+    width: 400px;
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.register-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    border-radius: 5px;
+    background: transparent;
+    font-size: 14px;
+}
+
+.icon {
+    position: absolute;
+    right: 10px;
+    color: #666;
+    font-size: 16px;
+}
+
+.toggle-icon {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.forgot-password-link {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.forgot-password-link:hover {
+    text-decoration: underline;
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0035ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #001ea8;
+}
+
+.or-text {
+    margin: 20px 0;
+    color: #666;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.social-icon {
+    display: inline-block;
+    font-size: 20px;
+    color: #666;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: #ddd;
+    color: #333;
+}
