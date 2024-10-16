@@ -41,9 +41,11 @@ p {
   font-size: xx-large;
   color: white;
 }
+
 a{
   text-decoration: none;
 }
+
 .BotonIs {
   flex: 1;
   background-color: white;
