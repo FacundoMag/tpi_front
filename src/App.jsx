@@ -46,6 +46,8 @@ export default class App extends Component {
           <Route path="/pago-realizado">
             
           </Route>
+
+        
         </Switch>
       </>
     )
