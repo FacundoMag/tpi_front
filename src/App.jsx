@@ -1,7 +1,10 @@
 import { Component } from "react";
 import { Redirect, Route, Switch } from "wouter";
 import Home from "./home/Home";
+import Login from "./login/Login";
+import Register from "./register/Register";
 import './App.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default class App extends Component {
   constructor(props){
@@ -20,11 +23,11 @@ export default class App extends Component {
           </Route>
 
           <Route path="/crear-cuenta">
-            
+            <Register/>
           </Route>
 
           <Route path="/iniciar-sesion">
-            
+            <Login />
           </Route>
 
           <Route path="/editar-usuario">
@@ -46,8 +49,6 @@ export default class App extends Component {
           <Route path="/pago-realizado">
             
           </Route>
-
-        
         </Switch>
       </>
     )
