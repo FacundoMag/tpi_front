@@ -1,0 +1,46 @@
+.Casa {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  padding: 15px;
+  background-color: white;
+  height: auto;
+  width: 92.5%;
+  border-radius: 5px;
+}
+
+.PublicSans {
+  font-family: "Public Sans", sans-serif;
+}
+
+span {
+  font-family: "Public Sans", sans-serif;
+}
+
+.PrecioCasa { 
+  color: #2DA5F3; 
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.LineaSeccion {
+  width: 500px;
+  border: 1px solid #E4E7E9;
+  margin-top: 10px;
+}
+
+.BotonReservar {
+  margin-top: 10px;
+  background-color: #404092;
+  font-family: "Public Sans", sans-serif;
+  font-size: large;
+  color: white;
+  height: 45px;
+  width: 500px;
+  border: none;
+}
+
+.BotonReservar:hover {
+  background-color: #22224d;
+}

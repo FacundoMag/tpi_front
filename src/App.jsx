@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { Redirect, Route, Switch } from "wouter";
 import Home from "./home/Home";
+import VerCasa from "./verCasa/VerCasa";
 import './App.css';
 
 export default class App extends Component {
@@ -13,9 +14,7 @@ export default class App extends Component {
     return(
       <>
         <Switch>
-          <Route path="/"><Redirect to="/home"/></Route>
-          
-          <Route path="/home">
+          <Route path="/">
             <Home />
           </Route>
 
@@ -36,18 +35,17 @@ export default class App extends Component {
           </Route>
 
           <Route path="/ver-casa">
+            <VerCasa />
+          </Route>
+          
+          <Route path="/ver-casa/pago">
             
           </Route>
           
-          <Route path="/pago">
-            
-          </Route>
-          
-          <Route path="/pago-realizado">
+          <Route path="/ver-casa/pago/pago-realizado">
             
           </Route>
 
-        
         </Switch>
       </>
     )
