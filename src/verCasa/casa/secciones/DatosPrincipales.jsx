@@ -12,8 +12,11 @@ export default class DatosPrincipales extends Component {
             estrellas: [estrellaVacia, estrellaVacia, estrellaVacia, estrellaVacia, estrellaVacia],
             rutaReservar: "/ver-casa/pago",
             corazon: corazonBlanco,
+            imagenActual: 0,
         };
         this.botonCorazon = this.botonCorazon.bind(this);
+        this.siguienteImagen = this.siguienteImagen.bind(this);
+        this.anteriorImagen = this.anteriorImagen.bind(this);
     }
 
     componentDidMount() {
@@ -23,7 +26,6 @@ export default class DatosPrincipales extends Component {
     estrellas() {
         let { nota } = this.props;
 
-        // Asegurarse de que 'nota' esté entre 0 y 5
         nota = Math.min(Math.max(nota, 0), 5);
 
         const estrellasActualizadas = this.state.estrellas.map((_, index) =>
@@ -39,14 +41,85 @@ export default class DatosPrincipales extends Component {
         }));
     }
 
+    siguienteImagen() {
+        this.setState((prevState) => ({
+            imagenActual: (prevState.imagenActual + 1) % this.props.imagenes.length,
+        }));
+    }
+
+    anteriorImagen() {
+        this.setState((prevState) => ({
+            imagenActual: (prevState.imagenActual - 1 + this.props.imagenes.length) % this.props.imagenes.length,
+        }));
+    }
+
     render() {
-        const { imagen, direccion, ciudad, tamaño, habitaciones, baños, precio } = this.props;
-        const { estrellas, corazon, rutaReservar } = this.state;
+        const { direccion, ciudad, tamaño, habitaciones, baños, precio } = this.props;
+        const { estrellas, corazon, rutaReservar, imagenActual } = this.state;
 
         return (
             <div style={{ display: "flex", flexDirection: "row" }}>
-                <div style={{ width: "50%" }}>
-                    <img src={imagen} alt="ERROR" style={{ width: "100%" }} />
+                <div style={{ width: "50%", position: "relative", overflow: "hidden", height: "300px" }}>
+                    <button
+                        onClick={this.anteriorImagen}
+                        style={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "10px",
+                            zIndex: 1,
+                            backgroundColor: "transparent",
+                            border: "none",
+                            fontSize: "20px",
+                            cursor: "pointer",
+                            color: "white",
+                        }}
+                    >
+                        &#10094;
+                    </button>
+
+                    <img
+                        src={this.props.imagenes[imagenActual]}
+                        alt="ERROR"
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            display: "block",
+                        }}
+                    />
+
+                    <button
+                        onClick={this.siguienteImagen}
+                        style={{
+                            position: "absolute",
+                            top: "50%",
+                            right: "10px",
+                            zIndex: 1,
+                            backgroundColor: "transparent",
+                            border: "none",
+                            fontSize: "20px",
+                            cursor: "pointer",
+                            color: "white",
+                        }}
+                    >
+                        &#10095;
+                    </button>
+
+                    <button
+                        className="BotonInvisible"
+                        onClick={this.botonCorazon}
+                        style={{
+                            position: "absolute",
+                            top: "10px",
+                            right: "-20px",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            cursor: "pointer",
+                            zIndex: 2,
+                        }}
+                    >
+                        <img alt="ERROR" style={{ height: "30px" }} src={corazon} />
+                    </button>
                 </div>
 
                 <div className="DatosPrincipales" style={{ display: "flex", flexDirection: "column", width: "50%" }}>
@@ -80,14 +153,6 @@ export default class DatosPrincipales extends Component {
                     <BotonReservar ruta={rutaReservar} estilo="BotonReservar">
                         RESERVAR
                     </BotonReservar>
-
-                    <button
-                        className="BotonInvisible"
-                        onClick={this.botonCorazon}
-                        style={{ marginRight: "575px", marginTop: "10px" }}
-                    >
-                        <img alt="ERROR" style={{ height: "45px" }} src={corazon} />
-                    </button>
                 </div>
             </div>
         );

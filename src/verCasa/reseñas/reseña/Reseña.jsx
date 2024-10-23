@@ -9,12 +9,13 @@ export default class Reseña extends Component {
         this.state = {
             primeraLetra: "",
             estrellas: [estrellaVacia, estrellaVacia, estrellaVacia, estrellaVacia, estrellaVacia],
-        }
+            mostrarTodoComentario: false, // Controla si se muestra todo el comentario o solo los primeros 50 caracteres
+        };
     }
 
     componentDidMount() {
         this.extraerPrimeraLetra(this.props.nombre);
-        this.actualizarEstrellas(); // Cambié el nombre de 'estrellas' a 'actualizarEstrellas' por claridad
+        this.actualizarEstrellas();
     }
 
     extraerPrimeraLetra(nombre) {
@@ -36,18 +37,38 @@ export default class Reseña extends Component {
         this.setState({ estrellas: estrellasActualizadas });
     }
 
+    toggleMostrarTodoComentario = () => {
+        this.setState((prevState) => ({
+            mostrarTodoComentario: !prevState.mostrarTodoComentario,
+        }));
+    };
+
     render() {
+        const { nombre, comentario } = this.props;
+        const { mostrarTodoComentario, estrellas, primeraLetra } = this.state;
+        const comentarioCorto = comentario.length > 50 ? comentario.slice(0, 50) + "..." : comentario;
+
         return (
             <div className="Reseña">
-                <div className="Perfil">{this.state.primeraLetra}</div>
+                <div className="Perfil">{primeraLetra}</div>
 
                 <div className="ComentarioReseña">
-                    <h3>{this.props.nombre}</h3>
-                    <span>{this.props.comentario}</span>
+                    <h3>{nombre}</h3>
+                    <span>
+                        {mostrarTodoComentario ? comentario : comentarioCorto}
+                    </span>
+                    {comentario.length > 50 && (
+                        <button
+                            className="VerMasBtn"
+                            onClick={this.toggleMostrarTodoComentario}
+                        >
+                            {mostrarTodoComentario ? "Ver menos" : "Ver más"}
+                        </button>
+                    )}
                 </div>
 
                 <div className="Estrellas">
-                    {this.state.estrellas.map((estrella, index) => (
+                    {estrellas.map((estrella, index) => (
                         <img
                             key={index}
                             src={estrella}

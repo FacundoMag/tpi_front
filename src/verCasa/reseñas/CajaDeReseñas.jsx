@@ -1,6 +1,7 @@
 import { Component } from "react";
 import estrellaLlena from "../../assets/estrellaLlena.png";
 import Reseña from "./reseña/Reseña";
+import ComentarioInput from "./comentarioInput/ComentarioInput";
 
 export default class CajaDeReseñas extends Component {
     constructor(props) {
@@ -30,7 +31,11 @@ export default class CajaDeReseñas extends Component {
                     />
                 </h1>
 
-                <div className="VisualizacionCasas">
+                <div style={{display: "flex", justifyContent: "center"}}>
+                    <ComentarioInput />
+                </div>
+
+                <div className="VisualizacionReseñas">
                     {this.props.reseñas && this.props.reseñas.length > 0 ? (
                         this.props.reseñas.map((cont, index) => (
                             <Reseña

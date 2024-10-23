@@ -16,7 +16,7 @@ export default class Casa extends Component {
                     precio = {this.props.precio} 
                     habitaciones = {this.props.habitaciones}
                     baños = {this.props.baños}
-                    imagen = {this.props.imagen}
+                    imagenes = {this.props.imagenes}
                     nota = {this.props.nota}
                     tamaño = {this.props.tamaño}
                 />
