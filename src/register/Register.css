@@ -1,0 +1,142 @@
+.register-page {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f3f3f3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    width: 100vw;
+    overflow: hidden;
+  }
+  
+  .register-page .register-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 30px;
+    width: 400px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .register-page h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .register-page p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .register-page a {
+    color: #2a6fdb;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .register-page a:hover {
+    text-decoration: underline;
+  }
+  
+  .register-page form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .register-page .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+  }
+  
+  .register-page label {
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+  }
+  
+  .register-page .input-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #333;
+  }
+  
+  .register-page .input-field {
+    width: 100%;
+    padding: 10px 40px;
+    border: none;
+    font-size: 14px;
+    background-color: transparent;
+  }
+  
+  .register-page .input-field:focus {
+    outline: none;
+    border-color: #2a6fdb;
+  }
+  
+  .register-page .icon {
+    position: absolute;
+    left: 10px;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .register-page .toggle-icon {
+    position: absolute;
+    right: 10px;
+    font-size: 18px;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .register-page button {
+    background-color: #2a6fdb;
+    color: white;
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .register-page button:hover {
+    background-color: #1f57b6;
+  }
+.back-icon {
+    position: absolute; 
+    top: 20px; 
+    left: 20px; 
+    font-size: 24px; 
+    color: #2a6fdb; 
+    transition: color 0.3s ease; 
+  }
+  
+  .back-icon:hover {
+    color: #1f57b6; 
+  }
+  
+  .register-container {
+    position: relative; 
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 30px;
+    width: 400px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  

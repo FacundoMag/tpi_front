@@ -3,9 +3,9 @@ import { Redirect, Route, Switch } from "wouter";
 import Home from "./home/Home";
 import Login from "./login/Login";
 import Register from "./register/Register";
-import './App.css';
+import PropertyUpload from "./publicar-casa/PropertyUpload";
+import './App.css';''
 import 'bootstrap-icons/font/bootstrap-icons.css';
-
 export default class App extends Component {
   constructor(props){
     super(props);
@@ -35,7 +35,7 @@ export default class App extends Component {
           </Route>
 
           <Route path="/publicar-casa">
-
+          <PropertyUpload/>
           </Route>
 
           <Route path="/ver-casa">

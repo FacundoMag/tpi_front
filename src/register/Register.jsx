@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { Link } from 'wouter';  
+import './Register.css';
 
 function Register() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -14,72 +15,87 @@ function Register() {
   };
 
   return (
-    <div>
-      <h2>Sign up</h2>
-      <p>
-        If you already have an account register{' '}
-        <a href="/login">Login here!</a>
-      </p>
+    <div className="register-page">
+      <div className="register-container">
+        {}
+        <Link to="/" className="back-icon" title="Go Back">
+          <i className="bi bi-arrow-left"></i>
+        </Link>
 
-      <form>
-        <div>
-          <label htmlFor="email">Email</label>
-          <div>
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email address"
-            />
-            <i className="fas fa-envelope"></i>
+        <h2>Registrarse</h2>
+        <p>
+          Si ya tienes una cuenta, regístrate{' '}
+          <a href="/iniciar-sesion">Inicia sesión aquí!</a>
+        </p>
+
+        <form>
+          <div className="input-group">
+            <label htmlFor="email">Correo electrónico</label>
+            <div className="input-wrapper">
+              <i className="bi bi-envelope icon"></i>
+              <input
+                type="email"
+                id="email"
+                className="input-field"
+                placeholder="Ingresa tu dirección de correo electrónico"
+                required
+              />
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label htmlFor="username">Username</label>
-          <div>
-            <input
-              type="text"
-              id="username"
-              placeholder="Enter your User name"
-            />
-            <i className="fas fa-user"></i>
+          <div className="input-group">
+            <label htmlFor="username">Nombre de usuario</label>
+            <div className="input-wrapper">
+              <i className="bi bi-person icon"></i>
+              <input
+                type="text"
+                id="username"
+                className="input-field"
+                placeholder="Ingresa tu nombre de usuario"
+                required
+              />
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <div>
-            <input
-              type={passwordVisible ? 'text' : 'password'}
-              id="password"
-              placeholder="Enter your Password"
-            />
-            <i className="fas fa-lock"></i>
-            <i
-              className={passwordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'}
-              onClick={togglePasswordVisibility}
-            ></i>
+          <div className="input-group">
+            <label htmlFor="password">Contraseña</label>
+            <div className="input-wrapper">
+              <i className="bi bi-lock icon"></i>
+              <input
+                type={passwordVisible ? 'text' : 'password'}
+                id="password"
+                className="input-field"
+                placeholder="Ingresa tu contraseña"
+                required
+              />
+              <i
+                className={`bi ${passwordVisible ? 'bi-eye-slash' : 'bi-eye'} toggle-icon`}
+                onClick={togglePasswordVisibility}
+              ></i>
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <div>
-            <input
-              type={confirmPasswordVisible ? 'text' : 'password'}
-              id="confirmPassword"
-              placeholder="Confirm your Password"
-            />
-            <i className="fas fa-lock"></i>
-            <i
-              className={confirmPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'}
-              onClick={toggleConfirmPasswordVisibility}
-            ></i>
+          <div className="input-group">
+            <label htmlFor="confirmPassword">Confirmar Contraseña</label>
+            <div className="input-wrapper">
+              <i className="bi bi-lock icon"></i>
+              <input
+                type={confirmPasswordVisible ? 'text' : 'password'}
+                id="confirmPassword"
+                className="input-field"
+                placeholder="Confirma tu contraseña"
+                required
+              />
+              <i
+                className={`bi ${confirmPasswordVisible ? 'bi-eye-slash' : 'bi-eye'} toggle-icon`}
+                onClick={toggleConfirmPasswordVisibility}
+              ></i>
+            </div>
           </div>
-        </div>
 
-        <button type="submit">Register</button>
-      </form>
+          <button type="submit">Registrarse</button>
+        </form>
+      </div>
     </div>
   );
 }
