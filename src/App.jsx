@@ -1,7 +1,6 @@
 import { Component } from "react";
 import { Redirect, Route, Switch } from "wouter";
 import Home from "./home/Home";
-import VerCasa from "./verCasa/VerCasa";
 import './App.css';
 
 export default class App extends Component {
@@ -19,11 +18,11 @@ export default class App extends Component {
           </Route>
 
           <Route path="/crear-cuenta">
-            
+            <Register/>
           </Route>
 
           <Route path="/iniciar-sesion">
-            
+            <Login />
           </Route>
 
           <Route path="/editar-usuario">
@@ -31,7 +30,7 @@ export default class App extends Component {
           </Route>
 
           <Route path="/publicar-casa">
-
+          <PropertyUpload/>
           </Route>
 
           <Route path="/ver-casa">
@@ -46,6 +45,7 @@ export default class App extends Component {
             
           </Route>
 
+        
         </Switch>
       </>
     )

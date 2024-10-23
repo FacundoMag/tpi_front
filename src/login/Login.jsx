@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Login.css'; // Asegúrate de importar el archivo de estilos
+import { useState } from 'react';
+import { Link } from 'wouter';
+import './Login.css';
 
 function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -10,60 +10,94 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
-      <h2>Sign in</h2>
-      <p>
-        If you don't have an account register{' '}
-        <Link to="/register" className="register-link">Register here!</Link>
-      </p>
+    <div className="login-page"> {}
+      <div className="login-container">
+        {}
+        <Link to="/" className="back-icon" title="Go Back">
+          <i className="bi bi-arrow-left"></i>
+        </Link>
 
-      <form>
-        <div className="input-group">
-          <label htmlFor="email">Email</label>
-          <div className="input-wrapper">
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email address"
-              className="input-field"
-            />
-            <i className="fas fa-envelope icon"></i>
+        <h2 className="login-title">Sign in</h2>
+        <p className="login-text">
+          If you don't have an account register{' '}
+          <Link to="/crear-cuenta" className="register-link">Register here!</Link>
+        </p>
+
+        <form className="login-form">
+          <InputField
+            type="email"
+            id="email"
+            label="Email"
+            placeholder="Enter your email address"
+            iconClass="bi bi-envelope"
+          />
+
+          <InputField
+            type={passwordVisible ? 'text' : 'password'}
+            id="password"
+            label="Password"
+            placeholder="Enter your Password"
+            iconClass="bi bi-lock"
+            toggleIconClass={passwordVisible ? 'bi bi-eye-slash' : 'bi bi-eye'}
+            onToggle={togglePasswordVisibility}
+          />
+
+          <div className="options">
+            <label className="checkbox-container">
+              <input type="checkbox" id="rememberMe" />
+              Remember me
+            </label>
+            <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>
           </div>
-        </div>
 
-        <div className="input-group">
-          <label htmlFor="password">Password</label>
-          <div className="input-wrapper">
-            <input
-              type={passwordVisible ? 'text' : 'password'}
-              id="password"
-              placeholder="Enter your Password"
-              className="input-field"
+          <button type="submit" className="login-button">Login</button>
+
+          <p className="or-text">or continue with</p>
+          <div className="social-icons">
+            <SocialIcon
+              iconClass="bi bi-facebook"
+              onClick={() => console.log('Facebook clicked')}
             />
-            <i className="fas fa-lock icon"></i>
-            <i
-              className={passwordVisible ? 'fas fa-eye-slash toggle-icon' : 'fas fa-eye toggle-icon'}
-              onClick={togglePasswordVisibility}
-            ></i>
+
+            <SocialIcon
+              iconClass="bi bi-google"
+              onClick={() => console.log('Google clicked')}
+            />
           </div>
-        </div>
-
-        <div className="options">
-          <input type="checkbox" id="rememberMe" />
-          <label htmlFor="rememberMe">Remember me</label>
-          <a href="/forgot-password" className="forgot-password-link">Forgot Password?</a>
-        </div>
-
-        <button type="submit" className="login-button">Login</button>
-
-        <p className="or-text">or continue with</p>
-        <div className="social-icons">
-          <a href="/#" className="social-icon"><i className="fab fa-facebook"></i></a>
-          <a href="/#" className="social-icon"><i className="fab fa-apple"></i></a>
-          <a href="/#" className="social-icon"><i className="fab fa-google"></i></a>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
+  );
+}
+
+function InputField({ type, id, label, placeholder, iconClass, toggleIconClass, onToggle }) {
+  return (
+    <div className="input-group">
+      <label htmlFor={id} className="input-label">{label}</label>
+      <div className="input-wrapper">
+        <i className={`${iconClass} icon`}></i>
+        <input
+          type={type}
+          id={id}
+          placeholder={placeholder}
+          className="input-field"
+        />
+        {toggleIconClass && (
+          <i
+            className={`${toggleIconClass} toggle-icon`}
+            onClick={onToggle}
+          ></i>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function SocialIcon({ iconClass, onClick }) {
+  return (
+    <a href="/#" className="social-icon" onClick={onClick}>
+      <i className={`${iconClass}`}></i>
+    </a>
   );
 }
 
