@@ -1,0 +1,46 @@
+.Reseña {
+    display: flex;
+    flex-direction: row;
+    height: auto; /* Ajuste según el contenido */
+    width: 30%;
+    background-color: white;
+    border: 1px solid #EFEFEF;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.Perfil {
+    display: flex;
+    background-color: #5D5DFF;
+    height: auto;
+    width: 15%;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: "Manrope", sans-serif;
+    font-size: x-large;
+}
+
+.ComentarioReseña {
+    display: flex; 
+    flex-direction: column;
+    width: 55%; 
+    padding-left: 10px; 
+    padding-top: -15px;
+    word-wrap: break-word; 
+    height: auto; 
+    box-sizing: border-box;
+}
+
+.Estrellas {
+    display: flex;
+    height: auto;
+    width: 15%;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+}
+
+
