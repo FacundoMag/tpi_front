@@ -1,7 +1,12 @@
 import { Component } from "react";
 import { Redirect, Route, Switch } from "wouter";
 import Home from "./home/Home";
+import VerCasa from "./verCasa/VerCasa";
+import Login from "./login/Login";
+import Register from "./register/Register";
+import PropertyUpload from "./publicar-casa/PropertyUpload";
 import './App.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default class App extends Component {
   constructor(props){
