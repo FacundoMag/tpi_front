@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
 import './PropertyUpload.css';
 
-function PropertyUpload() {
-  const [propertyType, setPropertyType] = useState('');
+const PropertyUpload = () => {
+  const [formValues, setFormValues] = useState({
+    nombre: '',
+    direccion: '',
+    ciudad_id: '',
+    tipo_id: '',
+    num_habitaciones: '',
+    num_banos: '',
+    tamano_m2: '',
+    precio_renta: '',
+    descripcion: ''
+  });
+
   const [amenities, setAmenities] = useState({
     wifi: false,
     aireAcondicionado: false,
@@ -12,139 +23,155 @@ function PropertyUpload() {
     estacionamiento: false,
     accesoParaDiscapacitados: false,
   });
-  
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
+
   const handleAmenityChange = (e) => {
-    setAmenities({
-      ...amenities,
-      [e.target.name]: e.target.checked
-    });
+    setAmenities({ ...amenities, [e.target.name]: e.target.checked });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form values submitted:', formValues);
+    console.log('Amenities:', amenities);
   };
 
   return (
-    <div className="property-upload-page">
-      <div className="property-upload-container">
-        <h2>Subir Propiedad para Alquiler</h2>
+    <div className="upload-property-page">
+      <div className="upload-property-container">
+        <h2>Subir Nueva Propiedad</h2>
+        <form onSubmit={handleSubmit}>
 
-        {}
-        <section>
-          <h3>Información del Propietario</h3>
-          <div className="input-group">
-            <label htmlFor="ownerName">Nombre completo</label>
-            <input type="text" id="ownerName" placeholder="Tu nombre completo" required />
-          </div>
-          <div className="input-group">
-            <label htmlFor="ownerEmail">Correo electrónico</label>
-            <input type="email" id="ownerEmail" placeholder="Tu correo electrónico" required />
-          </div>
-          <div className="input-group">
-            <label htmlFor="ownerPhone">Teléfono</label>
-            <input type="tel" id="ownerPhone" placeholder="Tu número de teléfono" required />
-          </div>
-        </section>
+          {/* Sección de detalles de la propiedad */}
+          <div className="property-details">
+            <div className="input-group">
+              <label htmlFor="nombre">Nombre de la Propiedad</label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                value={formValues.nombre}
+                onChange={handleChange}
+                placeholder="Ej. Apartamento con vista al mar"
+                required
+              />
+            </div>
 
-        {}
-        <section>
-          <h3>Detalles de la Propiedad</h3>
-          <div className="input-group">
-            <label htmlFor="title">Título del anuncio</label>
-            <input type="text" id="title" placeholder="Ej. Apartamento con vista al mar" required />
-          </div>
-          <div className="input-group">
-            <label htmlFor="description">Descripción</label>
-            <textarea id="description" placeholder="Describe tu propiedad..." required></textarea>
-          </div>
-          <div className="input-group">
-            <label htmlFor="propertyType">Tipo de propiedad</label>
-            <select id="propertyType" value={propertyType} onChange={(e) => setPropertyType(e.target.value)} required>
-              <option value="">Seleccionar</option>
-              <option value="apartment">Apartamento</option>
-              <option value="house">Casa</option>
-              <option value="studio">Estudio</option>
-            </select>
-          </div>
-          <div className="input-group">
-            <label htmlFor="location">Ubicación</label>
-            <input type="text" id="location" placeholder="Dirección o ciudad" required />
-          </div>
-          <div className="input-group">
-            <label htmlFor="photos">Fotos de la propiedad</label>
-            <input type="file" id="photos" multiple accept="image/*" />
-          </div>
-          <div className="input-group">
-            <label htmlFor="video">Video tour (opcional)</label>
-            <input type="file" id="video" accept="video/*" />
-          </div>
-        </section>
+            <div className="input-group">
+              <label htmlFor="direccion">Dirección</label>
+              <input
+                type="text"
+                id="direccion"
+                name="direccion"
+                value={formValues.direccion}
+                onChange={handleChange}
+                placeholder="Dirección o ciudad"
+                required
+              />
+            </div>
 
-        {}
-        <section>
-          <h3>Comodidades</h3>
-          <div className="checkbox-group">
-            {Object.keys(amenities).map((amenity) => (
-              <label key={amenity}>
-                <input
-                  type="checkbox"
-                  name={amenity}
-                  checked={amenities[amenity]}
-                  onChange={handleAmenityChange}
-                />{' '}
-                {amenity.charAt(0).toUpperCase() + amenity.slice(1).replace(/([A-Z])/g, ' $1')}
-              </label>
-            ))}
-          </div>
-        </section>
+            <div className="input-group">
+              <label htmlFor="ciudad_id">Ciudad</label>
+              <select
+                id="ciudad_id"
+                name="ciudad_id"
+                value={formValues.ciudad_id}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Seleccionar</option>
+                <option value="ushuaia">Ushuaia</option>
+                <option value="rio_grande">Río Grande</option>
+                <option value="tolhuin">Tolhuin</option>
+              </select>
+            </div>
 
-        {}
-        <section>
-          <h3>Detalles del Alojamiento</h3>
-          <div className="input-group">
-            <label htmlFor="bedrooms">Número de habitaciones</label>
-            <input type="number" id="bedrooms" placeholder="Ej. 2" required />
+            <div className="input-group">
+              <label htmlFor="tipo_id">Tipo de Propiedad</label>
+              <select
+                id="tipo_id"
+                name="tipo_id"
+                value={formValues.tipo_id}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Seleccionar</option>
+                <option value="apartment">Apartamento</option>
+                <option value="house">Casa</option>
+                <option value="studio">Estudio</option>
+              </select>
+            </div>
           </div>
-          <div className="input-group">
-            <label htmlFor="bathrooms">Número de baños</label>
-            <input type="number" id="bathrooms" placeholder="Ej. 1" required />
-          </div>
-          <div className="input-group">
-            <label htmlFor="capacity">Capacidad máxima de huéspedes</label>
-            <input type="number" id="capacity" placeholder="Ej. 4 personas" required />
-          </div>
-          <div className="input-group">
-            <label htmlFor="size">Tamaño (en m² o ft²)</label>
-            <input type="number" id="size" placeholder="Tamaño de la propiedad" required />
-          </div>
-        </section>
 
-        {}
-        <section>
-          <h3>Precio y Condiciones</h3>
-          <div className="input-group">
-            <label htmlFor="price">Precio por noche</label>
-            <input type="number" id="price" placeholder="Ej. 100" required />
+          {/* Sección de comodidades */}
+          <div className="property-amenities">
+            <h4>Comodidades</h4>
+            <div className="checkbox-group">
+              {Object.keys(amenities).map((amenity) => (
+                <label key={amenity}>
+                  <input
+                    type="checkbox"
+                    name={amenity}
+                    checked={amenities[amenity]}
+                    onChange={handleAmenityChange}
+                  />
+                  {amenity.charAt(0).toUpperCase() + amenity.slice(1).replace(/([A-Z])/g, ' $1')}
+                </label>
+              ))}
+            </div>
           </div>
-          <div className="input-group">
-            <label htmlFor="minStay">Estancia mínima (en noches)</label>
-            <input type="number" id="minStay" placeholder="Ej. 2 noches" required />
-          </div>
-          <div className="input-group">
-            <label htmlFor="cleaningFee">Costo adicional por limpieza</label>
-            <input type="number" id="cleaningFee" placeholder="Ej. 20" />
-          </div>
-          <div className="input-group">
-            <label htmlFor="cancellationPolicy">Política de cancelación</label>
-            <select id="cancellationPolicy" required>
-              <option value="flexible">Flexible</option>
-              <option value="moderate">Moderada</option>
-              <option value="strict">Estricto</option>
-            </select>
-          </div>
-        </section>
 
-        {}
-        <button type="submit" className="submit-button">Subir Propiedad</button>
+          {/* Sección de detalles adicionales */}
+          <div className="property-extra-details">
+            <div className="input-group">
+              <label htmlFor="num_habitaciones">Número de Habitaciones</label>
+              <input
+                type="number"
+                id="num_habitaciones"
+                name="num_habitaciones"
+                value={formValues.num_habitaciones}
+                onChange={handleChange}
+                placeholder="Ej. 2"
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="num_banos">Número de Baños</label>
+              <input
+                type="number"
+                id="num_banos"
+                name="num_banos"
+                value={formValues.num_banos}
+                onChange={handleChange}
+                placeholder="Ej. 1"
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="tamano_m2">Tamaño (en m²)</label>
+              <input
+                type="number"
+                id="tamano_m2"
+                name="tamano_m2"
+                value={formValues.tamano_m2}
+                onChange={handleChange}
+                placeholder="Tamaño de la propiedad"
+                required
+              />
+            </div>
+          </div>
+
+          {/* Botón de envío */}
+          <button type="submit" className="submit-button">Subir Propiedad</button>
+        </form>
       </div>
     </div>
   );
-}
+};
 
 export default PropertyUpload;
