@@ -1,10 +1,11 @@
 import { Component } from "react";
 import { Redirect, Route, Switch } from "wouter";
 import Home from "./home/Home";
-import VerCasa from "./verCasa/VerCasa";
-import Login from "./login/Login";
 import Register from "./register/Register";
+import Login from "./login/Login";
 import PropertyUpload from "./publicar-casa/PropertyUpload";
+import VerCasa from "./verCasa/VerCasa";
+import Pago from "./pago/Pago"
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -35,7 +36,7 @@ export default class App extends Component {
           </Route>
 
           <Route path="/publicar-casa">
-          <PropertyUpload/>
+            <PropertyUpload/>
           </Route>
 
           <Route path="/ver-casa">
@@ -43,7 +44,7 @@ export default class App extends Component {
           </Route>
           
           <Route path="/ver-casa/pago">
-            
+            <Pago />
           </Route>
           
           <Route path="/ver-casa/pago/pago-realizado">
