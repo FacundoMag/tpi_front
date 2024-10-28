@@ -53,7 +53,7 @@ export default class Reseña extends Component {
                 <div className="Perfil">{primeraLetra}</div>
 
                 <div className="ComentarioReseña">
-                    <h3>{nombre}</h3>
+                    <h3 style={{textAlign: "left"}}>{nombre}</h3>
                     <span>
                         {mostrarTodoComentario ? comentario : comentarioCorto}
                     </span>

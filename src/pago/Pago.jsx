@@ -15,6 +15,11 @@ export default class Pago extends Component {
         };
     }
 
+    componentDidMount(){
+        alert(this.props.id)
+        //JSON.parse(decodeURI(this.props.id))
+    }
+
     validarDatosTarjeta = () => {
         const camposTarjeta = [
             "tipoTarjeta",

@@ -5,7 +5,8 @@ import Register from "./register/Register";
 import Login from "./login/Login";
 import PropertyUpload from "./publicar-casa/PropertyUpload";
 import VerCasa from "./verCasa/VerCasa";
-import Pago from "./pago/Pago"
+import Pago from "./pago/Pago";
+import PagoRealizado from "./pagoRealizado/PagoRealizado";
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -43,15 +44,14 @@ export default class App extends Component {
             <VerCasa />
           </Route>
           
-          <Route path="/ver-casa/pago">
-            <Pago />
+          <Route path="/ver-casa/pago/:id?">
+          {params => <Pago id={params.id}/>}
+            
           </Route>
           
           <Route path="/ver-casa/pago/pago-realizado">
-            
+            <PagoRealizado />
           </Route>
-
-        
         </Switch>
       </>
     )
