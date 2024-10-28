@@ -23,10 +23,22 @@ export default class DatosTarjeta extends Component {
                 </select>
 
                 <label htmlFor="nombreTarjeta">Nombre en la tarjeta:</label>
-                <input id="nombreTarjeta" type="text" className="InputTarjeta" />
+                <input 
+                    id="nombreTarjeta" 
+                    type="text" 
+                    className="InputTarjeta" 
+                    pattern="[a-zA-Z\s]+" // Solo letras y espacios
+                    title="Solo letras"
+                />
 
                 <label htmlFor="numeroTarjeta">Número de tarjeta:</label>
-                <input id="numeroTarjeta" type="number" className="InputTarjeta" />
+                <input 
+                    id="numeroTarjeta" 
+                    type="number" 
+                    className="InputTarjeta" 
+                    maxLength="16"
+                    onInput={(e) => e.target.value = e.target.value.slice(0, 16)}
+                />
 
                 <div className="flexRow">
                     <div className="halfColumn">
@@ -35,7 +47,13 @@ export default class DatosTarjeta extends Component {
                     </div>
                     <div className="halfColumn">
                         <label htmlFor="cvc">CVC:</label>
-                        <input id="cvc" type="number" className="InputTarjeta" />
+                        <input 
+                            id="cvc" 
+                            type="number" 
+                            className="InputTarjeta" 
+                            maxLength="3"
+                            onInput={(e) => e.target.value = e.target.value.slice(0, 3)}
+                        />
                     </div>
                 </div>
 
@@ -44,22 +62,46 @@ export default class DatosTarjeta extends Component {
                 <div className="flexRow">
                     <div className="halfColumn">
                         <label htmlFor="nombre">Nombre:</label>
-                        <input id="nombre" type="text" className="InputTarjeta" />
+                        <input 
+                            id="nombre" 
+                            type="text" 
+                            className="InputTarjeta" 
+                            pattern="[a-zA-Z\s]+" // Solo letras y espacios
+                            title="Solo letras"
+                        />
                     </div>
                     <div className="halfColumn">
                         <label htmlFor="apellidos">Apellidos:</label>
-                        <input id="apellidos" type="text" className="InputTarjeta" />
+                        <input 
+                            id="apellidos" 
+                            type="text" 
+                            className="InputTarjeta" 
+                            pattern="[a-zA-Z\s]+" // Solo letras y espacios
+                            title="Solo letras"
+                        />
                     </div>
                 </div>
 
                 <div className="flexRow">
                     <div className="halfColumn">
                         <label htmlFor="localidad">Localidad:</label>
-                        <input id="localidad" type="text" className="InputTarjeta" />
+                        <input 
+                            id="localidad" 
+                            type="text" 
+                            className="InputTarjeta" 
+                            pattern="[a-zA-Z\s]+" // Solo letras y espacios
+                            title="Solo letras"
+                        />
                     </div>
                     <div className="halfColumn">
                         <label htmlFor="codigoPostal">Código postal o zip:</label>
-                        <input id="codigoPostal" type="number" className="InputTarjeta" />
+                        <input 
+                            id="codigoPostal" 
+                            type="number" 
+                            className="InputTarjeta" 
+                            maxLength="4"
+                            onInput={(e) => e.target.value = e.target.value.slice(0, 4)}
+                        />
                     </div>
                 </div>
 
@@ -141,7 +183,13 @@ export default class DatosTarjeta extends Component {
                     </div>
                     <div className="halfColumn">
                         <label htmlFor="telefono">Teléfono:</label>
-                        <input id="telefono" type="number" className="InputTarjeta" />
+                        <input 
+                            id="telefono" 
+                            type="number" 
+                            className="InputTarjeta" 
+                            maxLength="10"
+                            onInput={(e) => e.target.value = e.target.value.slice(0, 10)}
+                        />
                     </div>
                 </div>
             </div>

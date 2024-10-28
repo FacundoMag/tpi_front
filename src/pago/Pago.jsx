@@ -10,6 +10,8 @@ export default class Pago extends Component {
         super(props);
         this.state = {
             validacionCompleta: false,
+
+            precio: 500,
         };
     }
 
@@ -64,6 +66,7 @@ export default class Pago extends Component {
                             ref={(calendario) => (this.calendario = calendario)}
                             total={this.calcularTotal}
                             onReservar={this.handleReservar}
+                            precio={this.state.precio}
                         />
                     </div>
                 </div>
