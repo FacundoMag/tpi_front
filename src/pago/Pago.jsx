@@ -1,36 +1,55 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import HeaderConLogin from "../comun/headerConLogin/HeaderConLogin";
 import DatosTarjeta from "./datosTarjeta/DatosTarjeta";
 import Calendario from "./calendario/Calendario";
 import Footer from "../comun/Footer";
-import { Link } from "wouter";
-import "./pago.css";
+import "./Pago.css";
 
 export default class Pago extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isValid: false
+            validacionCompleta: false,
         };
-        this.handleReservar = this.handleReservar.bind(this);
     }
 
-    handleReservar() {
-        const inputs = document.querySelectorAll("input");
-        let isEmpty = false;
-        
-        inputs.forEach((input) => {
-            if (input.value.trim() === "") {
-                isEmpty = true;
-            }
+    validarDatosTarjeta = () => {
+        const camposTarjeta = [
+            "tipoTarjeta",
+            "nombreTarjeta",
+            "numeroTarjeta",
+            "fechaVencimiento",
+            "cvc",
+            "nombre",
+            "apellidos",
+            "localidad",
+            "codigoPostal",
+            "direccionFacturacion",
+            "pais",
+            "telefono",
+        ];
+
+        return camposTarjeta.every((campo) => {
+            const input = document.getElementById(campo);
+            return input && input.value.trim() !== ""; // Verifica que el campo existe y no esté vacío
         });
+    };
 
-        if (!isEmpty) {
-            this.setState({ isValid: true });
+    handleReservar = () => {
+        const fechaInicio = this.calendario.state.fechaInicio;
+        const fechaFin = this.calendario.state.fechaFin;
+        const datosTarjetaCompletos = this.validarDatosTarjeta();
+
+        if (fechaInicio !== null && fechaFin !== null && datosTarjetaCompletos) {
+            this.setState({ validacionCompleta: true }, () => {
+                window.location.href = "/ver-casa/pago/pago-realizado";
+            });
         } else {
-            alert("Todos los campos deben estar completos.");
+            alert("Por favor, complete todos los campos y seleccione un rango de fechas.");
         }
-    }
+    };
+
+    calcularTotal = (dias) => dias * 100; // Ejemplo de cálculo del total (100 por día)
 
     render() {
         return (
@@ -41,17 +60,12 @@ export default class Pago extends Component {
                         <DatosTarjeta />
                     </div>
                     <div className="contenedorCalendario">
-                        <Calendario price={100} />
+                        <Calendario
+                            ref={(calendario) => (this.calendario = calendario)}
+                            total={this.calcularTotal}
+                            onReservar={this.handleReservar}
+                        />
                     </div>
-                </div>
-                <div style={{ textAlign: "center", marginTop: "20px" }}>
-                    {this.state.isValid ? (
-                        <Link href="/ver-casa/pago/pago-realizado">
-                            <button className="botonReservar">Reservar</button>
-                        </Link>
-                    ) : (
-                        <button className="botonReservar" onClick={this.handleReservar}>Reservar</button>
-                    )}
                 </div>
                 <Footer />
             </>

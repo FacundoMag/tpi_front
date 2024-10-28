@@ -1,63 +1,68 @@
-import { Component } from "react";
-import "./calendario.css";
+import React, { Component } from "react";
+import "./Calendario.css";
 
 export default class Calendario extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedDates: [],
-            startDate: null,
-            endDate: null,
-            total: 0
+            fechaInicio: null,
+            fechaFin: null,
         };
     }
 
-    handleDateClick(date) {
-        const { startDate, endDate } = this.state;
-        
-        if (!startDate || (startDate && endDate)) {
-            this.setState({ startDate: date, endDate: null, selectedDates: [date], total: this.props.price });
-        } else {
-            const range = this.generateRange(startDate, date);
-            this.setState({
-                endDate: date,
-                selectedDates: range,
-                total: range.length * this.props.price
-            });
+    seleccionarFecha = (index) => {
+        const { fechaInicio, fechaFin } = this.state;
+
+        if (fechaInicio === null || (fechaInicio !== null && fechaFin !== null)) {
+            this.setState({ fechaInicio: index, fechaFin: null });
+        } else if (fechaInicio !== null && fechaFin === null) {
+            if (index >= fechaInicio) {
+                this.setState({ fechaFin: index });
+            } else {
+                this.setState({ fechaInicio: index });
+            }
         }
-    }
+    };
 
-    generateRange(start, end) {
-        const range = [];
-        const startDate = Math.min(start, end);
-        const endDate = Math.max(start, end);
-
-        for (let i = startDate; i <= endDate; i++) {
-            range.push(i);
-        }
-
-        return range;
-    }
+    calcularDiasSeleccionados = () => {
+        const { fechaInicio, fechaFin } = this.state;
+        return fechaInicio !== null && fechaFin !== null ? fechaFin - fechaInicio + 1 : 0;
+    };
 
     render() {
-        const days = Array.from({ length: 30 }, (_, i) => i + 1);
-        
+        const { fechaInicio, fechaFin } = this.state;
+        const { total, onReservar } = this.props;
+        const dias = Array.from({ length: 30 }, (_, i) => i + 1);
+
         return (
-            <div className="Calendario">
-                <h3>¿Cuántos días va a estar?</h3>
-                <div className="calendarioGrid">
-                    {days.map((day) => (
-                        <button
-                            key={day}
-                            className={`dia ${this.state.selectedDates.includes(day) ? "seleccionado" : ""}`}
-                            onClick={() => this.handleDateClick(day)}
-                        >
-                            {day}
-                        </button>
-                    ))}
+            <div className="CalendarioContainer">
+                <div className="Calendario">
+                    <h3>¿Cuántos días va a estar?</h3>
+                    <div className="calendarioGrid">
+                        {dias.map((dia, index) => (
+                            <button
+                                key={index}
+                                className={`dia ${
+                                    fechaInicio !== null && fechaFin !== null && index >= fechaInicio && index <= fechaFin
+                                        ? "seleccionado"
+                                        : ""
+                                }`}
+                                onClick={() => this.seleccionarFecha(index)}
+                            >
+                                {dia}
+                            </button>
+                        ))}
+                    </div>
+                    
                 </div>
+                
                 <div className="totalReservar">
-                    <p className="total">Total: <span style={{ color: "#4a90e2" }}>${this.state.total}</span></p>
+                    <div className="total">
+                        Total: ${total(this.calcularDiasSeleccionados())}
+                    </div>
+                    <button className="botonReservar" onClick={onReservar}>
+                        Reservar
+                    </button>
                 </div>
             </div>
         );

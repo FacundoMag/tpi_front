@@ -2,36 +2,40 @@ import { Component } from "react";
 import "./DatosTarjeta.css";
 
 export default class DatosTarjeta extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
+    verificarCampos = () => {
+        // Collect all input elements
+        const inputs = document.querySelectorAll(".DatosTarjeta input, .DatosTarjeta select");
+
+        // Check if each input/select has a value
+        return Array.from(inputs).every(input => input.value.trim());
+    };
 
     render() {
         return (
             <div className="DatosTarjeta">
                 <h2 className="PublicSans">Información de pago</h2>
 
-                <label className="PublicSans" style={{ fontSize: "medium", color: "#191C1F" }} htmlFor="tipoTarjeta">Tipo de tarjeta:</label>
+                <label htmlFor="tipoTarjeta">Tipo de tarjeta:</label>
                 <select id="tipoTarjeta" className="SelectTarjeta">
+                    <option value="">Seleccione</option>
                     <option value="visa">Visa</option>
                     <option value="mastercard">Mastercard</option>
                 </select>
 
-                <label className="PublicSans" style={{ fontSize: "medium", color: "#191C1F" }} htmlFor="nombreTarjeta">Nombre en la tarjeta:</label>
+                <label htmlFor="nombreTarjeta">Nombre en la tarjeta:</label>
                 <input id="nombreTarjeta" type="text" className="InputTarjeta" />
 
-                <label className="PublicSans" style={{ fontSize: "medium", color: "#191C1F" }} htmlFor="numeroTarjeta">Número de tarjeta:</label>
-                <input id="numeroTarjeta" type="text" className="InputTarjeta" />
+                <label htmlFor="numeroTarjeta">Número de tarjeta:</label>
+                <input id="numeroTarjeta" type="number" className="InputTarjeta" />
 
                 <div className="flexRow">
                     <div className="halfColumn">
-                        <label className="PublicSans" style={{ fontSize: "medium", color: "#191C1F" }} htmlFor="fechaVencimiento">Fecha de vencimiento:</label>
-                        <input id="fechaVencimiento" type="text" className="InputTarjeta" />
+                        <label htmlFor="fechaVencimiento">Fecha de vencimiento:</label>
+                        <input id="fechaVencimiento" type="date" className="InputTarjeta" />
                     </div>
                     <div className="halfColumn">
-                        <label className="PublicSans" style={{ fontSize: "medium", color: "#191C1F" }} htmlFor="cvc">CVC:</label>
-                        <input id="cvc" type="text" className="InputTarjeta" />
+                        <label htmlFor="cvc">CVC:</label>
+                        <input id="cvc" type="number" className="InputTarjeta" />
                     </div>
                 </div>
 
@@ -39,34 +43,34 @@ export default class DatosTarjeta extends Component {
 
                 <div className="flexRow">
                     <div className="halfColumn">
-                        <label className="PublicSans" style={{ fontSize: "medium", color: "#191C1F" }} htmlFor="nombre">Nombre:</label>
+                        <label htmlFor="nombre">Nombre:</label>
                         <input id="nombre" type="text" className="InputTarjeta" />
                     </div>
                     <div className="halfColumn">
-                        <label className="PublicSans" style={{ fontSize: "medium", color: "#191C1F" }} htmlFor="apellidos">Apellidos:</label>
+                        <label htmlFor="apellidos">Apellidos:</label>
                         <input id="apellidos" type="text" className="InputTarjeta" />
                     </div>
                 </div>
 
                 <div className="flexRow">
                     <div className="halfColumn">
-                        <label className="PublicSans" style={{ fontSize: "medium", color: "#191C1F" }} htmlFor="localidad">Localidad:</label>
+                        <label htmlFor="localidad">Localidad:</label>
                         <input id="localidad" type="text" className="InputTarjeta" />
                     </div>
                     <div className="halfColumn">
-                        <label className="PublicSans" style={{ fontSize: "medium", color: "#191C1F" }} htmlFor="codigoPostal">Código postal o zip:</label>
-                        <input id="codigoPostal" type="text" className="InputTarjeta" />
+                        <label htmlFor="codigoPostal">Código postal o zip:</label>
+                        <input id="codigoPostal" type="number" className="InputTarjeta" />
                     </div>
                 </div>
 
-                <label className="PublicSans" style={{ fontSize: "medium", color: "#191C1F" }} htmlFor="direccionFacturacion">Dirección de facturación:</label>
+                <label htmlFor="direccionFacturacion">Dirección de facturación:</label>
                 <input id="direccionFacturacion" type="text" className="InputTarjeta" />
 
                 <div className="flexRow">
                     <div className="halfColumn">
-                        <label className="PublicSans" style={{ fontSize: "medium", color: "#191C1F" }} htmlFor="pais">País:</label>
+                        <label htmlFor="pais">País:</label>
                         <select id="pais" className="InputTarjeta">
-                            <option value="espana">España</option>
+                            <option value="">Seleccione</option>
                             <option value="afganistan">Afganistán</option>
                             <option value="alemania">Alemania</option>
                             <option value="andorra">Andorra</option>
@@ -98,6 +102,7 @@ export default class DatosTarjeta extends Component {
                             <option value="emiratos_arabes">Emiratos Árabes Unidos</option>
                             <option value="eslovaquia">Eslovaquia</option>
                             <option value="eslovenia">Eslovenia</option>
+                            <option value="espana">España</option>
                             <option value="estados_unidos">Estados Unidos</option>
                             <option value="etiopia">Etiopía</option>
                             <option value="filipinas">Filipinas</option>
@@ -114,8 +119,8 @@ export default class DatosTarjeta extends Component {
                             <option value="jamaica">Jamaica</option>
                             <option value="japon">Japón</option>
                             <option value="kenia">Kenia</option>
-                            <option value="mexico">México</option>
                             <option value="marruecos">Marruecos</option>
+                            <option value="mexico">México</option>
                             <option value="nicaragua">Nicaragua</option>
                             <option value="noruega">Noruega</option>
                             <option value="nueva_zelanda">Nueva Zelanda</option>
@@ -135,7 +140,7 @@ export default class DatosTarjeta extends Component {
                         </select>
                     </div>
                     <div className="halfColumn">
-                        <label className="PublicSans" style={{ fontSize: "medium", color: "#191C1F" }} htmlFor="telefono">Teléfono:</label>
+                        <label htmlFor="telefono">Teléfono:</label>
                         <input id="telefono" type="number" className="InputTarjeta" />
                     </div>
                 </div>
