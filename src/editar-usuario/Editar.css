@@ -1,0 +1,117 @@
+.editar-page {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f3f3f3; /* Fondo de la página */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.editar-container {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 30px;
+  width: 400px; /* Ancho del contenedor */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); /* Sombra */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editar-container h2 {
+  font-size: 24px; /* Tamaño de la fuente */
+  font-weight: 600; /* Grosor de la fuente */
+  margin-bottom: 10px; /* Margen inferior */
+  color: #333; /* Color del texto */
+}
+
+.editar-container p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.editar-container a {
+  color: #2a6fdb;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.editar-container a:hover {
+  text-decoration: underline; /* Subrayar al pasar el mouse */
+}
+
+.editar-container form {
+  width: 100%; /* Ancho del formulario */
+  display: flex;
+  flex-direction: column; /* Dirección de los elementos */
+  gap: 15px; /* Espacio entre los elementos */
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column; /* Dirección vertical */
+  gap: 5px; /* Espacio entre los elementos */
+  position: relative; /* Posicion relativo para iconos */
+}
+
+label {
+  font-size: 14px; /* Tamaño de la fuente */
+  color: #333; /* Color del texto */
+  text-align: left; /* Alineación a la izquierda */
+}
+
+.input-wrapper {
+  width: 100%; /* Ancho completo */
+  display: flex;
+  align-items: center; /* Centrar verticalmente */
+}
+
+.icon {
+  font-size: 18px; /* Tamaño del icono */
+  color: #333; /* Color del icono */
+  margin-right: 10px; /* Espacio entre icono y campo de entrada */
+}
+
+.input-field {
+  width: 100%; /* Ancho completo */
+  padding: 10px; /* Espacio interior */
+  border: 1px solid #ccc; /* Borde del input */
+  font-size: 14px; /* Tamaño de la fuente */
+  background-color: transparent; /* Fondo transparente */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+.input-field:focus {
+  outline: none; /* Sin borde al enfocar */
+  border-color: #2a6fdb; /* Color al enfocar */
+}
+
+.toggle-icon {
+  position: absolute; /* Posición absoluta */
+  right: 10px; /* Espacio desde la derecha */
+  font-size: 18px; /* Tamaño del icono */
+  color: #333; /* Color del icono */
+  cursor: pointer; /* Cursor pointer al pasar el mouse */
+}
+
+.submit-button {
+  background-color: #2a6fdb; /* Color del botón */
+  color: white; /* Color del texto */
+  width: 100%; /* Ancho completo */
+  padding: 12px; /* Espacio interior */
+  border-radius: 30px; /* Bordes redondeados */
+  border: none; /* Sin borde */
+  font-size: 16px; /* Tamaño de la fuente */
+  cursor: pointer; /* Cursor pointer al pasar el mouse */
+  margin-top: 20px; /* Margen superior */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+.submit-button:hover {
+  background-color: #1f57b6; /* Color al pasar el mouse */
+}
+

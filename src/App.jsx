@@ -4,7 +4,8 @@ import Home from "./home/Home";
 import Login from "./login/Login";
 import Register from "./register/Register";
 import PropertyUpload from "./publicar-casa/PropertyUpload";
-import './App.css';''
+import Editar from "./editar-usuario/Editar";
+import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 export default class App extends Component {
   constructor(props){
@@ -31,7 +32,7 @@ export default class App extends Component {
           </Route>
 
           <Route path="/editar-usuario">
-            
+          <Editar />
           </Route>
 
           <Route path="/publicar-casa">
