@@ -1,8 +1,7 @@
 import { Component } from 'react';
-import HeaderConLogin from '../comun/headerConLogin/HeaderConLogin'
+import HeaderConLogin from '../comun/headerConLogin/HeaderConLogin';
 import HeaderSinLogin from '../comun/HeaderSinLogin';
-import Buscador from './buscador/Buscador';
-import VisualizacionDeCasas from "../comun/visualizaciondecasas/VisualizacionDeCasas"
+import VisualizacionDeCasas from '../comun/visualizaciondecasas/VisualizacionDeCasas';
 import Footer from "../comun/Footer"
 
 export default class Home extends Component {
@@ -23,12 +22,9 @@ export default class Home extends Component {
                     <HeaderSinLogin />   
                 )}
 
-
-                <Buscador />
-
-                <VisualizacionDeCasas 
-                    casas={this.state.casas}
-                >Todas las propiedades</VisualizacionDeCasas>
+                <VisualizacionDeCasas
+                
+                >Tus propiedades favoritas</VisualizacionDeCasas>
 
                 <Footer />
             </>

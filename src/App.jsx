@@ -4,6 +4,7 @@ import Home from "./home/Home";
 import Register from "./register/Register";
 import Login from "./login/Login";
 import PropertyUpload from "./publicar-casa/PropertyUpload";
+import Favoritos from "./favoritos/Favoritos";
 import VerCasa from "./verCasa/VerCasa";
 import Pago from "./pago/Pago";
 import PagoRealizado from "./pagoRealizado/PagoRealizado";
@@ -37,7 +38,11 @@ export default class App extends Component {
           </Route>
 
           <Route path="/publicar-casa">
-            <PropertyUpload/>
+            <PropertyUpload />
+          </Route>
+
+          <Route path="/favoritos">
+            <Favoritos />
           </Route>
 
           <Route path="/ver-casa">

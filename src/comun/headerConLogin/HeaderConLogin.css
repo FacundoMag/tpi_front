@@ -2,6 +2,8 @@
     background-color: skyblue;
     border-radius: 50%; 
     padding: 5px;
+    cursor: pointer;
+    position: relative;
 }
 
 .Usuario:hover {
@@ -11,10 +13,55 @@
 .BotonPublicar {
     display: flex; 
     flex-direction: row; 
-    margin-Right: 20px;
+    margin-right: 20px;
     font-family: "Lexend", sans-serif;
 }
 
 .BotonPublicar:hover {
     text-decoration: underline white;
+}
+
+.MenuDesplegable {
+    position: absolute;
+    top: 80px; /* Ajuste para colocar la bandeja más abajo */
+    right: 5px;
+    background-color: white;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 5px 0;
+    width: 180px;
+    z-index: 10;
+}
+
+.MenuLink, .CerrarSesion {
+    display: block;
+    padding: 10px 20px;
+    font-family: "Lexend", sans-serif;
+    color: #333;
+    text-decoration: none;
+    text-align: left;
+    font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+    cursor: pointer;
+}
+
+.MenuLink:hover {
+    background-color: #f0f0f0;
+}
+
+.CerrarSesion {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    width: 100%;
+    text-align: left;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-family: "Lexend", sans-serif;
+}
+
+.CerrarSesion:hover {
+    background-color: #555;
 }
