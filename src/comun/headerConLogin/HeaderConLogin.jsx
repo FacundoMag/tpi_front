@@ -1,50 +1,60 @@
 import { Component } from "react";
-import agregar from "../../assets/agregar.png"
-import usuario from "../../assets/usuario.png"
+import agregar from "../../assets/agregar.png";
+import usuario from "../../assets/usuario.png";
 import { Link } from 'wouter';
-import './HeaderConLogin.css'
+import './HeaderConLogin.css';
 
 export default class HeaderSinLogin extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
+        this.state = {
+            isMenuOpen: false
+        };
     }
 
+    toggleMenu = () => {
+        this.setState(prevState => ({ isMenuOpen: !prevState.isMenuOpen }));
+    };
+
     render() {
-        return(
+        return (
             <header>
-                <div className="Secciones" style={{justifyContent: "left", paddingLeft: "50px"}}>SouthernEscapes</div>
+                <div className="Secciones" style={{ justifyContent: "left", paddingLeft: "50px" }}>
+                    SouthernEscapes
+                </div>
 
                 <div className="Secciones"></div>
 
-                <div className="Secciones" style={{justifyContent: "right", marginRight: "60px"}}>
-
-                    <Link to="/publicar-casa" >
+                <div className="Secciones" style={{ justifyContent: "right", marginRight: "60px" }}>
+                    <Link to="/publicar-casa">
                         <div className="BotonPublicar">
-
                             <img 
                                 src={agregar} 
                                 alt="ERROR" 
-                                style={{height: "35px", marginTop: "22.5px", marginRight: "5px"}} 
+                                style={{ height: "35px", marginTop: "22.5px", marginRight: "5px" }} 
                             /> 
-                            <p style={{fontSize: "x-large"}}>Publicar</p>
-
+                            <p style={{ fontSize: "x-large" }}>Publicar</p>
                         </div>
                     </Link>
 
-                    <Link to="/editar-usuario">
-                        <div className="Usuario">
+                    <div className="Usuario" onClick={this.toggleMenu}>
+                        <img 
+                            src={usuario} 
+                            alt="ERROR" 
+                            style={{ height: "25px", width: "35px" }}
+                        />
+                    </div>
 
-                            <img 
-                                src={usuario} 
-                                alt="ERROR" 
-                                style={{height: "25px", width: "35px"}}
-                            />
-
+                    {this.state.isMenuOpen && (
+                        <div className="MenuDesplegable">
+                            <Link to="/editar-usuario" className="MenuLink">Editar usuario</Link>
+                            <Link to="/favoritos" className="MenuLink">Favoritos</Link>
+                            <Link to="/mis-propiedades" className="MenuLink">Mis propiedades</Link>
+                            <button className="CerrarSesion">Cerrar sesión</button>
                         </div>
-                    </Link>
-
+                    )}
                 </div>
             </header>
-        )
+        );
     }
 }

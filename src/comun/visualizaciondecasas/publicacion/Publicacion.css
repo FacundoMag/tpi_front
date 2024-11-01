@@ -46,10 +46,13 @@ h4 {
     cursor: pointer;
     outline: none;
     float: right;
-    margin-right: 35px;
 }
 
-.Corazon {
+.BotonInvisible:hover {
+    filter: brightness(50%);
+}
+
+.IconoBoton {
     height: 35px;
 }
 
