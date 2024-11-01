@@ -26,9 +26,11 @@ export default class Home extends Component {
 
                 <Buscador />
 
-                <VisualizacionDeCasas 
-                    casas={this.state.casas}
-                >Todas las propiedades</VisualizacionDeCasas>
+                <VisualizacionDeCasas
+                    titulo = "Todas las propiedades"
+                    dueño = {false}
+                    casas = {this.state.casas}
+                />
 
                 <Footer />
             </>

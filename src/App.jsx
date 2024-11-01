@@ -5,6 +5,7 @@ import Register from "./register/Register";
 import Login from "./login/Login";
 import PropertyUpload from "./publicar-casa/PropertyUpload";
 import Favoritos from "./favoritos/Favoritos";
+import MisPropiedades from "./misPropiedades/MisPropiedades";
 import VerCasa from "./verCasa/VerCasa";
 import Pago from "./pago/Pago";
 import PagoRealizado from "./pagoRealizado/PagoRealizado";
@@ -45,13 +46,20 @@ export default class App extends Component {
             <Favoritos />
           </Route>
 
+          <Route path="/favoritos/editar-casa">
+
+          </Route>
+
+          <Route path="/mis-propiedades">
+            <MisPropiedades />
+          </Route>
+
           <Route path="/ver-casa">
             <VerCasa />
           </Route>
           
           <Route path="/ver-casa/pago/:id?">
-          {params => <Pago id={params.id}/>}
-            
+            {params => <Pago id={params.id}/>}
           </Route>
           
           <Route path="/ver-casa/pago/pago-realizado">

@@ -49,6 +49,7 @@ export default class HeaderSinLogin extends Component {
                         <div className="MenuDesplegable">
                             <Link to="/editar-usuario" className="MenuLink">Editar usuario</Link>
                             <Link to="/favoritos" className="MenuLink">Favoritos</Link>
+                            <Link to="/mis-propiedades" className="MenuLink">Mis propiedades</Link>
                             <button className="CerrarSesion">Cerrar sesión</button>
                         </div>
                     )}

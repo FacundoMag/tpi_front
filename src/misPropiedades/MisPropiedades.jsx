@@ -1,9 +1,10 @@
 import { Component } from 'react';
 import HeaderConLogin from '../comun/headerConLogin/HeaderConLogin';
+import HeaderSinLogin from '../comun/HeaderSinLogin';
 import VisualizacionDeCasas from '../comun/visualizaciondecasas/VisualizacionDeCasas';
 import Footer from "../comun/Footer"
 
-export default class Favoritos extends Component {
+export default class MisPropiedades extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -18,7 +19,8 @@ export default class Favoritos extends Component {
                 <HeaderConLogin />
 
                 <VisualizacionDeCasas
-                    titulo="Tus propiedades favoritas"
+                    titulo = "Estas son todas la propiedades que registraste en la página"
+                    dueño = {true}
                 />
 
                 <Footer />

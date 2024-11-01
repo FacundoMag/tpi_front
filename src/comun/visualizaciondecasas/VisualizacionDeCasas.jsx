@@ -38,7 +38,7 @@ export default class VisualizacionDeCasas extends Component {
 
         return (
             <div className="Contenedor">
-                <h1 className="Titulo">{this.props.children}</h1>
+                <h1 className="Titulo">{this.props.titulo}</h1>
                 {mostrarVisualizacion ? (
                     <div className="VisualizacionCasas">
                         {this.state.casas.map((cont, index) => 
@@ -51,6 +51,7 @@ export default class VisualizacionDeCasas extends Component {
                                 baños = {cont.baños}
                                 tipo = {cont.tipo}
                                 imagen = {cont.imagen}
+                                dueño = {this.props.dueño}
                             />
                         )}
                     </div>

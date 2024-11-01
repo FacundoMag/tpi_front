@@ -111,7 +111,7 @@ export default class DatosPrincipales extends Component {
                         style={{
                             position: "absolute",
                             top: "10px",
-                            right: "-20px",
+                            right: "10px",
                             backgroundColor: "transparent",
                             border: "none",
                             cursor: "pointer",
