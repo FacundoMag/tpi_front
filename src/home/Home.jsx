@@ -28,7 +28,6 @@ export default class Home extends Component {
 
                 <VisualizacionDeCasas
                     titulo = "Todas las propiedades"
-                    dueño = {false}
                     casas = {this.state.casas}
                 />
 

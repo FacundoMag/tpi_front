@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import HeaderConLogin from '../comun/headerConLogin/HeaderConLogin';
 import HeaderSinLogin from '../comun/HeaderSinLogin';
-import VisualizacionDeCasas from '../comun/visualizaciondecasas/VisualizacionDeCasas';
+import VisualizacionDeCasas from './visualizaciondecasas/VisualizacionDeCasas';
 import Footer from "../comun/Footer"
 
 export default class MisPropiedades extends Component {
@@ -20,7 +20,6 @@ export default class MisPropiedades extends Component {
 
                 <VisualizacionDeCasas
                     titulo = "Estas son todas la propiedades que registraste en la página"
-                    dueño = {true}
                 />
 
                 <Footer />

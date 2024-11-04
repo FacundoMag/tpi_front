@@ -1,5 +1,5 @@
 import { Component } from "react";
-import Publicacion from "./publicacion/publicacion";
+import Publicacion from "./publicacion/Publicacion";
 import Boton from "../../comun/Boton";
 import "./VisualizacionDeCasas.css"
 
