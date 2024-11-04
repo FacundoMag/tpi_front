@@ -1,10 +1,9 @@
-/* Estilo principal de la página */
 .contenedor-centro {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f3f4f6; /* Fondo suave para la página */
+  background-color: #f3f4f6; 
   padding: 20px;
 }
 
@@ -128,8 +127,8 @@ input[type="file"] {
 }
 
 .dropzone.dragging {
-  background-color: #f0f8ff; /* Color de fondo cuando se arrastra un archivo */
-  border-color: #3b82f6; /* Color del borde durante el arrastre */
+  background-color: #f0f8ff; 
+  border-color: #3b82f6; 
 }
 
 .dropzone p {

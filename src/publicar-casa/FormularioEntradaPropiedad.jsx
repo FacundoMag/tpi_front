@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './FormularioEntradaPropiedad.css'; // Asegúrate de importar el archivo CSS
+import './FormularioEntradaPropiedad.css'; 
 
 function FormularioEntradaPropiedad() {
   const [formData, setFormData] = useState({
@@ -28,7 +28,7 @@ function FormularioEntradaPropiedad() {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     
-    // Manejo especial para checkboxes de "caracteristicas"
+  
     if (type === 'checkbox' && formData.caracteristicas.hasOwnProperty(name)) {
       setFormData((prev) => ({
         ...prev,
@@ -54,7 +54,7 @@ function FormularioEntradaPropiedad() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Procesar los datos del formulario
+   
   };
 
   return (
