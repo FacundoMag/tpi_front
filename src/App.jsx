@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from "wouter";
 import Home from "./home/Home";
 import Login from "./login/Login";
 import Register from "./register/Register";
-import PropertyUpload from "./publicar-casa/PropertyUpload";
+import FormularioEntradaPropiedad from "./publicar-casa/FormularioEntradaPropiedad";
 import Editar from "./editar-usuario/Editar";
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -36,7 +36,7 @@ export default class App extends Component {
           </Route>
 
           <Route path="/publicar-casa">
-          <PropertyUpload/>
+          <FormularioEntradaPropiedad/>
           </Route>
 
           <Route path="/ver-casa">

@@ -1,6 +1,8 @@
+/* Editar.css */
+
 .editar-page {
   font-family: 'Poppins', sans-serif;
-  background-color: #f3f3f3; /* Fondo de la página */
+  background-color: #f3f3f3;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,107 +13,116 @@
 }
 
 .editar-container {
+  position: relative;
   background-color: #ffffff;
   border-radius: 15px;
   padding: 30px;
-  width: 400px; /* Ancho del contenedor */
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); /* Sombra */
+  width: 400px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.editar-container h2 {
-  font-size: 24px; /* Tamaño de la fuente */
-  font-weight: 600; /* Grosor de la fuente */
-  margin-bottom: 10px; /* Margen inferior */
-  color: #333; /* Color del texto */
+.editar-page h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
 }
 
-.editar-container p {
+.editar-page p {
   font-size: 14px;
   color: #555;
   margin-bottom: 20px;
 }
 
-.editar-container a {
+.editar-page a {
   color: #2a6fdb;
   font-weight: bold;
   text-decoration: none;
 }
 
-.editar-container a:hover {
-  text-decoration: underline; /* Subrayar al pasar el mouse */
+.editar-page a:hover {
+  text-decoration: underline;
 }
 
-.editar-container form {
-  width: 100%; /* Ancho del formulario */
+.editar-page .editar-form {
+  width: 100%;
   display: flex;
-  flex-direction: column; /* Dirección de los elementos */
-  gap: 15px; /* Espacio entre los elementos */
+  flex-direction: column;
+  gap: 15px;
 }
 
-.input-group {
+.editar-page .input-group {
   display: flex;
-  flex-direction: column; /* Dirección vertical */
-  gap: 5px; /* Espacio entre los elementos */
-  position: relative; /* Posicion relativo para iconos */
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
 }
 
-label {
-  font-size: 14px; /* Tamaño de la fuente */
-  color: #333; /* Color del texto */
-  text-align: left; /* Alineación a la izquierda */
-}
-
-.input-wrapper {
-  width: 100%; /* Ancho completo */
+.editar-page .input-wrapper {
+  width: 100%;
+  position: relative;
   display: flex;
-  align-items: center; /* Centrar verticalmente */
+  align-items: center;
 }
 
-.icon {
-  font-size: 18px; /* Tamaño del icono */
-  color: #333; /* Color del icono */
-  margin-right: 10px; /* Espacio entre icono y campo de entrada */
+.editar-page .input-field {
+  width: 100%;
+  padding: 10px 40px;
+  border: none;
+  border-bottom: 2px solid #333;
+  font-size: 14px;
+  background-color: transparent;
 }
 
-.input-field {
-  width: 100%; /* Ancho completo */
-  padding: 10px; /* Espacio interior */
-  border: 1px solid #ccc; /* Borde del input */
-  font-size: 14px; /* Tamaño de la fuente */
-  background-color: transparent; /* Fondo transparente */
-  border-radius: 5px; /* Bordes redondeados */
+.editar-page .input-field:focus {
+  outline: none;
+  border-color: #2a6fdb;
 }
 
-.input-field:focus {
-  outline: none; /* Sin borde al enfocar */
-  border-color: #2a6fdb; /* Color al enfocar */
+.editar-page .icon {
+  position: absolute;
+  left: 10px;
+  font-size: 18px;
+  color: #333;
 }
 
-.toggle-icon {
-  position: absolute; /* Posición absoluta */
-  right: 10px; /* Espacio desde la derecha */
-  font-size: 18px; /* Tamaño del icono */
-  color: #333; /* Color del icono */
-  cursor: pointer; /* Cursor pointer al pasar el mouse */
+.editar-page .toggle-icon {
+  position: absolute;
+  right: 10px;
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
 }
 
-.submit-button {
-  background-color: #2a6fdb; /* Color del botón */
-  color: white; /* Color del texto */
-  width: 100%; /* Ancho completo */
-  padding: 12px; /* Espacio interior */
-  border-radius: 30px; /* Bordes redondeados */
-  border: none; /* Sin borde */
-  font-size: 16px; /* Tamaño de la fuente */
-  cursor: pointer; /* Cursor pointer al pasar el mouse */
-  margin-top: 20px; /* Margen superior */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+.editar-page .editar-button {
+  background-color: #2a6fdb;
+  color: white;
+  width: 100%;
+  padding: 12px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.submit-button:hover {
-  background-color: #1f57b6; /* Color al pasar el mouse */
+.editar-page .editar-button:hover {
+  background-color: #1f57b6;
 }
 
+.back-icon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  color: #2a6fdb;
+  transition: color 0.3s;
+}
+
+.back-icon:hover {
+  color: #1f57b6;
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'wouter';  
+import { Link } from 'wouter';
 import './Editar.css';
 
 function Editar() {
@@ -15,89 +15,79 @@ function Editar() {
         <Link to="/" className="back-icon" title="Go Back">
           <i className="bi bi-arrow-left"></i>
         </Link>
-        <form>
+        
+        <h2 className="editar-title">Editar Perfil</h2>
 
-          <h2>Editar Perfil</h2>
+        <form className="editar-form">
+          <InputField
+            type="email"
+            id="email"
+            label="Correo electrónico"
+            placeholder="Ingresa tu dirección de correo electrónico"
+            iconClass="bi bi-envelope"
+          />
 
-          <div className="input-group">
-            <label htmlFor="email">Correo electrónico</label>
-            <div className="input-wrapper">
-              <i className="bi bi-envelope icon"></i> {/* Icono de correo */}
-              <input
-                type="email"
-                id="email"
-                className="input-field"
-                placeholder="Ingresa tu dirección de correo electrónico"
-                required
-              />
-            </div>
-          </div>
+          <InputField
+            type="text"
+            id="nombre"
+            label="Nombre"
+            placeholder="Ingresa tu nombre"
+            iconClass="bi bi-person"
+          />
 
-          <div className="input-group">
-            <label htmlFor="nombre">Nombre</label>
-            <div className="input-wrapper">
-              <i className="bi bi-person icon"></i> {/* Icono de nombre */}
-              <input
-                type="text"
-                id="nombre"
-                className="input-field"
-                placeholder="Ingresa tu nombre"
-                required
-              />
-            </div>
-          </div>
+          <InputField
+            type="text"
+            id="apellido"
+            label="Apellido"
+            placeholder="Ingresa tu apellido"
+            iconClass="bi bi-person"
+          />
 
-          <div className="input-group">
-            <label htmlFor="apellido">Apellido</label>
-            <div className="input-wrapper">
-              <i className="bi bi-person icon"></i> {/* Icono de apellido */}
-              <input
-                type="text"
-                id="apellido"
-                className="input-field"
-                placeholder="Ingresa tu apellido"
-                required
-              />
-            </div>
-          </div>
+          <InputField
+            type={passwordVisible ? 'text' : 'password'}
+            id="password"
+            label="Contraseña"
+            placeholder="Ingresa tu contraseña"
+            iconClass="bi bi-lock"
+            toggleIconClass={passwordVisible ? 'bi bi-eye-slash' : 'bi bi-eye'}
+            onToggle={togglePasswordVisibility}
+          />
 
-          <div className="input-group">
-            <label htmlFor="password">Contraseña</label>
-            <div className="input-wrapper">
-              <i className="bi bi-lock icon"></i> {/* Icono de candado */}
-              <input
-                type={passwordVisible ? 'text' : 'password'}
-                id="password"
-                className="input-field"
-                placeholder="Ingresa tu contraseña"
-                required
-              />
-              <i
-                className={`bi ${passwordVisible ? 'bi-eye-slash' : 'bi-eye'} toggle-icon`}
-                onClick={togglePasswordVisibility}
-              ></i>
-            </div>
-          </div>
-          <div className="input-group">
-            <label htmlFor="password">Confirmar Contraseña</label>
-            <div className="input-wrapper">
-              <i className="bi bi-lock icon"></i> {/* Icono de candado */}
-              <input
-                type={passwordVisible ? 'text' : 'password'}
-                id="password"
-                className="input-field"
-                placeholder="Ingresa tu contraseña"
-                required
-              />
-              <i
-                className={`bi ${passwordVisible ? 'bi-eye-slash' : 'bi-eye'} toggle-icon`}
-                onClick={togglePasswordVisibility}
-              ></i>
-            </div>
-          </div>
+          <InputField
+            type={passwordVisible ? 'text' : 'password'}
+            id="confirm-password"
+            label="Confirmar Contraseña"
+            placeholder="Confirma tu contraseña"
+            iconClass="bi bi-lock"
+            toggleIconClass={passwordVisible ? 'bi bi-eye-slash' : 'bi bi-eye'}
+            onToggle={togglePasswordVisibility}
+          />
 
-          <button type="submit" className="submit-button">Guardar Cambios</button>
+          <button type="submit" className="editar-button">Guardar Cambios</button>
         </form>
+      </div>
+    </div>
+  );
+}
+
+function InputField({ type, id, label, placeholder, iconClass, toggleIconClass, onToggle }) {
+  return (
+    <div className="input-group">
+      <label htmlFor={id} className="input-label">{label}</label>
+      <div className="input-wrapper">
+        <i className={`${iconClass} icon`}></i>
+        <input
+          type={type}
+          id={id}
+          placeholder={placeholder}
+          className="input-field"
+        />
+        {toggleIconClass && (
+          <i
+            className={`${toggleIconClass} toggle-icon`}
+            onClick={onToggle}
+          ></i>
+        )}
       </div>
     </div>
   );
