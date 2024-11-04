@@ -10,6 +10,9 @@ import VerCasa from "./verCasa/VerCasa";
 import Pago from "./pago/Pago";
 import PagoRealizado from "./pagoRealizado/PagoRealizado";
 import './App.css';
+import FormularioEntradaPropiedad from "./publicar-casa/FormularioEntradaPropiedad";
+import Editar from "./editar-usuario/Editar";
+import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default class App extends Component {
@@ -35,7 +38,7 @@ export default class App extends Component {
           </Route>
 
           <Route path="/editar-usuario">
-            
+          <Editar />
           </Route>
 
           <Route path="/publicar-casa">
@@ -52,6 +55,7 @@ export default class App extends Component {
 
           <Route path="/mis-propiedades">
             <MisPropiedades />
+          <FormularioEntradaPropiedad/>
           </Route>
 
           <Route path="/ver-casa">
