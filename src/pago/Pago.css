@@ -1,0 +1,17 @@
+.contenedorPago {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    
+}
+
+.contenedorTarjeta {
+    flex: 1;
+    max-width: 60%;
+}
+
+.contenedorCalendario {
+    flex: 1;
+    max-width: 40%;
+}

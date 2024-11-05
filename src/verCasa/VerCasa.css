@@ -1,0 +1,92 @@
+.Casa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 10px;
+    padding: 20px;
+    background-color: #FFFFFF;
+    height: auto;
+    width: 92.5%;
+    border-radius: 5px;
+}
+
+.DatosPrincipales {
+    width: 50%; 
+    flex-direction: column; 
+    margin-top: 20px; 
+    margin-left: 20px; 
+    text-align: left;
+}
+
+.DatosExtra {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    margin-top: 20px;
+    margin-left: 70px;
+}
+  
+.PublicSans {
+    font-family: "Public Sans", sans-serif;
+}
+  
+span {
+    font-family: "Public Sans", sans-serif;
+}
+  
+.PrecioCasa { 
+    color: #2DA5F3; 
+    font-size: xx-large;
+    font-weight: bold;
+}
+  
+.LineaHorizontal {
+    width: 500px;
+    border: 1px solid #E4E7E9;
+    margin-top: 10px;
+}
+  
+.BotonReservar {
+    margin-top: 10px;
+    background-color: #404092;
+    font-family: "Public Sans", sans-serif;
+    font-size: large;
+    color: white;
+    height: 45px;
+    width: 500px;
+    border: none;
+}
+  
+.BotonReservar:hover {
+    background-color: #22224d;
+}
+
+.DescripcionServicio {
+    display: flex;
+    flex-direction: column; 
+    width: 50%;
+}
+
+.Manrope {
+    font-family: "Manrope", sans-serif;
+    color: black;
+}
+
+.CajaReseñas {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 20px;
+    background-color: #FFFFFF;
+    height: auto;
+    width: 92.5%;
+    border-radius: 5px;
+}
+
+.VisualizacionReseñas {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}

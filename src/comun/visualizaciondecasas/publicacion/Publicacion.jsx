@@ -8,7 +8,7 @@ export default class Publicacion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            corazon: corazonBlanco
+            corazon: corazonBlanco,
         };
         // Enlaza el método con "this" para que funcione correctamente en el evento onClick
         this.botonCorazon = this.botonCorazon.bind(this);
@@ -32,22 +32,25 @@ export default class Publicacion extends Component {
                 <Link to="/ver-casa">
                     <img src={this.props.imagen} alt="ERROR" className="Imagen" />
                 </Link>
-                <div className="Precio">
+                <div className="PrecioHome">
                     <h3 style={{color: "#E93740"}}>${this.props.precio}</h3>
                     <h3>/ día</h3>
                 </div>
+                
                 <button 
                     className="BotonInvisible"
+                    style={{marginRight: "35px"}}
                     onClick={this.botonCorazon}
                 >
                     <img
                         alt="ERROR" 
-                        className="Corazon"
+                        className="IconoBoton"
                         src={this.state.corazon}
                     />
                 </button>
-                <h3 style={{marginLeft: "20px"}}>{this.props.direccion}</h3>
-                <div className="DatosExtra">
+                
+                <h3 style={{marginLeft: "-155px"}}>{this.props.direccion}</h3>
+                <div className="DatosExtraHome">
                     <h4>{this.props.habitaciones} Habitaciones</h4>
                     <h4>|</h4>
                     <h4>{this.props.baños} Baños</h4>
