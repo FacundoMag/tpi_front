@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './FormularioEntradaPropiedad.css';
+import './EditarPropiedades.css';
 
-function FormularioEntradaPropiedad() {
+function EditarPropiedades() {
   const [formData, setFormData] = useState({
     nombrePropiedad: '',
     precio: '',
@@ -26,7 +26,7 @@ function FormularioEntradaPropiedad() {
   });
 
   const handleBackClick = () => {
-    window.location.href = '/';
+    window.location.href = '/mis-propiedades';
   };
 
   const handleChange = (e) => {
@@ -61,14 +61,14 @@ function FormularioEntradaPropiedad() {
 
   return (
     <div className="contenedor-centro">
-      <form onSubmit={handleSubmit} className="formulario-entrada-propiedad">
+      <form onSubmit={handleSubmit} className="editarpropiedades">
         <div className="form-header">
           <i
             className="bi bi-arrow-left back-icon"
             title="Go Back"
             onClick={handleBackClick}
           ></i>
-          <h2>Ingresar Detalles de la Propiedad</h2>
+          <h2>Editar Propiedad</h2>
         </div>
 
         <div className="form-row">
@@ -269,4 +269,4 @@ function FormularioEntradaPropiedad() {
   );
 }
 
-export default FormularioEntradaPropiedad;
+export default EditarPropiedades;

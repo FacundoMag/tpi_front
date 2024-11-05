@@ -3,7 +3,6 @@ import { Redirect, Route, Switch } from "wouter";
 import Home from "./home/Home";
 import Register from "./register/Register";
 import Login from "./login/Login";
-import PropertyUpload from "./publicar-casa/PropertyUpload";
 import Favoritos from "./favoritos/Favoritos";
 import MisPropiedades from "./misPropiedades/MisPropiedades";
 import VerCasa from "./verCasa/VerCasa";
@@ -14,6 +13,7 @@ import FormularioEntradaPropiedad from "./publicar-casa/FormularioEntradaPropied
 import Editar from "./editar-usuario/Editar";
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import EditarPropiedades from "./editar-propiedades/EditarPropiedades";
 
 export default class App extends Component {
   constructor(props){
@@ -42,20 +42,19 @@ export default class App extends Component {
           </Route>
 
           <Route path="/publicar-casa">
-            <PropertyUpload />
+            < FormularioEntradaPropiedad/>
           </Route>
 
           <Route path="/favoritos">
             <Favoritos />
           </Route>
 
-          <Route path="/favoritos/editar-casa">
-
+          <Route path="/mis-propiedades/editar-casa">
+          <EditarPropiedades/>
           </Route>
 
           <Route path="/mis-propiedades">
             <MisPropiedades />
-          <FormularioEntradaPropiedad/>
           </Route>
 
           <Route path="/ver-casa">
