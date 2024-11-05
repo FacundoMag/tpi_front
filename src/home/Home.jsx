@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import axios from 'axios';
 import HeaderConLogin from '../comun/headerConLogin/HeaderConLogin'
 import HeaderSinLogin from '../comun/HeaderSinLogin';
 import Buscador from './buscador/Buscador';
@@ -14,6 +15,22 @@ export default class Home extends Component {
         }
     }
 
+    componentDidMount() {
+        this.extraerCasas();
+    }
+
+    extraerCasas() {
+        const url = "http://localhost:4001/api/propiedades";
+        axios.get(url)
+            .then((response) => {
+                this.setState({ casas: response.data.propiedadesConimg });
+                console.log(this.state.casas);               
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     render() {
         return(
             <>
@@ -22,7 +39,6 @@ export default class Home extends Component {
                 ) : (
                     <HeaderSinLogin />   
                 )}
-
 
                 <Buscador />
 
