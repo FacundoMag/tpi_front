@@ -1,0 +1,48 @@
+.DatosTarjeta {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 30px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    height: auto;
+}
+
+.InputTarjeta, .SelectTarjeta {
+    height: 40px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.SelectTarjeta {
+    width: 48%; /* Ajusta el tamaño del select */
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.halfColumn {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+.smallColumn {
+    width: 20%; /* Proporción más pequeña para el campo de "Código postal" */
+}
+
+.largeColumn {
+    width: 78%; /* Proporción más grande para el campo de "Dirección" */
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-family: "Public Sans", serif;
+}

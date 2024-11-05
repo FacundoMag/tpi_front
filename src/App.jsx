@@ -1,35 +1,76 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Component } from "react";
+import { Redirect, Route, Switch } from "wouter";
+import Home from "./home/Home";
+import Register from "./register/Register";
+import Login from "./login/Login";
+import Favoritos from "./favoritos/Favoritos";
+import MisPropiedades from "./misPropiedades/MisPropiedades";
+import VerCasa from "./verCasa/VerCasa";
+import Pago from "./pago/Pago";
+import PagoRealizado from "./pagoRealizado/PagoRealizado";
+import './App.css';
+import FormularioEntradaPropiedad from "./publicar-casa/FormularioEntradaPropiedad";
+import Editar from "./editar-usuario/Editar";
+import './App.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {}
+  }
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  render(){
+    return(
+      <>
+        <Switch>
+          <Route path="/">
+            <Home />
+          </Route>
+
+          <Route path="/crear-cuenta">
+            <Register/>
+          </Route>
+
+          <Route path="/iniciar-sesion">
+            <Login />
+          </Route>
+
+          <Route path="/editar-usuario">
+          <Editar />
+          </Route>
+
+          <Route path="/publicar-casa">
+          <FormularioEntradaPropiedad/>
+          </Route>
+
+          <Route path="/favoritos">
+            <Favoritos />
+          </Route>
+
+          <Route path="/favoritos/editar-casa">
+
+          </Route>
+
+          <Route path="/mis-propiedades">
+            <MisPropiedades />
+        
+          </Route>
+
+          <Route path="/ver-casa">
+            <VerCasa />
+          </Route>
+          
+          <Route path="/ver-casa/pago/:id?">
+            {params => <Pago id={params.id}/>}
+          </Route>
+          
+          <Route path="/ver-casa/pago/pago-realizado">
+            <PagoRealizado />
+          </Route>
+        </Switch>
+      </>
+    )
+  }
+
 }
-
-export default App
