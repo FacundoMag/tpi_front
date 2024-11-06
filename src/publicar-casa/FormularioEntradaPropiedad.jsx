@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './FormularioEntradaPropiedad.css'; 
 
 function FormularioEntradaPropiedad() {
@@ -28,7 +29,6 @@ function FormularioEntradaPropiedad() {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     
-  
     if (type === 'checkbox' && formData.caracteristicas.hasOwnProperty(name)) {
       setFormData((prev) => ({
         ...prev,
@@ -54,7 +54,40 @@ function FormularioEntradaPropiedad() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   
+    
+    const formDataToSend = new FormData();
+    
+    // Agregar datos del formulario
+    Object.keys(formData).forEach(key => {
+      if (key === 'caracteristicas') {
+        Object.keys(formData.caracteristicas).forEach(caracteristica => {
+          formDataToSend.append(`caracteristicas[${caracteristica}]`, formData.caracteristicas[caracteristica]);
+        });
+      } else {
+        formDataToSend.append(key, formData[key]);
+      }
+    });
+
+    // Agregar archivos
+    if (formData.archivos) {
+      Array.from(formData.archivos).forEach(file => {
+        formDataToSend.append('archivos', file);
+      });
+    }
+
+    axios.post('http://localhost:4001/api/propiedades', formDataToSend, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then(response => {
+      console.log(response.data);
+      alert('Propiedad publicada con éxito');
+    })
+    .catch(error => {
+      console.error('Hubo un error al publicar la propiedad:', error);
+      alert('Hubo un error al publicar la propiedad');
+    });
   };
 
   return (
@@ -64,25 +97,13 @@ function FormularioEntradaPropiedad() {
 
         <div className="form-row">
           <div className="form-group">
-            <label>Nombre de la Propiedad:</label>
-            <input type="text" name="nombrePropiedad" value={formData.nombrePropiedad} onChange={handleChange} required />
-          </div>
-
-          <div className="form-group">
-            <label>Precio:</label>
-            <input type="number" name="precio" value={formData.precio} onChange={handleChange} required />
-          </div>
-        </div>
-
-        <div className="form-row">
-          <div className="form-group">
             <label>Dirección:</label>
             <input type="text" name="direccion" value={formData.direccion} onChange={handleChange} required />
           </div>
 
           <div className="form-group">
-            <label>Información de Contacto:</label>
-            <input type="text" name="contacto" value={formData.contacto} onChange={handleChange} required />
+            <label>Precio:</label>
+            <input type="number" name="precio" value={formData.precio} onChange={handleChange} required />
           </div>
         </div>
 
@@ -130,10 +151,6 @@ function FormularioEntradaPropiedad() {
         <label>Características:</label>
         <div className="checkbox-group">
           <label>
-            <input type="checkbox" name="cocina" checked={formData.caracteristicas.cocina} onChange={handleChange} />
-            Cocina
-          </label>
-          <label>
             <input type="checkbox" name="aireAcondicionado" checked={formData.caracteristicas.aireAcondicionado} onChange={handleChange} />
             Aire Acondicionado
           </label>
@@ -150,8 +167,8 @@ function FormularioEntradaPropiedad() {
             Piscina
           </label>
           <label>
-            <input type="checkbox" name="tv" checked={formData.caracteristicas.tv} onChange={handleChange} />
-            TV
+            <input type="checkbox" name="cable" checked={formData.caracteristicas.tv} onChange={handleChange} />
+            Cable
           </label>
           <label>
             <input type="checkbox" name="wifi" checked={formData.caracteristicas.wifi} onChange={handleChange} />
