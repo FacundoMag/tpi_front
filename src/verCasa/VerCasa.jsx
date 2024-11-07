@@ -1,10 +1,11 @@
 import { Component } from "react";
+import axios from "axios";
 import HeaderConLogin from "../comun/headerConLogin/HeaderConLogin";
 import HeaderSinLogin from "../comun/HeaderSinLogin";
 import Casa from "./casa/Casa";
 import CajaDeReseñas from "./reseñas/CajaDeReseñas";
 import Footer from "../comun/Footer";
-import "./VerCasa.css"
+import "./VerCasa.css";
 
 export default class VerCasa extends Component {
     constructor(props){
@@ -12,42 +13,42 @@ export default class VerCasa extends Component {
         this.state = {
             header: false,
             id: 1, 
-            direccion: "Kuanip 1253", 
-            ciudad: "Ushuaia",
-            precio: 80000, 
-            habitaciones: 3, 
-            baños: 2, 
-            imagenes: [
-                "https://i.pinimg.com/originals/8e/42/c7/8e42c70ed80a21ce69142dea8f8b0ab2.jpg",
-                "https://www.construyehogar.com/wp-content/uploads/2016/01/Casa-moderna-un-piso.jpg",
-                "https://i.pinimg.com/originals/8e/42/c7/8e42c70ed80a21ce69142dea8f8b0ab2.jpg",
-                "https://www.construyehogar.com/wp-content/uploads/2016/01/Casa-moderna-un-piso.jpg",
-                "https://i.pinimg.com/originals/8e/42/c7/8e42c70ed80a21ce69142dea8f8b0ab2.jpg",
-                "https://www.construyehogar.com/wp-content/uploads/2016/01/Casa-moderna-un-piso.jpg",
-                "https://i.pinimg.com/originals/8e/42/c7/8e42c70ed80a21ce69142dea8f8b0ab2.jpg",
-                "https://www.construyehogar.com/wp-content/uploads/2016/01/Casa-moderna-un-piso.jpg",
-                "https://i.pinimg.com/originals/8e/42/c7/8e42c70ed80a21ce69142dea8f8b0ab2.jpg",
-                "https://www.construyehogar.com/wp-content/uploads/2016/01/Casa-moderna-un-piso.jpg",
-            ],
-            imagen: "https://i.pinimg.com/originals/8e/42/c7/8e42c70ed80a21ce69142dea8f8b0ab2.jpg",
-            nota: 3,
-            tamaño: 26,
-            descripcion: "Una casa u hogar (del latín casa, choza) es una edificación destinada para ser habitada. ​ Puede organizarse en una o varias plantas, y normalmente, aunque no exclusivamente, se refiere a un edificio destinado a vivienda unifamiliar.",
-            wifi: true,
-            cable: true,
-            pileta: true,
-
-            reseñas: [
-                {id: 1, nombre: "María", comentario: "Me gustó mucho la casa", calificacion: 5},
-                {id: 2, nombre: "Adrían", comentario: "Me gustó mucho la casa, pero pudo ser mejor.", calificacion: 4},
-                {id: 3, nombre: "Lionel", comentario: "la verdad que el servicio no es lo que dicen le fahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh", calificacion: 1},
-                {id: 4, nombre: "Lionel", comentario: "No me gustó la casa", calificacion: 1},
-                {id: 5, nombre: "Lionel", comentario: "No me gustó la casa", calificacion: 1},
-                {id: 6, nombre: "Lionel", comentario: "No me gustó la casa", calificacion: 1},
-                {id: 7, nombre: "Lionel", comentario: "No me gustó la casa", calificacion: 1},
-                {id: 8, nombre: "Lionel", comentario: "No me gustó la casa", calificacion: 1},
-            ]
+            casa: null,
+            promedio: 0,
+            reseñas: [],
         }
+    }
+
+    componentDidMount() {
+        this.extraerInfoCasa(this.props.id_casa)
+    }
+
+    extraerInfoCasa(id) {
+        const url = "http://localhost:4001/api/propiedades/propiedad";
+        const config = {
+            params: {
+                id
+            }
+        };
+        axios.get(url, config)
+            .then((response) => {              
+                this.setState({ casa: response.data });
+                this.calcularPromedioCasa(response.data.reseñas)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    calcularPromedioCasa(reseñas) {
+        let total = 0
+
+        for (let i = 0; i < reseñas.length; i++) {
+            total = total+reseñas[i].valoracion;
+        }
+
+        const promedio = total / reseñas.length
+        this.setState({ promedio });
     }
 
     render(){
@@ -59,25 +60,30 @@ export default class VerCasa extends Component {
                     <HeaderSinLogin />   
                 )}
 
-                <Casa 
-                    direccion={this.state.direccion}
-                    ciudad={this.state.ciudad}
-                    precio={this.state.precio} 
-                    habitaciones={this.state.habitaciones}
-                    baños={this.state.baños}
-                    imagenes={this.state.imagenes}
-                    nota={this.state.nota}
-                    tamaño={this.state.tamaño}
-                    descripcion={this.state.descripcion}
-                    wifi={this.state.wifi}
-                    cable={this.state.cable}
-                    pileta={this.state.pileta}
-                />
+                {this.state.casa !== null  &&
+                    <>
+                        <Casa
+                            telefono = {this.state.casa.propiedad[0].telefono_propietario}
+                            direccion = {this.state.casa.propiedad[0].direccion}
+                            ciudad = {this.state.casa.propiedad[0].ciudades}
+                            precio = {this.state.casa.propiedad[0].precio_renta} 
+                            habitaciones = {this.state.casa.propiedad[0].num_habitaciones}
+                            baños = {this.state.casa.propiedad[0].num_banos}
+                            imagenes = {this.state.casa.urls}
+                            nota = {this.state.promedio}
+                            tamaño = {this.state.casa.propiedad[0].tamano_m2}
+                            descripcion = {this.state.casa.propiedad[0].descripcion}
+                            servicios = {this.state.casa.servicios}
+                            botonCorazon = {true}
+                        />
 
-                <CajaDeReseñas 
-                    nota = {this.state.nota}
-                    reseñas = {this.state.reseñas}
-                />
+                        <CajaDeReseñas 
+                            nota = {this.state.promedio}
+                            reseñas = {this.state.casa.reseñas}
+                            inputComentario = {true}
+                        />
+                    </>   
+                }
 
                 <Footer />
 

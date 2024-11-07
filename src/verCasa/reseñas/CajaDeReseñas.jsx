@@ -12,8 +12,7 @@ export default class CajaDeReseñas extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.reseñas);
-        
+         
     }
 
     render() {
@@ -23,7 +22,7 @@ export default class CajaDeReseñas extends Component {
                     className="Manrope" 
                     style={{float: "left"}}
                 >
-                    Reseñas: {this.props.nota} 
+                    Reseñas: {Math.round(this.props.nota)} 
                     <img 
                         src = { estrellaLlena} 
                         alt = "ERROR" 
@@ -31,18 +30,20 @@ export default class CajaDeReseñas extends Component {
                     />
                 </h1>
 
-                <div style={{display: "flex", justifyContent: "center"}}>
-                    <ComentarioInput />
-                </div>
+                {this.props.inputComentario && (
+                    <div style={{display: "flex", justifyContent: "center"}}>
+                        <ComentarioInput />
+                    </div>
+                )}
 
                 <div className="VisualizacionReseñas">
                     {this.props.reseñas && this.props.reseñas.length > 0 ? (
                         this.props.reseñas.map((cont, index) => (
                             <Reseña
                                 key = { cont.id }
-                                nombre = { cont.nombre }
+                                nombre = { cont.usuarios }
                                 comentario = { cont.comentario }
-                                calificacion = { cont.calificacion }
+                                calificacion = { cont.valoracion }
                             />
                         ))
                     ) : (
