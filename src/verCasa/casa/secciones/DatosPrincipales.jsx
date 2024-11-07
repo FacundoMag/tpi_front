@@ -26,8 +26,13 @@ export default class DatosPrincipales extends Component {
     estrellas() {
         let { nota } = this.props;
 
+        // Redondear calificación al entero más cercano
+        nota = Math.round(nota);
+
+        // Asegurarse de que 'calificacion' esté entre 0 y 5
         nota = Math.min(Math.max(nota, 0), 5);
 
+        // Actualizar las estrellas según la calificación redondeada
         const estrellasActualizadas = this.state.estrellas.map((_, index) =>
             index < nota ? estrellaLlena : estrellaVacia
         );
@@ -54,7 +59,7 @@ export default class DatosPrincipales extends Component {
     }
 
     render() {
-        const { direccion, ciudad, tamaño, habitaciones, baños, precio } = this.props;
+        const { telefono, direccion, ciudad, tamaño, habitaciones, baños, precio } = this.props;
         const { estrellas, corazon, rutaReservar, imagenActual } = this.state;
 
         return (
@@ -78,7 +83,7 @@ export default class DatosPrincipales extends Component {
                     </button>
 
                     <img
-                        src={this.props.imagenes[imagenActual]}
+                        src={`http://localhost:4001/api/imagenes/${this.props.imagenes[imagenActual].url}`}
                         alt="ERROR"
                         style={{
                             width: "100%",
@@ -104,22 +109,25 @@ export default class DatosPrincipales extends Component {
                     >
                         &#10095;
                     </button>
-
-                    <button
-                        className="BotonInvisible"
-                        onClick={this.botonCorazon}
-                        style={{
-                            position: "absolute",
-                            top: "10px",
-                            right: "10px",
-                            backgroundColor: "transparent",
-                            border: "none",
-                            cursor: "pointer",
-                            zIndex: 2,
-                        }}
-                    >
-                        <img alt="ERROR" style={{ height: "30px" }} src={corazon} />
-                    </button>
+                    
+                    {this.props.botonCorazon && (
+                        <button
+                            className="BotonInvisible"
+                            onClick={this.botonCorazon}
+                            style={{
+                                position: "absolute",
+                                top: "10px",
+                                right: "10px",
+                                backgroundColor: "transparent",
+                                border: "none",
+                                cursor: "pointer",
+                                zIndex: 2,
+                            }}
+                        >
+                            <img alt="ERROR" style={{ height: "30px" }} src={corazon} />
+                        </button>  
+                    )}
+                    
                 </div>
 
                 <div className="DatosPrincipales" style={{ display: "flex", flexDirection: "column", width: "50%" }}>
@@ -133,11 +141,20 @@ export default class DatosPrincipales extends Component {
                         {direccion}, {ciudad}
                     </span>
 
-                    <p style={{ color: "black" }}>
+                    {/* <p style={{ color: "black" }}>
                         Tamaño: <span style={{ fontWeight: "bold" }}>{tamaño} m<span dangerouslySetInnerHTML={{ __html: "&sup2;" }} /></span>
-                    </p>
+                    </p> */}
+                    
+                    <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
+                        <span style={{ color: "black" }}>
+                            Tamaño: <span style={{ fontWeight: "bold" }}>{tamaño} m<span dangerouslySetInnerHTML={{ __html: "&sup2;" }} /></span>
+                        </span>
+                        <span style={{ color: "black", marginLeft: "100px" }}>
+                            Contacto: <span style={{ fontWeight: "bold" }}>{telefono}</span>
+                        </span>
+                    </div>
 
-                    <div style={{ display: "flex", flexDirection: "row" }}>
+                    <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
                         <span style={{ color: "black" }}>
                             Habitaciones: <span style={{ fontWeight: "bold" }}>{habitaciones}</span>
                         </span>
