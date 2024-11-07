@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import './FormularioEntradaPropiedad.css'; 
+import './EditarPropiedades.css';
 
-function FormularioEntradaPropiedad() {
+function EditarPropiedades() {
   const [formData, setFormData] = useState({
     nombrePropiedad: '',
     precio: '',
@@ -27,12 +26,12 @@ function FormularioEntradaPropiedad() {
   });
 
   const handleBackClick = () => {
-    window.location.href = '/';
+    window.location.href = '/mis-propiedades';
   };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    
+
     if (type === 'checkbox' && formData.caracteristicas.hasOwnProperty(name)) {
       setFormData((prev) => ({
         ...prev,
@@ -58,58 +57,30 @@ function FormularioEntradaPropiedad() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    const formDataToSend = new FormData();
-    
-    // Agregar datos del formulario
-    Object.keys(formData).forEach(key => {
-      if (key === 'caracteristicas') {
-        Object.keys(formData.caracteristicas).forEach(caracteristica => {
-          formDataToSend.append(`caracteristicas[${caracteristica}]`, formData.caracteristicas[caracteristica]);
-        });
-      } else {
-        formDataToSend.append(key, formData[key]);
-      }
-    });
-
-    // Agregar archivos
-    if (formData.archivos) {
-      Array.from(formData.archivos).forEach(file => {
-        formDataToSend.append('archivos', file);
-      });
-    }
-
-    axios.post('http://localhost:4001/api/propiedades', formDataToSend, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-    .then(response => {
-      console.log(response.data);
-      alert('Propiedad publicada con éxito');
-    })
-    .catch(error => {
-      console.error('Hubo un error al publicar la propiedad:', error);
-      alert('Hubo un error al publicar la propiedad');
-    });
   };
 
   return (
     <div className="contenedor-centro">
-      <form onSubmit={handleSubmit} className="formulario-entrada-propiedad">
+      <form onSubmit={handleSubmit} className="editarpropiedades">
         <div className="form-header">
           <i
             className="bi bi-arrow-left back-icon"
             title="Go Back"
             onClick={handleBackClick}
           ></i>
-          <h2>Ingresar Detalles de la Propiedad</h2>
+          <h2>Editar Propiedad</h2>
         </div>
 
         <div className="form-row">
           <div className="form-group">
-            <label>Dirección:</label>
-            <input type="text" name="direccion" value={formData.direccion} onChange={handleChange} required />
+            <label>Nombre de la Propiedad:</label>
+            <input
+              type="text"
+              name="nombrePropiedad"
+              value={formData.nombrePropiedad}
+              onChange={handleChange}
+              required
+            />
           </div>
 
           <div className="form-group">
@@ -118,6 +89,30 @@ function FormularioEntradaPropiedad() {
               type="number"
               name="precio"
               value={formData.precio}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="form-row">
+          <div className="form-group">
+            <label>Dirección:</label>
+            <input
+              type="text"
+              name="direccion"
+              value={formData.direccion}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Información de Contacto:</label>
+            <input
+              type="text"
+              name="contacto"
+              value={formData.contacto}
               onChange={handleChange}
               required
             />
@@ -203,6 +198,15 @@ function FormularioEntradaPropiedad() {
           <label>
             <input
               type="checkbox"
+              name="cocina"
+              checked={formData.caracteristicas.cocina}
+              onChange={handleChange}
+            />
+            Cocina
+          </label>
+          <label>
+            <input
+              type="checkbox"
               name="aireAcondicionado"
               checked={formData.caracteristicas.aireAcondicionado}
               onChange={handleChange}
@@ -237,8 +241,13 @@ function FormularioEntradaPropiedad() {
             Piscina
           </label>
           <label>
-            <input type="checkbox" name="cable" checked={formData.caracteristicas.tv} onChange={handleChange} />
-            Cable
+            <input
+              type="checkbox"
+              name="tv"
+              checked={formData.caracteristicas.tv}
+              onChange={handleChange}
+            />
+            TV
           </label>
           <label>
             <input
@@ -260,4 +269,4 @@ function FormularioEntradaPropiedad() {
   );
 }
 
-export default FormularioEntradaPropiedad;
+export default EditarPropiedades;

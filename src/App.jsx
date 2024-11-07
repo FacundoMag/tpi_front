@@ -14,28 +14,42 @@ import Editar from "./editar-usuario/Editar";
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-export default class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {}
-  }
+export default class App extends Component {  
+    constructor(props) {  
+        super(props);  
+        this.state = {  
+            isAuthenticated: false,  
+            userId: null,  
+        };  
+    }  
 
-  render(){
-    return(
-      <>
-        <Switch>
-          <Route path="/">
-            <Home />
-          </Route>
+    handleLogin = (userId) => {  
+        this.setState({ isAuthenticated: true, userId });  
+    };  
 
-          <Route path="/crear-cuenta">
-            <Register/>
-          </Route>
+    handleLogout = () => {  
+        this.setState({ isAuthenticated: false, userId: null });  
+        localStorage.removeItem("token"); // Limpiar el token del localStorage  
+    };  
 
-          <Route path="/iniciar-sesion">
-            <Login />
-          </Route>
+    render() {  
+        return (  
+            <>  
+                <Switch>  
+                    <Route path="/" >  
+                        <Home   
+                            isAuthenticated={this.state.isAuthenticated}   
+                            onLogout={this.handleLogout}   
+                        />  
+                    </Route>  
 
+                    <Route path="/crear-cuenta">  
+                        <Register />  
+                    </Route>  
+
+                    <Route path="/iniciar-sesion">  
+                        <Login onLogin={this.handleLogin} />  
+                    </Route>  
           <Route path="/editar-usuario">
             <Editar />
           </Route>
@@ -44,10 +58,25 @@ export default class App extends Component {
             <FormularioEntradaPropiedad/>
           </Route>
 
-          <Route path="/favoritos">
-            <Favoritos />
-          </Route>
+                    <Route path="/editar-usuario">  
+                        <Editar />  
+                    </Route>  
 
+                    <Route path="/publicar-casa">  
+                        <FormularioEntradaPropiedad />  
+                    </Route>  
+
+                    <Route path="/favoritos">  
+                        <Favoritos />  
+                    </Route>  
+
+                    <Route path="/mis-propiedades/editar-casa">  
+                        <EditarPropiedades />  
+                    </Route>  
+
+                    <Route path="/mis-propiedades">  
+                        <MisPropiedades />  
+                    </Route>  
           <Route path="/mis-propiedades">
             <MisPropiedades />
         
@@ -72,5 +101,4 @@ export default class App extends Component {
       </>
     )
   }
-
 }
