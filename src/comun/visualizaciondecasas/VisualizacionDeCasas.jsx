@@ -1,5 +1,5 @@
 import { Component } from "react";
-import Publicacion from "./publicacion/publicacion";
+import Publicacion from "./publicacion/Publicacion";
 import Boton from "../../comun/Boton";
 import "./VisualizacionDeCasas.css"
 
@@ -10,9 +10,9 @@ export default class VisualizacionDeCasas extends Component {
             mostrarVisualizacion: false,
         };
     }
-
+/*
     componentDidMount() {
-        this.queMostrar(); 
+        this.queMostrar();  
     }
 
     queMostrar() {
@@ -22,25 +22,26 @@ export default class VisualizacionDeCasas extends Component {
             this.setState({ mostrarVisualizacion: true });
         }
     }
-
+*/
     render() {
         const { mostrarVisualizacion } = this.state;
 
         return (
             <div className="Contenedor">
                 <h1 className="Titulo">{this.props.titulo}</h1>
-                {mostrarVisualizacion ? (
+                {this.props.casas.length > 0 ? (
                     <div className="VisualizacionCasas">
                         {this.props.casas.map((cont, index) => 
                             <Publicacion
                                 key={cont.id}
-                                ruta = "/ver-casa" 
+                                id_casa={cont.id}
                                 direccion = {cont.direccion}
+                                ciudad = {cont.ciudad}
                                 precio = {cont.precio_renta}
                                 habitaciones = {cont.num_habitaciones}
                                 baños = {cont.num_banos}
-                                tipo = {cont.nombre}
-                                imagen = {cont.url}
+                                tipo = {cont.tipo}
+                                imagen = {cont.imagenes}
                             />
                         )}
                     </div>

@@ -21,6 +21,7 @@ export default class Home extends Component {
 
     extraerCasas() {
         const url = "http://localhost:4001/api/propiedades";
+
         axios.get(url)
             .then((response) => {
                 this.setState({ casas: response.data.propiedadesConimg });
