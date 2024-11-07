@@ -1,8 +1,11 @@
 import { Component } from "react";
 import ServicioExtra from "./extra/ServicioExtra";
 import wifi from "../../../assets/wifi.png";
-import cable from "../../../assets/cable.png";
 import pileta from "../../../assets/pileta.png";
+import aireAcondicionado from "../../../assets/aireAcondicionado.png";
+import cable from "../../../assets/cable.png";
+import garaje from "../../../assets/garaje.png";
+import patio from "../../../assets/patio.png";
 
 export default class DatosExtra extends Component {
     constructor(props) {
@@ -20,25 +23,32 @@ export default class DatosExtra extends Component {
                 <div className="DescripcionServicio" style={{marginLeft: "20px"}}>
                     <span className="PublicSans" style={{fontWeight: "bold"}}>Servicios extra</span>
 
-                    {this.props.wifi && (
-                        <ServicioExtra 
-                            imagen={wifi}
-                            nombre="Wi-Fi"
-                        />
-                    )}
+                    {this.props.servicios.map((cont, index) => 
+                        cont.servicios === "WIFI" ? (
 
-                    {this.props.cable && (
-                        <ServicioExtra 
-                            imagen={cable}
-                            nombre="Cable"
-                        />
-                    )}
+                            <ServicioExtra imagen={wifi} nombre="Wi-Fi" />
 
-                    {this.props.pileta && (
-                        <ServicioExtra 
-                            imagen={pileta}
-                            nombre="Pileta"
-                        />
+                        ) : cont.servicios === "Piscina" ? (
+
+                                <ServicioExtra imagen={pileta} nombre="Pileta" />
+
+                        ) : cont.servicios === "Aire Acondicionado" ? (
+
+                                <ServicioExtra imagen={aireAcondicionado} nombre="Aire acondicionado" />
+
+                        ) : cont.servicios === "Cable" ? (
+
+                                <ServicioExtra imagen={cable} nombre="Cable" />
+
+                        ) : cont.servicios === "Garaje" ? (
+
+                                <ServicioExtra imagen={garaje} nombre="Garaje" />
+
+                        ) : cont.servicios === "Patio" ? (
+
+                                <ServicioExtra imagen={patio} nombre="Patio" />
+
+                        ) : null
                     )}
                 </div>
             </div>

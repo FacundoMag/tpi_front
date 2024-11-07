@@ -1,11 +1,10 @@
-// Home.js  
-import { Component } from 'react';  
-import axios from 'axios';  
-import HeaderConLogin from '../comun/headerConLogin/HeaderConLogin';  
-import HeaderSinLogin from '../comun/HeaderSinLogin';  
-import Buscador from './buscador/Buscador';  
-import VisualizacionDeCasas from "../comun/visualizaciondecasas/VisualizacionDeCasas";  
-import Footer from "../comun/Footer";  
+import { Component } from 'react';
+import axios from 'axios';
+import HeaderConLogin from '../comun/headerConLogin/HeaderConLogin'
+import HeaderSinLogin from '../comun/HeaderSinLogin';
+import Buscador from './buscador/Buscador';
+import VisualizacionDeCasas from "../comun/visualizaciondecasas/VisualizacionDeCasas"
+import Footer from "../comun/Footer"
 
 export default class Home extends Component {  
     constructor(props) {  
@@ -15,27 +14,33 @@ export default class Home extends Component {
         };  
     }  
 
-    // Este método se ejecuta cuando el componente se monta  
-    componentDidMount() {  
-        axios.get('http://localhost:4001/api/casas')  
-            .then(response => {  
-                this.setState({ casas: response.data });  
-            })  
-            .catch(error => {  
-                console.error('Error al obtener las casas:', error);  
-            });  
-    }  
+    componentDidMount() {
+        this.extraerCasas();
+    }
 
-    render() {  
-        const { isAuthenticated, onLogout } = this.props;  
+    extraerCasas() {
+        const url = "http://localhost:4001/api/propiedades";
 
-        return (  
-            <>  
-                {isAuthenticated ? (  
-                    <HeaderConLogin onLogout={onLogout} /> // Pasamos onLogout props  
-                ) : (  
-                    <HeaderSinLogin />  
-                )}  
+        axios.get(url)
+            .then((response) => {
+                this.setState({ casas: response.data.propiedadesConimg });
+                console.log(this.state.casas);               
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    render() {
+        return(
+            <>
+                {this.state.header ? (
+                    <HeaderConLogin />
+                ) : (
+                    <HeaderSinLogin />   
+                )}
+
+                <Buscador />
 
                 <Buscador />  
 
