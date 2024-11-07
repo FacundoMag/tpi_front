@@ -59,7 +59,7 @@ export default class DatosPrincipales extends Component {
     }
 
     render() {
-        const { direccion, ciudad, tamaño, habitaciones, baños, precio } = this.props;
+        const { telefono, direccion, ciudad, tamaño, habitaciones, baños, precio } = this.props;
         const { estrellas, corazon, rutaReservar, imagenActual } = this.state;
 
         return (
@@ -141,11 +141,20 @@ export default class DatosPrincipales extends Component {
                         {direccion}, {ciudad}
                     </span>
 
-                    <p style={{ color: "black" }}>
+                    {/* <p style={{ color: "black" }}>
                         Tamaño: <span style={{ fontWeight: "bold" }}>{tamaño} m<span dangerouslySetInnerHTML={{ __html: "&sup2;" }} /></span>
-                    </p>
+                    </p> */}
+                    
+                    <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
+                        <span style={{ color: "black" }}>
+                            Tamaño: <span style={{ fontWeight: "bold" }}>{tamaño} m<span dangerouslySetInnerHTML={{ __html: "&sup2;" }} /></span>
+                        </span>
+                        <span style={{ color: "black", marginLeft: "100px" }}>
+                            Contacto: <span style={{ fontWeight: "bold" }}>{telefono}</span>
+                        </span>
+                    </div>
 
-                    <div style={{ display: "flex", flexDirection: "row" }}>
+                    <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
                         <span style={{ color: "black" }}>
                             Habitaciones: <span style={{ fontWeight: "bold" }}>{habitaciones}</span>
                         </span>
