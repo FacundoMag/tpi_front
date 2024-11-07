@@ -31,8 +31,7 @@ export default class VerCasa extends Component {
             }
         };
         axios.get(url, config)
-            .then((response) => {
-                console.log(this.state.casa);               
+            .then((response) => {              
                 this.setState({ casa: response.data });
                 this.calcularPromedioCasa(response.data.reseñas)
             })
@@ -63,7 +62,8 @@ export default class VerCasa extends Component {
 
                 {this.state.casa !== null  &&
                     <>
-                        <Casa 
+                        <Casa
+                            telefono = {this.state.casa.propiedad[0].telefono_propietario}
                             direccion = {this.state.casa.propiedad[0].direccion}
                             ciudad = {this.state.casa.propiedad[0].ciudades}
                             precio = {this.state.casa.propiedad[0].precio_renta} 
