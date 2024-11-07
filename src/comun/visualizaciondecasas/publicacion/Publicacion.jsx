@@ -14,6 +14,10 @@ export default class Publicacion extends Component {
         this.botonCorazon = this.botonCorazon.bind(this);
     }
 
+    componentDidMount() {
+        
+    }
+
     botonCorazon() {
         if (this.state.corazon === corazonBlanco) {
             this.setState({
@@ -27,11 +31,15 @@ export default class Publicacion extends Component {
     }
 
     render() {
+        const rutaCodificada = `/ver-casa/${this.props.id_casa}`;
+        const urlImagen = `http://localhost:4001/api/imagenes/${this.props.imagen}`;
+
         return (
             <div className="Publicacion">
-                <Link to="/ver-casa">
-                    <img src={this.props.imagen} alt="ERROR" className="Imagen" />
+                <Link to={rutaCodificada}>
+                    <img src={urlImagen} alt="ERROR" className="Imagen" />
                 </Link>
+
                 <div className="PrecioHome">
                     <h3 style={{color: "#E93740"}}>${this.props.precio}</h3>
                     <h3>/ día</h3>
@@ -49,7 +57,8 @@ export default class Publicacion extends Component {
                     />
                 </button>
                 
-                <h3 style={{marginLeft: "-155px"}}>{this.props.direccion}</h3>
+                <h3 style={{float: "left", marginLeft: "20px"}}>{this.props.direccion}, {this.props.ciudad}</h3>
+
                 <div className="DatosExtraHome">
                     <h4>{this.props.habitaciones} Habitaciones</h4>
                     <h4>|</h4>

@@ -19,13 +19,12 @@ export default class Casa extends Component {
                     imagenes = {this.props.imagenes}
                     nota = {this.props.nota}
                     tamaño = {this.props.tamaño}
+                    botonCorazon = {this.props.botonCorazon}
                 />
 
                 <DatosExtra  
                     descripcion = {this.props.descripcion}
-                    wifi = {this.props.wifi}
-                    cable = {this.props.cable}
-                    pileta = {this.props.pileta}
+                    servicios = {this.props.servicios}
                 />
             </div>
         )

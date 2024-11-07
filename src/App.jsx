@@ -37,19 +37,15 @@ export default class App extends Component {
           </Route>
 
           <Route path="/editar-usuario">
-          <Editar />
+            <Editar />
           </Route>
 
           <Route path="/publicar-casa">
-          <FormularioEntradaPropiedad/>
+            <FormularioEntradaPropiedad/>
           </Route>
 
           <Route path="/favoritos">
             <Favoritos />
-          </Route>
-
-          <Route path="/favoritos/editar-casa">
-
           </Route>
 
           <Route path="/mis-propiedades">
@@ -57,8 +53,12 @@ export default class App extends Component {
         
           </Route>
 
-          <Route path="/ver-casa">
-            <VerCasa />
+          <Route path="/mis-propiedades/editar-casa">
+
+          </Route>
+
+          <Route path="/ver-casa/:id_casa?">
+            {params => <VerCasa id_casa={params.id_casa}/>}
           </Route>
           
           <Route path="/ver-casa/pago/:id?">
