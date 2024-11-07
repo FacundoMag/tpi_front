@@ -35,7 +35,8 @@ span {
     font-family: "Public Sans", sans-serif;
 }
   
-.PrecioCasa { 
+.PrecioCasa {
+    margin-top: 10px; 
     color: #2DA5F3; 
     font-size: xx-large;
     font-weight: bold;
