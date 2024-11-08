@@ -51,14 +51,7 @@ export default class App extends Component {
                     <Route path="/iniciar-sesion">  
                         <Login onLogin={this.handleLogin} />  
                     </Route>  
-          <Route path="/editar-usuario">
-            <Editar />
-          </Route>
-
-          <Route path="/publicar-casa">
-            <FormularioEntradaPropiedad/>
-          </Route>
-
+                    
                     <Route path="/editar-usuario">  
                         <Editar />  
                     </Route>  
@@ -74,30 +67,22 @@ export default class App extends Component {
                     <Route path="/mis-propiedades/editar-casa">  
                         <EditarPropiedades />  
                     </Route>  
+ 
+                   <Route path="/mis-propiedades">
+                    <MisPropiedades />
+                   </Route>
 
-                    <Route path="/mis-propiedades">  
-                        <MisPropiedades />  
-                    </Route>  
-          <Route path="/mis-propiedades">
-            <MisPropiedades />
-        
-          </Route>
-
-          <Route path="/mis-propiedades/editar-casa">
-
-          </Route>
-
-          <Route path="/ver-casa/:id_casa?">
-            {params => <VerCasa id_casa={params.id_casa}/>}
-          </Route>
+                    <Route path="/ver-casa/:id_casa?">
+                        {params => <VerCasa id_casa={params.id_casa}/>}
+                    </Route>
           
-          <Route path="/ver-casa/pago/:id?">
-            {params => <Pago id={params.id}/>}
-          </Route>
+                    <Route path="/ver-casa/pago/:id?">
+                      {params => <Pago id={params.id}/>}
+                    </Route>
           
-          <Route path="/ver-casa/pago/pago-realizado">
-            <PagoRealizado />
-          </Route>
+                    <Route path="/ver-casa/pago/pago-realizado">
+                        <PagoRealizado />
+                    </Route>
         </Switch>
       </>
     )
