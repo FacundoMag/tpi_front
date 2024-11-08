@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import axios from 'axios';
-import HeaderConLogin from '../comun/headerConLogin/HeaderConLogin'
-import HeaderSinLogin from '../comun/HeaderSinLogin';
+import Header from '../comun/header/Header';
 import Buscador from './buscador/Buscador';
 import VisualizacionDeCasas from "../comun/visualizaciondecasas/VisualizacionDeCasas"
 import Footer from "../comun/Footer"
@@ -9,13 +8,16 @@ import Footer from "../comun/Footer"
 export default class Home extends Component {  
     constructor(props) {  
         super(props);  
-        this.state = {  
+        this.state = {
+            mostrarHeader: false,  
             casas: [],  
         };  
     }  
 
     componentDidMount() {
         this.extraerCasas();
+        const token = sessionStorage.getItem('token');
+
     }
 
     extraerCasas() {
@@ -34,11 +36,15 @@ export default class Home extends Component {
     render() {
         return(
             <>
-                {this.state.header ? (
+                {/* {this.state.header ? (
                     <HeaderConLogin />
                 ) : (
                     <HeaderSinLogin />   
-                )}
+                )} */}
+
+                <Header
+                    mostrarHeader = {this.state.mostrarHeader}
+                ></Header>
 
                 <Buscador /> 
 

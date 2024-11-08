@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import HeaderConLogin from '../comun/headerConLogin/HeaderConLogin';
+import Header from '../comun/header/Header';
 import VisualizacionDeCasas from '../comun/visualizaciondecasas/VisualizacionDeCasas';
 import Footer from "../comun/Footer"
 
@@ -15,7 +15,9 @@ export default class Favoritos extends Component {
     render() {
         return(
             <>
-                <HeaderConLogin />
+                <Header
+                    mostrarHeader = {true}
+                ></Header>
 
                 <VisualizacionDeCasas
                     titulo="Tus propiedades favoritas"
