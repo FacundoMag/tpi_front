@@ -1,22 +1,23 @@
 import { Component } from 'react';
 import axios from 'axios';
-import HeaderConLogin from '../comun/headerConLogin/HeaderConLogin'
-import HeaderSinLogin from '../comun/HeaderSinLogin';
+import Header from '../comun/header/Header';
 import Buscador from './buscador/Buscador';
 import VisualizacionDeCasas from "../comun/visualizaciondecasas/VisualizacionDeCasas"
 import Footer from "../comun/Footer"
 
-export default class Home extends Component {
-    constructor(props){
-        super(props);
+export default class Home extends Component {  
+    constructor(props) {  
+        super(props);  
         this.state = {
-            header: false,
-            casas: [],
-        }
-    }
+            mostrarHeader: false,  
+            casas: [],  
+        };  
+    }  
 
     componentDidMount() {
         this.extraerCasas();
+        const token = sessionStorage.getItem('token');
+
     }
 
     extraerCasas() {
@@ -35,21 +36,25 @@ export default class Home extends Component {
     render() {
         return(
             <>
-                {this.state.header ? (
+                {/* {this.state.header ? (
                     <HeaderConLogin />
                 ) : (
                     <HeaderSinLogin />   
-                )}
+                )} */}
 
-                <Buscador />
+                <Header
+                    mostrarHeader = {this.state.mostrarHeader}
+                ></Header>
 
-                <VisualizacionDeCasas
-                    titulo = "Todas las propiedades"
-                    casas = {this.state.casas}
-                />
+                <Buscador /> 
 
-                <Footer />
-            </>
-        )
-    }
+                <VisualizacionDeCasas  
+                    titulo="Todas las propiedades"  
+                    casas={this.state.casas}  
+                />  
+
+                <Footer />  
+            </>  
+        );  
+    }  
 }
