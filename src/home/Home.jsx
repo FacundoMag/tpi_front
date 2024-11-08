@@ -25,7 +25,34 @@ export default class Home extends Component {
         axios.get(url)
             .then((response) => {
                 this.setState({ casas: response.data.propiedadesConimg });
-                console.log(this.state.casas);               
+                console.log(response.data.propiedadesConimg);
+                               
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    buscador(ciudad_id, tipo_id) {
+        console.log(ciudad_id, tipo_id);
+        
+        this.setState({ casas: [] })
+
+        const url = "http://localhost:4001/api/propiedades/buscador";
+        const config = {
+            params: {
+                ciudad_id,
+                tipo_id
+            }
+        };
+
+        console.log(config);
+        
+        axios.get(url, config)
+            .then((response) => { 
+                console.log({response});
+                             
+                this.setState({ casas: response.data.propiedadesConimg }); 
             })
             .catch((error) => {
                 console.log(error);
@@ -41,7 +68,9 @@ export default class Home extends Component {
                     <HeaderSinLogin />   
                 )}
 
-                <Buscador />
+                <Buscador 
+                    buscador = {() => this.buscador(1,  1)}
+                />
 
                 <VisualizacionDeCasas
                     titulo = "Todas las propiedades"
