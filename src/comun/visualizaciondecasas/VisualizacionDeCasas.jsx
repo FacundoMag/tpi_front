@@ -10,19 +10,12 @@ export default class VisualizacionDeCasas extends Component {
             
         };
     }
-/*
+
     componentDidMount() {
-        this.queMostrar();  
+        console.log(this.props.casas);
+        
     }
 
-    queMostrar() {
-        if (this.props.casas == "") {
-            this.setState({ mostrarVisualizacion: false });
-        } else {
-            this.setState({ mostrarVisualizacion: true });
-        }
-    }
-*/
     render() {
         return (
             <div className="Contenedor">
@@ -40,7 +33,7 @@ export default class VisualizacionDeCasas extends Component {
                                 habitaciones = {cont.num_habitaciones}
                                 baños = {cont.num_banos}
                                 tipo = {cont.tipo}
-                                imagen = {cont.imagenes}
+                                imagen = {cont.imagenes[0]}
                             />
                         )}
                     </div>

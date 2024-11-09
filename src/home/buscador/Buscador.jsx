@@ -8,8 +8,8 @@ export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ciudad_id: 1,
-            tipo_id: 1,
+            ciudad_id: "",
+            tipo_id: "",
         };
     }
 
@@ -36,9 +36,9 @@ export default class Home extends Component {
                         value={this.state.tipo_id} 
                         onChange={this.handleChange}
                     >
-                        <option value="1">Casa</option>
-                        <option value="2">Departamento</option>
-                        <option value="3">Hotel</option>
+                        <option value={1}>Casa</option>
+                        <option value={2}>Departamento</option>
+                        <option value={3}>Hotel</option>
                     </select>
 
                     <img 
@@ -53,9 +53,9 @@ export default class Home extends Component {
                         value={this.state.ciudad_id} 
                         onChange={this.handleChange}
                     >
-                        <option value="1">Ushuaia</option>
-                        <option value="2">Tolhuin</option>
-                        <option value="3">Río Grande</option>
+                        <option value={1}>Ushuaia</option>
+                        <option value={2}>Tolhuin</option>
+                        <option value={3}>Río Grande</option>
                     </select>
 
                     <button 

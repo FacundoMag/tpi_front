@@ -17,7 +17,8 @@ export default class Home extends Component {
     componentDidMount() {
         this.extraerCasas();
         const token = sessionStorage.getItem('token');
-
+        console.log(token);
+        
     }
 
     extraerCasas() {
@@ -25,8 +26,7 @@ export default class Home extends Component {
 
         axios.get(url)
             .then((response) => {
-                this.setState({ casas: response.data.propiedadesConimg });
-                console.log(response.data.propiedadesConimg);
+                this.setState({ casas: response.data });
                                
             })
             .catch((error) => {
@@ -46,12 +46,10 @@ export default class Home extends Component {
                 tipo_id
             }
         };
-
-        console.log(config);
         
         axios.get(url, config)
             .then((response) => { 
-                console.log({response});
+                console.log(response.data.propiedadesConimg);
                              
                 this.setState({ casas: response.data.propiedadesConimg }); 
             })
@@ -68,8 +66,9 @@ export default class Home extends Component {
                 ></Header>
 
                 <Buscador 
-                    buscador = {() => this.buscador(1,  1)}
+                    buscador={(ciudad_id, tipo_id) => this.buscador(ciudad_id, tipo_id)}
                 />
+
 
                 <VisualizacionDeCasas  
                     titulo="Todas las propiedades"  
