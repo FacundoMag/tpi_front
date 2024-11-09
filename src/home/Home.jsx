@@ -40,8 +40,6 @@ export default class Home extends Component {
                     <HeaderSinLogin />   
                 )}
 
-                <Buscador />
-
                 <Buscador />  
 
                 <VisualizacionDeCasas  

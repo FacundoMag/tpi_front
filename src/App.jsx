@@ -11,6 +11,7 @@ import PagoRealizado from "./pagoRealizado/PagoRealizado";
 import './App.css';
 import FormularioEntradaPropiedad from "./publicar-casa/FormularioEntradaPropiedad";
 import Editar from "./editar-usuario/Editar";
+import EditarPropiedades from "./editar-propiedades/EditarPropiedades";
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -29,7 +30,7 @@ export default class App extends Component {
 
     handleLogout = () => {  
         this.setState({ isAuthenticated: false, userId: null });  
-        localStorage.removeItem("token"); // Limpiar el token del localStorage  
+        localStorage.removeItem("token"); // Limpia el token del localStorage  
     };  
 
     render() {  
