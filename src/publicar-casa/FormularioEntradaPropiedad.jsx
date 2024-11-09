@@ -1,188 +1,276 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
-import './FormularioEntradaPropiedad.css'; 
+import './FormularioEntradaPropiedad.css';
 
-function FormularioEntradaPropiedad() {
-  const [formData, setFormData] = useState({
-    nombrePropiedad: '',
-    precio: '',
-    direccion: '',
-    contacto: '',
-    tipoPropiedad: '',
-    habitaciones: '',
-    banos: '',
-    area: '',
-    ciudad: '',
-    descripcion: '',
-    caracteristicas: {
-      cocina: false,
-      aireAcondicionado: false,
-      garaje: false,
-      patio: false,
-      piscina: false,
-      tv: false,
-      wifi: false,
-    },
-    archivos: null,
-  });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    
-    if (type === 'checkbox' && formData.caracteristicas.hasOwnProperty(name)) {
-      setFormData((prev) => ({
-        ...prev,
+export default class FormularioEntradaPropiedad extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formData: {
+        nombrePropiedad: '',
+        precio: '',
+        direccion: '',
+        contacto: '',
+        tipoPropiedad: '',
+        habitaciones: '',
+        banos: '',
+        area: '',
+        ciudad: '',
+        descripcion: '',
         caracteristicas: {
-          ...prev.caracteristicas,
-          [name]: checked,
+          cocina: false,
+          aireAcondicionado: false,
+          garaje: false,
+          patio: false,
+          piscina: false,
+          tv: false,
+          wifi: false,
+        },
+        archivos: null,
+      },
+      error: null,
+      successMessage: '', // Mensaje de éxito
+    };
+  }
+
+  handleBackClick = () => {
+    this.props.history.push('/');
+  };
+
+  handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (type === 'checkbox' && this.state.formData.caracteristicas.hasOwnProperty(name)) {
+      this.setState((prevState) => ({
+        formData: {
+          ...prevState.formData,
+          caracteristicas: {
+            ...prevState.formData.caracteristicas,
+            [name]: checked,
+          },
         },
       }));
     } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: type === 'checkbox' ? checked : value,
+      this.setState((prevState) => ({
+        formData: {
+          ...prevState.formData,
+          [name]: type === 'checkbox' ? checked : value,
+        },
       }));
     }
   };
 
-  const handleFileChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      archivos: e.target.files,
+  handleFileChange = (e) => {
+    this.setState((prevState) => ({
+      formData: {
+        ...prevState.formData,
+        archivos: e.target.files,
+      },
     }));
   };
 
-  const handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    
     const formDataToSend = new FormData();
     
-    // Agregar datos del formulario
-    Object.keys(formData).forEach(key => {
+    Object.keys(this.state.formData).forEach(key => {
       if (key === 'caracteristicas') {
-        Object.keys(formData.caracteristicas).forEach(caracteristica => {
-          formDataToSend.append(`caracteristicas[${caracteristica}]`, formData.caracteristicas[caracteristica]);
+        Object.keys(this.state.formData.caracteristicas).forEach(caracteristica => {
+          formDataToSend.append(`caracteristicas[${caracteristica}]`, this.state.formData.caracteristicas[caracteristica]);
+        });
+      } else if (key === 'archivos' && this.state.formData.archivos) {
+        Array.from(this.state.formData.archivos).forEach(file => {
+          formDataToSend.append('archivos', file);
         });
       } else {
-        formDataToSend.append(key, formData[key]);
+        formDataToSend.append(key, this.state.formData[key]);
       }
     });
-
-    // Agregar archivos
-    if (formData.archivos) {
-      Array.from(formData.archivos).forEach(file => {
-        formDataToSend.append('archivos', file);
+  
+    try {
+      const token = localStorage.getItem('token'); // Obtiene el token del almacenamiento local
+  
+      const response = await axios.post('http://localhost:4001/api/propiedades', formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`, // Agrega el token al encabezado
+        }
       });
-    }
-
-    axios.post('http://localhost:4001/api/propiedades', formDataToSend, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-    .then(response => {
       console.log(response.data);
-      alert('Propiedad publicada con éxito');
-    })
-    .catch(error => {
+      this.setState({ successMessage: 'Propiedad publicada con éxito', error: null });
+      this.props.history.push('/');  // Redirige después de publicar
+    } catch (error) {
       console.error('Hubo un error al publicar la propiedad:', error);
-      alert('Hubo un error al publicar la propiedad');
-    });
+      this.setState({ error: 'Hubo un error al publicar la propiedad', successMessage: '' });
+    }
   };
+  render() {
+    return (
+      <div className="contenedor-centro">
+        <form onSubmit={this.handleSubmit} className="formulario-entrada-propiedad">
+          <div className="form-header">
+            <i
+              className="bi bi-arrow-left back-icon"
+              title="Go Back"
+              onClick={this.handleBackClick}
+            ></i>
+            <h2>Ingresar Detalles de la Propiedad</h2>
+          </div>
 
-  return (
-    <div className="contenedor-centro">
-      <form onSubmit={handleSubmit} className="formulario-entrada-propiedad">
-        <h2>Ingresar Detalles de la Propiedad</h2>
+          {this.state.error && <div className="error-message">{this.state.error}</div>}
+          {this.state.successMessage && <div className="success-message">{this.state.successMessage}</div>}
+          <div className="form-row">
+            <div className="form-group">
+              <label>Dirección:</label>
+              <input type="text" name="direccion" value={this.state.formData.direccion} onChange={this.handleChange} required />
+            </div>
 
-        <div className="form-row">
-          <div className="form-group">
-            <label>Dirección:</label>
-            <input type="text" name="direccion" value={formData.direccion} onChange={handleChange} required />
+            <div className="form-group">
+              <label>Precio:</label>
+              <input
+                type="number"
+                name="precio"
+                value={this.state.formData.precio}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <label>Tipo de Propiedad:</label>
+              <select
+                name="tipoPropiedad"
+                value={this.state.formData.tipoPropiedad}
+                onChange={this.handleChange}
+                required
+              >
+                <option value="">Seleccione Tipo</option>
+                <option value="departamento">Departamento</option>
+                <option value="casa">Casa</option>
+                <option value="condominio">Condominio</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>Habitaciones:</label>
+              <input
+                type="number"
+                name="habitaciones"
+                value={this.state.formData.habitaciones}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Baños:</label>
+              <input
+                type="number"
+                name="banos"
+                value={this.state.formData.banos}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Área (m²):</label>
+              <input
+                type="number"
+                name="area"
+                value={this.state.formData.area}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Ciudad:</label>
+              <select
+                name="ciudad"
+                value={this.state.formData.ciudad}
+                onChange={this.handleChange}
+                required
+              >
+                <option value="Ushuaia">Ushuaia</option>
+                <option value="Tolhuin">Tolhuin</option>
+                <option value="Rio Grande">Río Grande</option>
+              </select>
+            </div>
           </div>
 
           <div className="form-group">
-            <label>Precio:</label>
-            <input type="number" name="precio" value={formData.precio} onChange={handleChange} required />
-          </div>
-        </div>
-
-        <div className="form-row">
-          <div className="form-group">
-            <label>Tipo de Propiedad:</label>
-            <select name="tipoPropiedad" value={formData.tipoPropiedad} onChange={handleChange} required>
-              <option value="">Seleccione Tipo</option>
-              <option value="departamento">Departamento</option>
-              <option value="casa">Casa</option>
-              <option value="condominio">Condominio</option>
-            </select>
+            <label>Descripción:</label>
+            <textarea
+              name="descripcion"
+              value={this.state.formData.descripcion}
+              onChange={this.handleChange}
+              required
+            />
           </div>
 
-          <div className="form-group">
-            <label>Habitaciones:</label>
-            <input type="number" name="habitaciones" value={formData.habitaciones} onChange={handleChange} required />
+          <label>Características:</label>
+          <div className="checkbox-group">
+            <label>
+              <input
+                type="checkbox"
+                name="aireAcondicionado"
+                checked={this.state.formData.caracteristicas.aireAcondicionado}
+                onChange={this.handleChange}
+              />
+              Aire Acondicionado
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="garaje"
+                checked={this.state.formData.caracteristicas.garaje}
+                onChange={this.handleChange}
+              />
+              Garaje
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="patio"
+                checked={this.state.formData.caracteristicas.patio}
+                onChange={this.handleChange}
+              />
+              Patio
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="piscina"
+                checked={this.state.formData.caracteristicas.piscina}
+                onChange={this.handleChange}
+              />
+              Piscina
+            </label>
+            <label>
+              <input type="checkbox" name="tv" checked={this.state.formData.caracteristicas.tv} onChange={this.handleChange} />
+              Cable
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="wifi"
+                checked={this.state.formData.caracteristicas.wifi}
+                onChange={this.handleChange}
+              />
+              WI-FI
+            </label>
           </div>
 
-          <div className="form-group">
-            <label>Baños:</label>
-            <input type="number" name="banos" value={formData.banos} onChange={handleChange} required />
-          </div>
+          <label>Subir Imágenes:</label>
+          <input type="file" name="archivos" multiple onChange={this.handleFileChange} />
 
-          <div className="form-group">
-            <label>Área (m²):</label>
-            <input type="number" name="area" value={formData.area} onChange={handleChange} required />
-          </div>
-
-          <div className="form-group">
-            <label>Ciudad:</label>
-            <select name="ciudad" value={formData.ciudad} onChange={handleChange} required>
-              <option value="Ushuaia">Ushuaia</option>
-              <option value="Tolhuin">Tolhuin</option>
-              <option value="Rio Grande">Río Grande</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="form-group">
-          <label>Descripción:</label>
-          <textarea name="descripcion" value={formData.descripcion} onChange={handleChange} required />
-        </div>
-
-        <label>Características:</label>
-        <div className="checkbox-group">
-          <label>
-            <input type="checkbox" name="aireAcondicionado" checked={formData.caracteristicas.aireAcondicionado} onChange={handleChange} />
-            Aire Acondicionado
-          </label>
-          <label>
-            <input type="checkbox" name="garaje" checked={formData.caracteristicas.garaje} onChange={handleChange} />
-            Garaje
-          </label>
-          <label>
-            <input type="checkbox" name="patio" checked={formData.caracteristicas.patio} onChange={handleChange} />
-            Patio
-          </label>
-          <label>
-            <input type="checkbox" name="piscina" checked={formData.caracteristicas.piscina} onChange={handleChange} />
-            Piscina
-          </label>
-          <label>
-            <input type="checkbox" name="cable" checked={formData.caracteristicas.tv} onChange={handleChange} />
-            Cable
-          </label>
-          <label>
-            <input type="checkbox" name="wifi" checked={formData.caracteristicas.wifi} onChange={handleChange} />
-            WI-FI
-          </label>
-        </div>
-
-        <label>Subir Imágenes:</label>
-        <input type="file" name="archivos" multiple onChange={handleFileChange} />
-
-        <button type="submit" className="submit-button">Publicar</button>
-      </form>
-    </div>
-  );
+          <button type="submit" className="submit-button">Publicar</button>
+        </form>
+      </div>
+    );
+  }
 }
-
-export default FormularioEntradaPropiedad;

@@ -1,7 +1,6 @@
 import { Component } from "react";
 import axios from "axios";
-import HeaderConLogin from "../comun/headerConLogin/HeaderConLogin";
-import HeaderSinLogin from "../comun/HeaderSinLogin";
+import Header from '../comun/header/Header';
 import Casa from "./casa/Casa";
 import CajaDeReseñas from "./reseñas/CajaDeReseñas";
 import Footer from "../comun/Footer";
@@ -11,7 +10,7 @@ export default class VerCasa extends Component {
     constructor(props){
         super(props);
         this.state = {
-            header: false,
+            mostrarHeader: false,
             id: 1, 
             casa: null,
             promedio: 0,
@@ -54,11 +53,9 @@ export default class VerCasa extends Component {
     render(){
         return(
             <>
-                {this.state.header ? (
-                    <HeaderConLogin />
-                ) : (
-                    <HeaderSinLogin />   
-                )}
+                <Header
+                    mostrarHeader = {this.state.mostrarHeader}
+                ></Header>
 
                 {this.state.casa !== null  &&
                     <>

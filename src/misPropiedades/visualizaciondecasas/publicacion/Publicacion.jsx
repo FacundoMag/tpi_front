@@ -13,7 +13,7 @@ export default class Publicacion extends Component {
     }
 
     botonEditar() {
-        window.location.href = '/favoritos/editar-casa'; 
+        window.location.href = '/mis-propiedades/editar-casa'; 
     }
 
     botonEliminar() {

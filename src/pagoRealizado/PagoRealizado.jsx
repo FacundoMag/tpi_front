@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Link } from 'wouter';
-import HeaderConLogin from "../comun/headerConLogin/HeaderConLogin";
+import Header from '../comun/header/Header';
 import Footer from "../comun/Footer";
 import "./PagoRealizado.css";
 
@@ -12,7 +12,9 @@ export default class PagoRealizado extends Component {
     render() {
         return (
             <>
-                <HeaderConLogin />
+                <Header
+                    mostrarHeader = {true}
+                ></Header>
 
                 <div className="CuadroPagoRealizado">
                     <div className="success-message">
