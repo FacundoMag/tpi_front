@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import HeaderConLogin from "../comun/headerConLogin/HeaderConLogin";
+import Header from '../comun/header/Header';
 import DatosTarjeta from "./datosTarjeta/DatosTarjeta";
 import Calendario from "./calendario/Calendario";
 import Footer from "../comun/Footer";
@@ -61,7 +61,9 @@ export default class Pago extends Component {
     render() {
         return (
             <>
-                <HeaderConLogin />
+                <Header
+                    mostrarHeader = {true}
+                ></Header>
                 <div className="contenedorPago">
                     <div className="contenedorTarjeta">
                         <DatosTarjeta />

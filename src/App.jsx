@@ -8,10 +8,9 @@ import MisPropiedades from "./misPropiedades/MisPropiedades";
 import VerCasa from "./verCasa/VerCasa";
 import Pago from "./pago/Pago";
 import PagoRealizado from "./pagoRealizado/PagoRealizado";
-import './App.css';
+import EditarPropiedades from "./editar-propiedades/EditarPropiedades"
 import FormularioEntradaPropiedad from "./publicar-casa/FormularioEntradaPropiedad";
 import Editar from "./editar-usuario/Editar";
-import EditarPropiedades from "./editar-propiedades/EditarPropiedades";
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 

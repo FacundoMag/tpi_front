@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './FormularioEntradaPropiedad.css';
 
+
 export default class FormularioEntradaPropiedad extends Component {
   constructor(props) {
     super(props);
