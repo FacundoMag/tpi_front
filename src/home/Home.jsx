@@ -15,10 +15,11 @@ export default class Home extends Component {
     }  
 
     componentDidMount() {
-        this.extraerCasas();
         const token = sessionStorage.getItem('token');
-        console.log(token);
-        
+        if (token) {
+            this.setState({ mostrarHeader: true });
+        }
+        this.extraerCasas();
     }
 
     extraerCasas() {
@@ -62,8 +63,9 @@ export default class Home extends Component {
         return(
             <>
                 <Header
-                    mostrarHeader = {this.state.mostrarHeader}
-                ></Header>
+                    isAuthenticated={this.state.mostrarHeader}  // Pasara el estado de autenticación
+                    onLogout={this.props.onLogout} // Llamara a la función de logout del padre
+                />
 
                 <Buscador 
                     buscador={(ciudad_id, tipo_id) => this.buscador(ciudad_id, tipo_id)}

@@ -13,10 +13,24 @@ export default class Header extends Component {
         };
     }
 
+    toggleMenu = () => {
+        this.setState(prevState => ({
+            isMenuOpen: !prevState.isMenuOpen
+        }));
+    };
+
+    handleLogout = () => {
+        console.log("Logout clicked in Header"); // Verifica el click
+        sessionStorage.removeItem("token");
+        if (this.props.onLogout){
+        this.props.onLogout(); // Llama al método que recibe el logout
+        }
+    };
+
     render() {
         return(
             <header>
-                {this.props.mostrarHeader ? (
+                {this.props.isAuthenticated ? (  // Verifica si está autenticado
                     <>
                         <div className="Secciones" style={{ justifyContent: "left", paddingLeft: "50px" }}>
                             SouthernEscapes
@@ -49,8 +63,8 @@ export default class Header extends Component {
                                     <Link to="/editar-usuario" className="MenuLink">Editar usuario</Link>
                                     <Link to="/favoritos" className="MenuLink">Favoritos</Link>
                                     <Link to="/mis-propiedades" className="MenuLink">Mis propiedades</Link>
-                                    <button className="CerrarSesion">Cerrar sesión</button>
-                                </div>
+                                    <button className="CerrarSesion" onClick={() => this.props.onLogout()}>Cerrar sesión</button>
+                                    </div>
                             )}
                         </div>
                     </>
@@ -67,7 +81,6 @@ export default class Header extends Component {
                     </>
                 )}
             </header>
-        )
+        );
     }
 }
-

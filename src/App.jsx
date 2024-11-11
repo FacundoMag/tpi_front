@@ -23,14 +23,25 @@ export default class App extends Component {
         };  
     }  
 
-    handleLogin = (userId) => {  
+    // Verifica el token al montar el componente
+    componentDidMount() {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            this.setState({ isAuthenticated: true });
+        }
+    }
+
+    handleLogin = (userId, token) => {  
+        sessionStorage.setItem('token', token); // Guardara el token en sessionStorage
         this.setState({ isAuthenticated: true, userId });  
     };  
 
     handleLogout = () => {  
         this.setState({ isAuthenticated: false, userId: null });  
-        localStorage.removeItem("token"); // Limpia el token del localStorage  
+        sessionStorage.removeItem("token"); // Limpiara el token del sessionStorage
+        window.location.href = "/"; // Redirigira al usuario a la página principal
     };  
+    
 
     render() {  
         return (  
@@ -60,16 +71,16 @@ export default class App extends Component {
                     </Route>  
 
                     <Route path="/favoritos">  
-                        <Favoritos />  
+                        <Favoritos isAuthenticated={this.state.isAuthenticated} />  
                     </Route>  
 
                     <Route path="/mis-propiedades/editar-casa">  
                         <EditarPropiedades />  
                     </Route>  
  
-                   <Route path="/mis-propiedades">
-                    <MisPropiedades />
-                   </Route>
+                    <Route path="/mis-propiedades">
+                        <MisPropiedades isAuthenticated={this.state.isAuthenticated} />
+                    </Route>
 
                     <Route path="/ver-casa/:id_casa?">
                         {params => <VerCasa id_casa={params.id_casa}/>}
@@ -82,8 +93,8 @@ export default class App extends Component {
                     <Route path="/ver-casa/pago/pago-realizado">
                         <PagoRealizado />
                     </Route>
-        </Switch>
-      </>
-    )
-  }
+                </Switch>
+            </>
+        );
+    }
 }
