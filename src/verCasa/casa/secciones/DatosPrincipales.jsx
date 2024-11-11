@@ -10,7 +10,7 @@ export default class DatosPrincipales extends Component {
         super(props);
         this.state = {
             estrellas: [estrellaVacia, estrellaVacia, estrellaVacia, estrellaVacia, estrellaVacia],
-            rutaReservar: "/ver-casa/pago",
+            rutaReservar: "/iniciar-sesion",
             corazon: corazonBlanco,
             imagenActual: 0,
         };
@@ -20,6 +20,9 @@ export default class DatosPrincipales extends Component {
     }
 
     componentDidMount() {
+        if (this.props.mostrarRuta) {
+            this.setState({ rutaReservar: `/pago/${this.props.id_casa}` });
+        }
         this.estrellas();
     }
 
@@ -140,10 +143,6 @@ export default class DatosPrincipales extends Component {
                     <span className="PublicSans" style={{ fontSize: "x-large", fontWeight: "bold" }}>
                         {direccion}, {ciudad}
                     </span>
-
-                    {/* <p style={{ color: "black" }}>
-                        Tamaño: <span style={{ fontWeight: "bold" }}>{tamaño} m<span dangerouslySetInnerHTML={{ __html: "&sup2;" }} /></span>
-                    </p> */}
                     
                     <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
                         <span style={{ color: "black" }}>

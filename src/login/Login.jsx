@@ -1,5 +1,5 @@
 import React, { Component } from 'react';  
-import { Link, Redirect } from 'wouter'; // Cambiar aquí para importar Redirect  
+import { Link, Redirect } from 'wouter';   
 import axios from 'axios';   
 import './Login.css';  
 
@@ -40,7 +40,7 @@ class Login extends Component {
 
       if (data.status === 'ok') {  
         localStorage.setItem('token', data.token);  
-        this.props.onLogin(data.userId);  
+        this.props.onLogin(data.usuario_id);  
         this.setState({ isAuthenticated: true }); // Esto activará la redirección  
       } else {  
         this.setState({ error: data.error || 'Error de inicio de sesión' });  

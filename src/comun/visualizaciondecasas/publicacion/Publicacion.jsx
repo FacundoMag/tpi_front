@@ -44,19 +44,21 @@ export default class Publicacion extends Component {
                     <h3 style={{color: "#E93740"}}>${this.props.precio}</h3>
                     <h3>/ día</h3>
                 </div>
-                
-                <button 
-                    className="BotonInvisible"
-                    style={{marginRight: "35px"}}
-                    onClick={this.botonCorazon}
-                >
-                    <img
-                        alt="ERROR" 
-                        className="IconoBoton"
-                        src={this.state.corazon}
-                    />
-                </button>
-                
+
+                {this.props.mostrarCorazon && (
+                   <button 
+                        className="BotonInvisible"
+                        style={{marginRight: "35px"}}
+                        onClick={this.botonCorazon}
+                    >
+                        <img
+                            alt="ERROR" 
+                            className="IconoBoton"
+                            src={this.state.corazon}
+                        />
+                    </button> 
+                )}
+                   
                 <h3 style={{float: "left", marginLeft: "20px"}}>{this.props.direccion}, {this.props.ciudad}</h3>
 
                 <div className="DatosExtraHome">

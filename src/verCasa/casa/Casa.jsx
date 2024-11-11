@@ -10,7 +10,8 @@ export default class Casa extends Component {
     render(){
         return(
             <div className="Casa">
-                <DatosPrincipales 
+                <DatosPrincipales
+                    id_casa = {this.props.id_casa} 
                     telefono = {this.props.telefono}
                     direccion = {this.props.direccion}
                     ciudad = {this.props.ciudad}
@@ -21,6 +22,7 @@ export default class Casa extends Component {
                     nota = {this.props.nota}
                     tamaño = {this.props.tamaño}
                     botonCorazon = {this.props.botonCorazon}
+                    mostrarRuta = {this.props.mostrarRuta}
                 />
 
                 <DatosExtra  
