@@ -15,9 +15,11 @@ export default class Home extends Component {
     }  
 
     componentDidMount() {
-        this.extraerCasas();
         const token = sessionStorage.getItem('token');
-
+        if (token) {
+            this.setState({ mostrarHeader: true });
+        }
+        this.extraerCasas();
     }
 
     extraerCasas() {
@@ -36,15 +38,10 @@ export default class Home extends Component {
     render() {
         return(
             <>
-                {/* {this.state.header ? (
-                    <HeaderConLogin />
-                ) : (
-                    <HeaderSinLogin />   
-                )} */}
-
                 <Header
-                    mostrarHeader = {this.state.mostrarHeader}
-                ></Header>
+                    isAuthenticated={this.state.mostrarHeader}  // Pasara el estado de autenticación
+                    onLogout={this.props.onLogout} // Llamara a la función de logout del padre
+                />
 
                 <Buscador /> 
 
