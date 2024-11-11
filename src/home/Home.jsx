@@ -50,9 +50,7 @@ export default class Home extends Component {
         
         axios.get(url, config)
             .then((response) => { 
-                console.log(response.data.propiedadesConimg);
-                             
-                this.setState({ casas: response.data.propiedadesConimg }); 
+                this.setState({ casas: response.data }); 
             })
             .catch((error) => {
                 console.log(error);
@@ -70,7 +68,6 @@ export default class Home extends Component {
                 <Buscador 
                     buscador={(ciudad_id, tipo_id) => this.buscador(ciudad_id, tipo_id)}
                 />
-
 
                 <VisualizacionDeCasas  
                     titulo="Todas las propiedades"  

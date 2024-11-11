@@ -11,11 +11,6 @@ export default class VisualizacionDeCasas extends Component {
         };
     }
 
-    componentDidMount() {
-        console.log(this.props.casas);
-        
-    }
-
     render() {
         return (
             <div className="Contenedor">
