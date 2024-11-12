@@ -19,7 +19,7 @@ export default class App extends Component {
         super(props);  
         this.state = {  
             isAuthenticated: false,  
-            userId: null,  
+            usuario_id: null,  
         };  
     }  
 
@@ -33,11 +33,11 @@ export default class App extends Component {
 
     handleLogin = (userId, token) => {  
         sessionStorage.setItem('token', token); // Guardara el token en sessionStorage
-        this.setState({ isAuthenticated: true, userId });  
+        this.setState({ isAuthenticated: true, usuario_id });  
     };  
 
     handleLogout = () => {  
-        this.setState({ isAuthenticated: false, userId: null });  
+        this.setState({ isAuthenticated: false, usuario_id: null });  
         sessionStorage.removeItem("token"); // Limpiara el token del sessionStorage
         window.location.href = "/"; // Redirigira al usuario a la página principal
     };  
