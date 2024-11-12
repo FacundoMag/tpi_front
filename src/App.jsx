@@ -86,7 +86,6 @@ export default class App extends Component {
                     />
                 </Route>
 
-                {/* Manejo de parámetros en VerCasa */}
                 <Route path="/ver-casa/:id_casa">
                     {(params) => (
                         <VerCasa

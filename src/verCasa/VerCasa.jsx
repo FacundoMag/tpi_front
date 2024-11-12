@@ -22,10 +22,7 @@ export default class VerCasa extends Component {
         if (token) {
             this.setState({ mostrarHeader: true });
         }
-        this.extraerInfoCasa(this.props.id_casa)
-        if(this.props.usuario_id){}
-            console.log(this.props.usuario_id);
-        
+        this.extraerInfoCasa(this.props.id_casa);   
     }
 
     extraerInfoCasa(id) {
