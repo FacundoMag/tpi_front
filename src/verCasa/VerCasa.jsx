@@ -5,12 +5,14 @@ import Casa from "./casa/Casa";
 import CajaDeReseñas from "./reseñas/CajaDeReseñas";
 import Footer from "../comun/Footer";
 import PantallaDeCarga from "../comun/pantallaDeCarga/PantallaDeCarga";
+import Notification from "../comun/Notificacion";
 import "./VerCasa.css";
 
 export default class VerCasa extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            token: '',
             mostrarHeader: false, 
             casa: null,
             promedio: 0,
@@ -21,7 +23,7 @@ export default class VerCasa extends Component {
     componentDidMount() {
         const token = sessionStorage.getItem('token');
         if (token) {
-            this.setState({ mostrarHeader: true });
+            this.setState({ mostrarHeader: true, token });
         }
 
         this.extraerInfoCasa(this.props.id_casa);          
@@ -83,10 +85,11 @@ export default class VerCasa extends Component {
                         />
 
                         <CajaDeReseñas
-                            token={sessionStorage.getItem('token')} 
-                            nota={this.state.promedio}
-                            reseñas={this.state.casa.reseñas}
-                            inputComentario={this.state.mostrarHeader}
+                            token = {this.state.token}
+                            id_casa={this.props.id_casa} 
+                            nota = {this.state.promedio}
+                            reseñas = {this.state.casa.reseñas}
+                            inputComentario = {this.state.mostrarHeader}
                         />
 
                         <Footer />
@@ -94,6 +97,8 @@ export default class VerCasa extends Component {
                 ) : (
                     <PantallaDeCarga />
                 )}
+
+                <Notification />
             </>
         );
     }
