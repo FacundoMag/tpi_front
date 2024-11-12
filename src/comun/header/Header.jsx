@@ -60,7 +60,7 @@ export default class Header extends Component {
 
                             {this.state.isMenuOpen && (
                                 <div className="MenuDesplegable">
-                                    <Link to="/editar-usuario" className="MenuLink">Editar usuario</Link>
+                                    <Link to={`/editar-usuario/${this.props.userId}`} className="MenuLink">Editar usuario</Link>
                                     <Link to="/favoritos" className="MenuLink">Favoritos</Link>
                                     <Link to="/mis-propiedades" className="MenuLink">Mis propiedades</Link>
                                     <button className="CerrarSesion" onClick={() => this.props.onLogout()}>Cerrar sesión</button>

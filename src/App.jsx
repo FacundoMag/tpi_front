@@ -62,9 +62,15 @@ export default class App extends Component {
                         <Login onLogin={this.handleLogin} />  
                     </Route>  
                     
-                    <Route path="/editar-usuario">  
-                        <Editar />  
-                    </Route>  
+                    <Route path="/editar-usuario/:userId">
+                        {params => (
+                            <Editar 
+                                userId={params.userId} 
+                                token={sessionStorage.getItem('token')} 
+                            />
+                        )}
+                    </Route>
+
 
                     <Route path="/publicar-casa">  
                         <FormularioEntradaPropiedad />  

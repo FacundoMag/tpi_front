@@ -37,7 +37,7 @@ class Editar extends Component {
     }
 
     try {
-      const response = await axios.post('http://localhost:4001/api/user/editar', {
+      const response = await axios.post('http://localhost:4001/api/user/edit', {
         email,
         nombre,
         apellido,
