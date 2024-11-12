@@ -4,17 +4,18 @@ import Header from '../comun/header/Header';
 import Casa from "./casa/Casa";
 import CajaDeReseñas from "./reseñas/CajaDeReseñas";
 import Footer from "../comun/Footer";
+import PantallaDeCarga from "../comun/pantallaDeCarga/PantallaDeCarga";
 import "./VerCasa.css";
 
 export default class VerCasa extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             mostrarHeader: false, 
             casa: null,
             promedio: 0,
             reseñas: [],
-        }
+        };
     }
 
     componentDidMount() {
@@ -22,7 +23,8 @@ export default class VerCasa extends Component {
         if (token) {
             this.setState({ mostrarHeader: true });
         }
-        this.extraerInfoCasa(this.props.id_casa);   
+
+        this.extraerInfoCasa(this.props.id_casa);          
     }
 
     extraerInfoCasa(id) {
@@ -43,60 +45,56 @@ export default class VerCasa extends Component {
     }
 
     calcularPromedioCasa(reseñas) {
-        let total = 0
+        let total = 0;
 
         for (let i = 0; i < reseñas.length; i++) {
-            total = total+reseñas[i].valoracion;
+            total += reseñas[i].valoracion;
         }
 
-        const promedio = total / reseñas.length
+        const promedio = total / reseñas.length;
         this.setState({ promedio });
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <>
-                {this.state.casa !== null  ? (
+                {this.state.casa !== null ? (
                     <>
                         <Header
-                            isAuthenticated={this.state.mostrarHeader}  // Pasara el estado de autenticación
+                            isAuthenticated={this.state.mostrarHeader}  // Pasará el estado de autenticación
                             onLogout={this.props.onLogout}
                         />
 
                         <Casa
-                            id_casa = {this.props.id_casa}
-                            telefono = {this.state.casa.propiedad[0].telefono_propietario}
-                            direccion = {this.state.casa.propiedad[0].direccion}
-                            ciudad = {this.state.casa.propiedad[0].ciudades}
-                            precio = {this.state.casa.propiedad[0].precio_renta} 
-                            habitaciones = {this.state.casa.propiedad[0].num_habitaciones}
-                            baños = {this.state.casa.propiedad[0].num_banos}
-                            imagenes = {this.state.casa.urls}
-                            nota = {this.state.promedio}
-                            tamaño = {this.state.casa.propiedad[0].tamano_m2}
-                            descripcion = {this.state.casa.propiedad[0].descripcion}
-                            servicios = {this.state.casa.servicios}
-                            botonCorazon = {true}
-                            mostrarRuta = {this.state.mostrarHeader}
+                            id_casa={this.props.id_casa}
+                            telefono={this.state.casa.propiedad[0].telefono_propietario}
+                            direccion={this.state.casa.propiedad[0].direccion}
+                            ciudad={this.state.casa.propiedad[0].ciudades}
+                            precio={this.state.casa.propiedad[0].precio_renta} 
+                            habitaciones={this.state.casa.propiedad[0].num_habitaciones}
+                            baños={this.state.casa.propiedad[0].num_banos}
+                            imagenes={this.state.casa.urls}
+                            nota={this.state.promedio}
+                            tamaño={this.state.casa.propiedad[0].tamano_m2}
+                            descripcion={this.state.casa.propiedad[0].descripcion}
+                            servicios={this.state.casa.servicios}
+                            botonCorazon={this.state.mostrarHeader}
+                            mostrarRuta={this.state.mostrarHeader}
                         />
 
-                        <CajaDeReseñas 
-                            nota = {this.state.promedio}
-                            reseñas = {this.state.casa.reseñas}
-                            inputComentario = {true}
+                        <CajaDeReseñas
+                            token={sessionStorage.getItem('token')} 
+                            nota={this.state.promedio}
+                            reseñas={this.state.casa.reseñas}
+                            inputComentario={this.state.mostrarHeader}
                         />
 
                         <Footer />
                     </>   
                 ) : (
-                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                        <div className="loading-screen">
-                        <div className="spinner"></div>
-                            <p className="loading-text">Cargando...</p>
-                        </div>
-                    </div>
+                    <PantallaDeCarga />
                 )}
             </>
-        )
+        );
     }
 }

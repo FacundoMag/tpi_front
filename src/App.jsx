@@ -25,7 +25,7 @@ export default class App extends Component {
 
     // Verifica el token al montar el componente
     componentDidMount() {
-        const token = sessionStorage.getItem("token");
+        const token = localStorage.getItem("token");
         if (token) {
             this.setState({ isAuthenticated: true });
         }

@@ -31,9 +31,9 @@ export default class CajaDeReseñas extends Component {
                 </h1>
 
                 {this.props.inputComentario && (
-                    <div style={{display: "flex", justifyContent: "center"}}>
-                        <ComentarioInput />
-                    </div>
+                    <ComentarioInput 
+                        id_usuario = {this.props.id_usuario}
+                    />
                 )}
 
                 <div className="VisualizacionReseñas">

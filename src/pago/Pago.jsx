@@ -4,6 +4,7 @@ import Header from '../comun/header/Header';
 import DatosTarjeta from "./datosTarjeta/DatosTarjeta";
 import Calendario from "./calendario/Calendario";
 import Footer from "../comun/Footer";
+import PantallaDeCarga from "../comun/pantallaDeCarga/PantallaDeCarga";
 import "./Pago.css";
 
 export default class Pago extends Component {
@@ -105,12 +106,7 @@ export default class Pago extends Component {
                         <Footer />
                     </>
                 ) : (
-                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                        <div className="loading-screen">
-                        <div className="spinner"></div>
-                            <p className="loading-text">Cargando...</p>
-                        </div>
-                    </div>
+                    <PantallaDeCarga />
                 )}   
             </>
         );
