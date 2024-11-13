@@ -12,6 +12,7 @@ export default class Pago extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            token: '',
             mostrarHeader: false,
             validacionCompleta: false,
             precio: null,
@@ -25,7 +26,7 @@ export default class Pago extends Component {
     componentDidMount() {
         const token = sessionStorage.getItem('token');
         if (token) {
-            this.setState({ mostrarHeader: true });
+            this.setState({ mostrarHeader: true, token });
         }
         this.extraerInfoCasa(this.props.id_casa);
     }
@@ -89,8 +90,23 @@ export default class Pago extends Component {
                 const url = "http://localhost:4001/api/reservacion";
 
                 const config = {
-                    
-                }
+                    headers: {
+                        authorization: this.state.token,
+                    },
+                    params: {
+                        propiedad_id: this.props.id_casa,
+                    },
+                };
+
+                axios.post(url, data, config)
+                .then((response) => {
+                    alert("Se agregó la reservación.")
+                    console.log(response.data);
+                    window.location.href = "/pago-realizado";
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
 
             });
         } else {
