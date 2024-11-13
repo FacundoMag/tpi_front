@@ -13,22 +13,27 @@ export default class Calendario extends Component {
     }
 
     seleccionarFecha = (dia) => {
-        const { fechaInicio, fechaFin } = this.state;
+        const { mes, año, fechaInicio, fechaFin } = this.state;
+        const fechaSeleccionada = new Date(año, mes, dia);
 
         if (fechaInicio === null || (fechaInicio !== null && fechaFin !== null)) {
-            this.setState({ fechaInicio: dia, fechaFin: null });
+            this.setState({ fechaInicio: fechaSeleccionada, fechaFin: null });
         } else if (fechaInicio !== null && fechaFin === null) {
-            if (dia >= fechaInicio) {
-                this.setState({ fechaFin: dia });
+            if (fechaSeleccionada >= fechaInicio) {
+                this.setState({ fechaFin: fechaSeleccionada });
             } else {
-                this.setState({ fechaInicio: dia });
+                this.setState({ fechaInicio: fechaSeleccionada });
             }
         }
     };
 
     calcularDiasSeleccionados = () => {
         const { fechaInicio, fechaFin } = this.state;
-        return fechaInicio !== null && fechaFin !== null ? fechaFin - fechaInicio + 1 : 0;
+        if (fechaInicio !== null && fechaFin !== null) {
+            const diferenciaTiempo = fechaFin - fechaInicio;
+            return Math.ceil(diferenciaTiempo / (1000 * 60 * 60 * 24)) + 1;
+        }
+        return 0;
     };
 
     avanzarMes = () => {
@@ -70,12 +75,12 @@ export default class Calendario extends Component {
         const { mes, año } = this.state;
         const mesFormateado = (mes + 1).toString().padStart(2, "0");
         const diaFormateado = dia.toString().padStart(2, "0");
-        return `${diaFormateado}/${mesFormateado}/${año}`;
+        return `${diaFormateado}-${mesFormateado}-${año}`;
     };
 
     render() {
         const { fechaInicio, fechaFin, mes, año } = this.state;
-        const { total, onReservar, precio } = this.props;
+        const { onReservar, precio } = this.props;
         const dias = this.generarDiasDelMes();
 
         const diasSeleccionados = this.calcularDiasSeleccionados();
@@ -97,8 +102,8 @@ export default class Calendario extends Component {
                                 className={`dia ${
                                     fechaInicio !== null &&
                                     fechaFin !== null &&
-                                    dia >= fechaInicio &&
-                                    dia <= fechaFin
+                                    new Date(año, mes, dia) >= fechaInicio &&
+                                    new Date(año, mes, dia) <= fechaFin
                                         ? "seleccionado"
                                         : ""
                                 }`}

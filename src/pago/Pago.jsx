@@ -16,6 +16,9 @@ export default class Pago extends Component {
             validacionCompleta: false,
             precio: null,
             propietario_id: null,
+            fechaInicio: "",
+            fechaFin: "",
+            total: 0,
         };
     }
 
@@ -24,21 +27,20 @@ export default class Pago extends Component {
         if (token) {
             this.setState({ mostrarHeader: true });
         }
-        this.extraerInfoCasa(this.props.id_casa)
+        this.extraerInfoCasa(this.props.id_casa);
     }
 
     extraerInfoCasa(id) {
         const url = "http://localhost:4001/api/propiedades/propiedad";
         const config = {
-            params: {
-                id
-            }
+            params: { id }
         };
         axios.get(url, config)
             .then((response) => {              
-                this.setState({ precio: response.data.propiedad[0].precio_renta, propietario_id: response.data[0].propietario_id });
-                console.log(this.state.propietario_id);
-                
+                this.setState({ 
+                    precio: response.data.propiedad[0].precio_renta, 
+                    propietario_id: response.data.propiedad[0].propietario_id 
+                });
             })
             .catch((error) => {
                 console.log(error);
@@ -63,25 +65,40 @@ export default class Pago extends Component {
 
         return camposTarjeta.every((campo) => {
             const input = document.getElementById(campo);
-            return input && input.value.trim() !== ""; // Verifica que el campo existe y no esté vacío
+            return input && input.value.trim() !== "";
         });
     };
 
     handleReservar = () => {
-        const fechaInicio = this.calendario.state.fechaInicio;
-        const fechaFin = this.calendario.state.fechaFin;
+        const { fechaInicio, fechaFin } = this.calendario.state;
         const datosTarjetaCompletos = this.validarDatosTarjeta();
 
         if (fechaInicio !== null && fechaFin !== null && datosTarjetaCompletos) {
-            this.setState({ validacionCompleta: true }, () => {
-                window.location.href = "/pago-realizado";
+            const total = this.calcularTotal(this.calendario.calcularDiasSeleccionados());
+            this.setState({ 
+                validacionCompleta: true,
+                fechaInicio: `${fechaInicio.getDate().toString().padStart(2, '0')}-${(fechaInicio.getMonth() + 1).toString().padStart(2, '0')}-${fechaInicio.getFullYear()}`,
+                fechaFin: `${fechaFin.getDate().toString().padStart(2, '0')}-${(fechaFin.getMonth() + 1).toString().padStart(2, '0')}-${fechaFin.getFullYear()}`,
+                total 
+            }, () => {
+                console.log("Fecha de Inicio:", this.state.fechaInicio);
+                console.log("Fecha de Fin:", this.state.fechaFin);
+                console.log("Total:", this.state.total);
+
+                // window.location.href = "/pago-realizado";
+                const url = "http://localhost:4001/api/reservacion";
+
+                const config = {
+                    
+                }
+
             });
         } else {
             Notificacion.show("Por favor, complete todos los campos y seleccione un rango de fechas.", "error");
         }
     };
 
-    calcularTotal = (dias) => dias * 100; // Ejemplo de cálculo del total (100 por día)
+    calcularTotal = (dias) => dias * this.state.precio;
 
     render() {
         return (
@@ -89,8 +106,8 @@ export default class Pago extends Component {
                 {this.state.precio !== null ? (
                     <>
                         <Header
-                            isAuthenticated={this.state.mostrarHeader}  // Pasara el estado de autenticación
-                            onLogout={this.props.onLogout} // Llamara a la función de logout del padre
+                            isAuthenticated={this.state.mostrarHeader}
+                            onLogout={this.props.onLogout}
                         />
 
                         <div className="contenedorPago">
@@ -100,7 +117,6 @@ export default class Pago extends Component {
                             <div className="contenedorCalendario">
                                 <Calendario
                                     ref={(calendario) => (this.calendario = calendario)}
-                                    total={this.calcularTotal}
                                     onReservar={this.handleReservar}
                                     precio={this.state.precio}
                                 />
