@@ -11,6 +11,7 @@ export default class Casa extends Component {
         return(
             <div className="Casa">
                 <DatosPrincipales
+                    token = {this.props.token}
                     id_casa = {this.props.id_casa} 
                     telefono = {this.props.telefono}
                     direccion = {this.props.direccion}

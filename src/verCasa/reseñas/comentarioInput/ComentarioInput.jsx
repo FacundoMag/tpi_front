@@ -2,7 +2,7 @@ import { Component } from "react";
 import axios from "axios"; // Importa axios
 import estrellaVacia from "../../../assets/estrellaVacia.png";
 import estrellaLlena from "../../../assets/estrellaLlena.png";
-import Notification from "../../../comun/Notificacion";
+import Notificacion from "../../../comun/Notificacion";
 import "./ComentarioInput.css";
 
 export default class ComentarioInput extends Component {
@@ -47,10 +47,9 @@ export default class ComentarioInput extends Component {
         },
       };
 
-      axios
-        .post(url, data, config)
+      axios.post(url, data, config)
         .then((response) => {
-          Notification.show("Comentario publicado.", "success");
+          Notificacion.show("Comentario publicado.", "success");
           console.log(response.data);
         })
         .catch((error) => {

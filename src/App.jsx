@@ -11,6 +11,7 @@ import PagoRealizado from "./pagoRealizado/PagoRealizado";
 import EditarPropiedades from "./editar-propiedades/EditarPropiedades";
 import FormularioEntradaPropiedad from "./publicar-casa/FormularioEntradaPropiedad";
 import Editar from "./editar-usuario/Editar";
+import Notificacion from "./comun/Notificacion";
 import "./App.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
@@ -111,6 +112,8 @@ export default class App extends Component {
                 <Route path="/pago-realizado">
                     <PagoRealizado />
                 </Route>
+
+                <Notificacion />
             </>
         );
     }
