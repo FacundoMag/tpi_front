@@ -11,10 +11,6 @@ export default class CajaDeReseñas extends Component {
         }
     }
 
-    componentDidMount() {
-         
-    }
-
     render() {
         return(
             <div className="CajaReseñas">
@@ -31,9 +27,10 @@ export default class CajaDeReseñas extends Component {
                 </h1>
 
                 {this.props.inputComentario && (
-                    <div style={{display: "flex", justifyContent: "center"}}>
-                        <ComentarioInput />
-                    </div>
+                    <ComentarioInput 
+                        token = {this.props.token}
+                        id_casa={this.props.id_casa}
+                    />
                 )}
 
                 <div className="VisualizacionReseñas">
@@ -41,6 +38,7 @@ export default class CajaDeReseñas extends Component {
                         this.props.reseñas.map((cont, index) => (
                             <Reseña
                                 key = { cont.id }
+                                id_casa = { cont.id }
                                 nombre = { cont.usuarios }
                                 comentario = { cont.comentario }
                                 calificacion = { cont.valoracion }

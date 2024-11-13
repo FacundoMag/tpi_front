@@ -1,4 +1,6 @@
 import { Component } from "react";
+import axios from "axios";
+import Notificacion from "../../../comun/Notificacion";
 import estrellaVacia from "../../../assets/estrellaVacia.png";
 import estrellaLlena from "../../../assets/estrellaLlena.png";
 import BotonReservar from "./extra/BotonReservar";
@@ -10,7 +12,7 @@ export default class DatosPrincipales extends Component {
         super(props);
         this.state = {
             estrellas: [estrellaVacia, estrellaVacia, estrellaVacia, estrellaVacia, estrellaVacia],
-            rutaReservar: "/ver-casa/pago",
+            rutaReservar: "/iniciar-sesion",
             corazon: corazonBlanco,
             imagenActual: 0,
         };
@@ -20,6 +22,9 @@ export default class DatosPrincipales extends Component {
     }
 
     componentDidMount() {
+        if (this.props.mostrarRuta) {
+            this.setState({ rutaReservar: `/pago/${this.props.id_casa}` });
+        }
         this.estrellas();
     }
 
@@ -41,9 +46,40 @@ export default class DatosPrincipales extends Component {
     }
 
     botonCorazon() {
-        this.setState((prevState) => ({
-            corazon: prevState.corazon === corazonBlanco ? corazonRojo : corazonBlanco,
-        }));
+        const url = "http://localhost:4001/api/user/favoritos";
+
+        const config = {
+            headers: {
+                authorization: this.props.token,
+            },
+            params: {
+                propiedad_id: this.props.id_casa,
+            },
+        };
+
+        if (this.state.corazon === corazonBlanco) {
+            axios.post(url, null, config)
+                .then((response) => {
+                    Notificacion.show("Se ha agregado la casa a favoritos.", "success");
+                    this.setState({ corazon: corazonRojo });
+                    console.log(response.data);
+                    
+                })
+                .catch((error) => {
+                    console.log(error);
+                });  
+        } else if (this.state.corazon === corazonRojo) {
+            axios.delete(url, config)
+                .then((response) => {
+                    Notificacion.show("Se eliminó la casa de favoritos.", "success");
+                    this.setState({ corazon: corazonBlanco });
+                    console.log(response.data);
+                    
+                })
+                .catch((error) => {
+                    console.log(error);
+                }); 
+        }
     }
 
     siguienteImagen() {
@@ -140,10 +176,6 @@ export default class DatosPrincipales extends Component {
                     <span className="PublicSans" style={{ fontSize: "x-large", fontWeight: "bold" }}>
                         {direccion}, {ciudad}
                     </span>
-
-                    {/* <p style={{ color: "black" }}>
-                        Tamaño: <span style={{ fontWeight: "bold" }}>{tamaño} m<span dangerouslySetInnerHTML={{ __html: "&sup2;" }} /></span>
-                    </p> */}
                     
                     <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
                         <span style={{ color: "black" }}>

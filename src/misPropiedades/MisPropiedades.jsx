@@ -1,6 +1,5 @@
 import { Component } from 'react';
-import HeaderConLogin from '../comun/headerConLogin/HeaderConLogin';
-import HeaderSinLogin from '../comun/HeaderSinLogin';
+import Header from '../comun/header/Header';
 import VisualizacionDeCasas from './visualizaciondecasas/VisualizacionDeCasas';
 import Footer from "../comun/Footer"
 
@@ -8,7 +7,6 @@ export default class MisPropiedades extends Component {
     constructor(props){
         super(props);
         this.state = {
-            header: false,
             casas: [],
         }
     }
@@ -16,7 +14,9 @@ export default class MisPropiedades extends Component {
     render() {
         return(
             <>
-                <HeaderConLogin />
+                <Header
+                    mostrarHeader = {true}
+                ></Header>
 
                 <VisualizacionDeCasas
                     titulo = "Estas son todas la propiedades que registraste en la página"

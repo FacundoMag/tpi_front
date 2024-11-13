@@ -1,5 +1,5 @@
 import React, { Component } from 'react';  
-import { Link, Redirect } from 'wouter'; // Cambiar aquí para importar Redirect  
+import { Link, Redirect } from 'wouter';   
 import axios from 'axios';   
 import './Login.css';  
 
@@ -21,35 +21,44 @@ class Login extends Component {
     }));  
   };  
 
-  handleSubmit = async (e) => {  
-    e.preventDefault();  
+  handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const { email, password } = this.state;  
+    const { email, password } = this.state;
 
-    try {  
-      const response = await axios.post('http://localhost:4001/api/user/inicio_sesion', {  
-        correo: email,  
-        contraseña: password,  
-      }, {  
-        headers: {  
-          'Content-Type': 'application/json',  
-        }  
-      });  
+    try {
+        const response = await axios.post(
+            'http://localhost:4001/api/user/inicio_sesion',
+            {
+                correo: email,
+                contraseña: password,
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
 
-      const data = response.data;  
+        const data = response.data;
 
-      if (data.status === 'ok') {  
-        localStorage.setItem('token', data.token);  
-        this.props.onLogin(data.userId);  
-        this.setState({ isAuthenticated: true }); // Esto activará la redirección  
-      } else {  
-        this.setState({ error: data.error || 'Error de inicio de sesión' });  
-      }  
-    } catch (error) {  
-      this.setState({ error: 'Error de conexión con el servidor' });  
-      console.error(error);  
-    }  
-  };  
+        if (data.status === 'ok') {
+            localStorage.setItem('token', data.token);
+
+            this.props.onLogin(data.usuario_id, data.token);
+            
+            this.setState({ isAuthenticated: true, error: null }); // Limpia errores previos si el inicio es exitoso
+        } else {
+            this.setState({ error: data.error || 'Error de inicio de sesión' });
+        }
+    } catch (error) {
+        // Verifica si el error proviene de la respuesta del servidor o de la conexión
+        const errorMessage =
+            error.response?.data?.error || 'Error de conexión con el servidor';
+        this.setState({ error: errorMessage });
+        console.error('Error en el inicio de sesión:', error);
+    }
+  };
 
   handleChange = (e) => {  
     this.setState({ [e.target.id]: e.target.value });  

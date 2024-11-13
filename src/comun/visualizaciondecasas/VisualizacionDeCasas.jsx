@@ -7,33 +7,20 @@ export default class VisualizacionDeCasas extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            mostrarVisualizacion: false,
+            
         };
     }
-/*
-    componentDidMount() {
-        this.queMostrar();  
-    }
 
-    queMostrar() {
-        if (this.props.casas == "") {
-            this.setState({ mostrarVisualizacion: false });
-        } else {
-            this.setState({ mostrarVisualizacion: true });
-        }
-    }
-*/
     render() {
-        const { mostrarVisualizacion } = this.state;
-
         return (
             <div className="Contenedor">
                 <h1 className="Titulo">{this.props.titulo}</h1>
+
                 {this.props.casas.length > 0 ? (
                     <div className="VisualizacionCasas">
                         {this.props.casas.map((cont, index) => 
                             <Publicacion
-                                key={cont.id}
+                                key={index}
                                 id_casa={cont.id}
                                 direccion = {cont.direccion}
                                 ciudad = {cont.ciudad}
@@ -41,7 +28,8 @@ export default class VisualizacionDeCasas extends Component {
                                 habitaciones = {cont.num_habitaciones}
                                 baños = {cont.num_banos}
                                 tipo = {cont.tipo}
-                                imagen = {cont.imagenes}
+                                imagen = {cont.imagenes[0]}
+                                mostrarCorazon = {this.props.mostrarCorazon} 
                             />
                         )}
                     </div>
