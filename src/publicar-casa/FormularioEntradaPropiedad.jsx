@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './FormularioEntradaPropiedad.css';
 
-
 export default class FormularioEntradaPropiedad extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +18,6 @@ export default class FormularioEntradaPropiedad extends Component {
         ciudad: '',
         descripcion: '',
         caracteristicas: {
-          cocina: false,
           aireAcondicionado: false,
           garaje: false,
           patio: false,
@@ -30,8 +28,21 @@ export default class FormularioEntradaPropiedad extends Component {
         archivos: null,
       },
       error: null,
-      successMessage: '', // Mensaje de éxito
+      successMessage: '',
     };
+  }
+
+  componentDidMount() {
+    console.log("usuario_id:",`${this.state.usuario_id}`);
+    const token = localStorage.getItem('token'); // Cambiado a sessionStorage
+    console.log('Token actual:', token);
+
+    if (!token) {
+      console.warn('No hay token almacenado');
+      this.setState({
+        error: 'No hay sesión activa. Por favor, inicie sesión.'
+      });
+    }
   }
 
   handleBackClick = () => {
@@ -89,22 +100,50 @@ export default class FormularioEntradaPropiedad extends Component {
     });
   
     try {
-      const token = localStorage.getItem('token'); // Obtiene el token del almacenamiento local
-  
+      const token = localStorage.getItem('token'); // Cambiado a sessionStorage
+      console.log("Token que se envía:", token);
+
+      if (!token) {
+        this.setState({
+          error: 'No hay token de autenticación. Por favor, inicie sesión nuevamente.',
+          successMessage: ''
+        });
+        return;
+      }
+
+      const tokenToSend = token.startsWith('Bearer ') ? token : `Bearer ${token}`;
+
       const response = await axios.post('http://localhost:4001/api/propiedades', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${token}`, // Agrega el token al encabezado
+          'Authorization': tokenToSend,
         }
       });
-      console.log(response.data);
+
+      console.log('Respuesta exitosa:', response.data);
       this.setState({ successMessage: 'Propiedad publicada con éxito', error: null });
-      this.props.history.push('/');  // Redirige después de publicar
+      this.props.history.push('/');
     } catch (error) {
-      console.error('Hubo un error al publicar la propiedad:', error);
-      this.setState({ error: 'Hubo un error al publicar la propiedad', successMessage: '' });
+      console.error('Error completo:', error);
+      
+      let mensajeError = 'Hubo un error al publicar la propiedad';
+      
+      if (error.response) {
+        if (error.response.status === 403) {
+          mensajeError = 'No tiene permisos para realizar esta acción. Verifique su sesión.';
+        } else if (error.response.status === 401) {
+          mensajeError = 'Sesión expirada. Por favor, inicie sesión nuevamente.';
+        }
+        console.error('Respuesta del servidor:', error.response.data);
+      } else if (error.request) {
+        mensajeError = 'No se pudo conectar con el servidor. Verifique su conexión.';
+        console.error('Error de conexión:', error.request);
+      }
+
+      this.setState({ error: mensajeError, successMessage: '' });
     }
   };
+
   render() {
     return (
       <div className="contenedor-centro">
@@ -112,7 +151,7 @@ export default class FormularioEntradaPropiedad extends Component {
           <div className="form-header">
             <i
               className="bi bi-arrow-left back-icon"
-              title="Go Back"
+              title="Ir atrás"
               onClick={this.handleBackClick}
             ></i>
             <h2>Ingresar Detalles de la Propiedad</h2>
@@ -120,6 +159,7 @@ export default class FormularioEntradaPropiedad extends Component {
 
           {this.state.error && <div className="error-message">{this.state.error}</div>}
           {this.state.successMessage && <div className="success-message">{this.state.successMessage}</div>}
+
           <div className="form-row">
             <div className="form-group">
               <label>Dirección:</label>
@@ -136,9 +176,7 @@ export default class FormularioEntradaPropiedad extends Component {
                 required
               />
             </div>
-          </div>
 
-          <div className="form-row">
             <div className="form-group">
               <label>Tipo de Propiedad:</label>
               <select
@@ -251,7 +289,12 @@ export default class FormularioEntradaPropiedad extends Component {
               Piscina
             </label>
             <label>
-              <input type="checkbox" name="tv" checked={this.state.formData.caracteristicas.tv} onChange={this.handleChange} />
+              <input
+                type="checkbox"
+                name="tv"
+                checked={this.state.formData.caracteristicas.tv}
+                onChange={this.handleChange}
+              />
               Cable
             </label>
             <label>
@@ -261,14 +304,14 @@ export default class FormularioEntradaPropiedad extends Component {
                 checked={this.state.formData.caracteristicas.wifi}
                 onChange={this.handleChange}
               />
-              WI-FI
+              Wifi
             </label>
           </div>
 
-          <label>Subir Imágenes:</label>
-          <input type="file" name="archivos" multiple onChange={this.handleFileChange} />
+          <label>Imágenes:</label>
+          <input type="file" name="archivos" onChange={this.handleFileChange} multiple />
 
-          <button type="submit" className="submit-button">Publicar</button>
+          <button type="submit" className="boton-primario">Publicar</button>
         </form>
       </div>
     );

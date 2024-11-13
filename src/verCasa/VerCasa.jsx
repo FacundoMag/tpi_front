@@ -5,7 +5,6 @@ import Casa from "./casa/Casa";
 import CajaDeReseñas from "./reseñas/CajaDeReseñas";
 import Footer from "../comun/Footer";
 import PantallaDeCarga from "../comun/pantallaDeCarga/PantallaDeCarga";
-import Notification from "../comun/Notificacion";
 import "./VerCasa.css";
 
 export default class VerCasa extends Component {
@@ -68,20 +67,21 @@ export default class VerCasa extends Component {
                         />
 
                         <Casa
-                            id_casa={this.props.id_casa}
-                            telefono={this.state.casa.propiedad[0].telefono_propietario}
-                            direccion={this.state.casa.propiedad[0].direccion}
-                            ciudad={this.state.casa.propiedad[0].ciudades}
-                            precio={this.state.casa.propiedad[0].precio_renta} 
-                            habitaciones={this.state.casa.propiedad[0].num_habitaciones}
-                            baños={this.state.casa.propiedad[0].num_banos}
-                            imagenes={this.state.casa.urls}
-                            nota={this.state.promedio}
-                            tamaño={this.state.casa.propiedad[0].tamano_m2}
-                            descripcion={this.state.casa.propiedad[0].descripcion}
-                            servicios={this.state.casa.servicios}
-                            botonCorazon={this.state.mostrarHeader}
-                            mostrarRuta={this.state.mostrarHeader}
+                            token = {this.state.token}
+                            id_casa = {this.props.id_casa}
+                            telefono = {this.state.casa.propiedad[0].telefono_propietario}
+                            direccion = {this.state.casa.propiedad[0].direccion}
+                            ciudad = {this.state.casa.propiedad[0].ciudades}
+                            precio = {this.state.casa.propiedad[0].precio_renta} 
+                            habitaciones = {this.state.casa.propiedad[0].num_habitaciones}
+                            baños = {this.state.casa.propiedad[0].num_banos}
+                            imagenes = {this.state.casa.urls}
+                            nota = {this.state.promedio}
+                            tamaño = {this.state.casa.propiedad[0].tamano_m2}
+                            descripcion = {this.state.casa.propiedad[0].descripcion}
+                            servicios = {this.state.casa.servicios}
+                            botonCorazon = {this.state.mostrarHeader}
+                            mostrarRuta = {this.state.mostrarHeader}
                         />
 
                         <CajaDeReseñas
@@ -97,8 +97,6 @@ export default class VerCasa extends Component {
                 ) : (
                     <PantallaDeCarga />
                 )}
-
-                <Notification />
             </>
         );
     }
