@@ -29,6 +29,7 @@ export default class VisualizacionDeCasas extends Component {
                                 baños = {cont.num_banos}
                                 tipo = {cont.tipo}
                                 imagen = {cont.imagenes[0]}
+                                mostrarCorazon = {this.props.mostrarCorazon} 
                             />
                         )}
                     </div>

@@ -10,8 +10,7 @@ export default class VerCasa extends Component {
     constructor(props){
         super(props);
         this.state = {
-            mostrarHeader: false,
-            id: 1, 
+            mostrarHeader: false, 
             casa: null,
             promedio: 0,
             reseñas: [],
@@ -19,7 +18,11 @@ export default class VerCasa extends Component {
     }
 
     componentDidMount() {
-        this.extraerInfoCasa(this.props.id_casa)
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            this.setState({ mostrarHeader: true });
+        }
+        this.extraerInfoCasa(this.props.id_casa);   
     }
 
     extraerInfoCasa(id) {
@@ -53,13 +56,15 @@ export default class VerCasa extends Component {
     render(){
         return(
             <>
-                <Header
-                    mostrarHeader = {this.state.mostrarHeader}
-                ></Header>
-
-                {this.state.casa !== null  &&
+                {this.state.casa !== null  ? (
                     <>
+                        <Header
+                            isAuthenticated={this.state.mostrarHeader}  // Pasara el estado de autenticación
+                            onLogout={this.props.onLogout}
+                        />
+
                         <Casa
+                            id_casa = {this.props.id_casa}
                             telefono = {this.state.casa.propiedad[0].telefono_propietario}
                             direccion = {this.state.casa.propiedad[0].direccion}
                             ciudad = {this.state.casa.propiedad[0].ciudades}
@@ -72,6 +77,7 @@ export default class VerCasa extends Component {
                             descripcion = {this.state.casa.propiedad[0].descripcion}
                             servicios = {this.state.casa.servicios}
                             botonCorazon = {true}
+                            mostrarRuta = {this.state.mostrarHeader}
                         />
 
                         <CajaDeReseñas 
@@ -79,11 +85,17 @@ export default class VerCasa extends Component {
                             reseñas = {this.state.casa.reseñas}
                             inputComentario = {true}
                         />
+
+                        <Footer />
                     </>   
-                }
-
-                <Footer />
-
+                ) : (
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                        <div className="loading-screen">
+                        <div className="spinner"></div>
+                            <p className="loading-text">Cargando...</p>
+                        </div>
+                    </div>
+                )}
             </>
         )
     }

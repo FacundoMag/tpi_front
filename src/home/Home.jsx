@@ -70,8 +70,9 @@ export default class Home extends Component {
                 />
 
                 <VisualizacionDeCasas  
-                    titulo="Todas las propiedades"  
-                    casas={this.state.casas}  
+                    titulo = "Todas las propiedades"  
+                    casas = {this.state.casas}
+                    mostrarCorazon = {this.state.mostrarHeader}  
                 />  
 
                 <Footer />  
