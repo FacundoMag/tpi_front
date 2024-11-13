@@ -71,7 +71,7 @@ export default class App extends Component {
                     )}  
                 </Route>  
 
-                <Route path="/publicar-casa">  
+                <Route path="/publicar-casa/:usuario_id">  
                     {(params) =>(
                          <FormularioEntradaPropiedad  
                          isAuthenticated={this.state.isAuthenticated}  

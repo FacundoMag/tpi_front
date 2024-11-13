@@ -33,9 +33,10 @@ export default class FormularioEntradaPropiedad extends Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('token');
+    console.log("usuario_id:",`${this.state.usuario_id}`);
+    const token = localStorage.getItem('token'); // Cambiado a sessionStorage
     console.log('Token actual:', token);
-    
+
     if (!token) {
       console.warn('No hay token almacenado');
       this.setState({
@@ -99,8 +100,8 @@ export default class FormularioEntradaPropiedad extends Component {
     });
   
     try {
-      const token = localStorage.getItem('token');
-      console.log("Token:", token);
+      const token = localStorage.getItem('token'); // Cambiado a sessionStorage
+      console.log("Token que se envía:", token);
 
       if (!token) {
         this.setState({
@@ -303,14 +304,14 @@ export default class FormularioEntradaPropiedad extends Component {
                 checked={this.state.formData.caracteristicas.wifi}
                 onChange={this.handleChange}
               />
-              WI-FI
+              Wifi
             </label>
           </div>
 
-          <label>Subir Imágenes:</label>
-          <input type="file" name="archivos" multiple onChange={this.handleFileChange} />
+          <label>Imágenes:</label>
+          <input type="file" name="archivos" onChange={this.handleFileChange} multiple />
 
-          <button type="submit" className="submit-button">Publicar</button>
+          <button type="submit" className="boton-primario">Publicar</button>
         </form>
       </div>
     );
