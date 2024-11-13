@@ -44,9 +44,9 @@ class Login extends Component {
 
         if (data.status === 'ok') {
             localStorage.setItem('token', data.token);
-            console.log(data.usuario_id);
-              
-            this.props.onLogin(data.usuario_id);
+
+            this.props.onLogin(data.usuario_id, data.token);
+            
             this.setState({ isAuthenticated: true, error: null }); // Limpia errores previos si el inicio es exitoso
         } else {
             this.setState({ error: data.error || 'Error de inicio de sesión' });

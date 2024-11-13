@@ -1,18 +1,19 @@
-import { Component } from "react";  
-import { Route } from "wouter";  
-import Home from "./home/Home";  
-import Register from "./register/Register";  
-import Login from "./login/Login";  
-import Favoritos from "./favoritos/Favoritos";  
-import MisPropiedades from "./misPropiedades/MisPropiedades";  
-import VerCasa from "./verCasa/VerCasa";  
-import Pago from "./pago/Pago";  
-import PagoRealizado from "./pagoRealizado/PagoRealizado";  
-import EditarPropiedades from "./editar-propiedades/EditarPropiedades";  
-import FormularioEntradaPropiedad from "./publicar-casa/FormularioEntradaPropiedad";  
-import Editar from "./editar-usuario/Editar";  
-import "./App.css";  
-import "bootstrap-icons/font/bootstrap-icons.css";  
+import { Component } from "react";
+import { Route } from "wouter";
+import Home from "./home/Home";
+import Register from "./register/Register";
+import Login from "./login/Login";
+import Favoritos from "./favoritos/Favoritos";
+import MisPropiedades from "./misPropiedades/MisPropiedades";
+import VerCasa from "./verCasa/VerCasa";
+import Pago from "./pago/Pago";
+import PagoRealizado from "./pagoRealizado/PagoRealizado";
+import EditarPropiedades from "./editar-propiedades/EditarPropiedades";
+import FormularioEntradaPropiedad from "./publicar-casa/FormularioEntradaPropiedad";
+import Editar from "./editar-usuario/Editar";
+import Notificacion from "./comun/Notificacion";
+import "./App.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export default class App extends Component {  
     constructor(props) {  
@@ -23,13 +24,13 @@ export default class App extends Component {
         };  
     }  
 
-    // Verifica el token al montar el componente  
-    componentDidMount() {  
-        const token = sessionStorage.getItem("token");  
-        if (token) {  
-            this.setState({ isAuthenticated: true });  
-        }  
-    }  
+    // Verifica el token al montar el componente
+    componentDidMount() {
+        const token = localStorage.getItem("token");
+        if (token) {
+            this.setState({ isAuthenticated: true });
+        }
+    }
 
     handleLogin = (usuario_id, token) => {  
         sessionStorage.setItem("token", token); // Guardar el token en sessionStorage  
@@ -86,42 +87,12 @@ export default class App extends Component {
                     />  
                 </Route>  
 
-                <Route path="/mis-propiedades/editar-casa">  
-                    {this.state.isAuthenticated ? <EditarPropiedades /> : <Login onLogin={this.handleLogin} />}  
-                </Route>  
+                <Route path="/pago-realizado">
+                    <PagoRealizado />
+                </Route>
 
-                <Route path="/mis-propiedades">  
-                    <MisPropiedades  
-                        isAuthenticated={this.state.isAuthenticated}  
-                        onLogout={this.handleLogout}  
-                    />  
-                </Route>  
-
-                <Route path="/ver-casa/:id_casa">  
-                    {(params) => (  
-                        <VerCasa  
-                            isAuthenticated={this.state.isAuthenticated}  
-                            onLogout={this.handleLogout}  
-                            id_casa={params.id_casa}  
-                            usuario_id={this.state.usuario_id}  
-                        />  
-                    )}  
-                </Route>  
-
-                <Route path="/pago/:id_casa">  
-                    {(params) => (  
-                        <Pago  
-                            isAuthenticated={this.state.isAuthenticated}  
-                            onLogout={this.handleLogout}  
-                            id_casa={params.id_casa}  
-                        />  
-                    )}  
-                </Route>  
-
-                <Route path="/pago-realizado">  
-                    <PagoRealizado />  
-                </Route>  
-            </>  
-        );  
-    }  
+                <Notificacion />
+            </>
+        );
+    }
 }

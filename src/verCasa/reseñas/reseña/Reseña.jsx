@@ -15,7 +15,7 @@ export default class Reseña extends Component {
 
     componentDidMount() {
         this.extraerPrimeraLetra(this.props.nombre);
-        this.actualizarEstrellas();
+        this.actualizarEstrellas(this.props.calificacion);
     }
 
     extraerPrimeraLetra(nombre) {
@@ -24,9 +24,7 @@ export default class Reseña extends Component {
         }
     }
 
-    actualizarEstrellas() {
-        let { calificacion } = this.props;
-
+    actualizarEstrellas(calificacion) {
         // Asegurarse de que 'calificacion' esté entre 0 y 5
         calificacion = Math.min(Math.max(calificacion, 0), 5);
 

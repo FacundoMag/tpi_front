@@ -4,6 +4,8 @@ import Header from '../comun/header/Header';
 import DatosTarjeta from "./datosTarjeta/DatosTarjeta";
 import Calendario from "./calendario/Calendario";
 import Footer from "../comun/Footer";
+import PantallaDeCarga from "../comun/pantallaDeCarga/PantallaDeCarga";
+import Notificacion from "../comun/Notificacion";
 import "./Pago.css";
 
 export default class Pago extends Component {
@@ -72,7 +74,7 @@ export default class Pago extends Component {
                 window.location.href = "/pago-realizado";
             });
         } else {
-            alert("Por favor, complete todos los campos y seleccione un rango de fechas.");
+            Notificacion.show("Por favor, complete todos los campos y seleccione un rango de fechas.", "error");
         }
     };
 
@@ -105,13 +107,8 @@ export default class Pago extends Component {
                         <Footer />
                     </>
                 ) : (
-                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                        <div className="loading-screen">
-                        <div className="spinner"></div>
-                            <p className="loading-text">Cargando...</p>
-                        </div>
-                    </div>
-                )}   
+                    <PantallaDeCarga />
+                )}
             </>
         );
     }
