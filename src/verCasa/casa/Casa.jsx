@@ -24,6 +24,7 @@ export default class Casa extends Component {
                     tamaño = {this.props.tamaño}
                     botonCorazon = {this.props.botonCorazon}
                     mostrarRuta = {this.props.mostrarRuta}
+                    favoritos = {this.props.favoritos}
                 />
 
                 <DatosExtra  

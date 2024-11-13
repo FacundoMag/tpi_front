@@ -15,6 +15,7 @@ export default class Pago extends Component {
             mostrarHeader: false,
             validacionCompleta: false,
             precio: null,
+            propietario_id: null,
         };
     }
 
@@ -35,7 +36,9 @@ export default class Pago extends Component {
         };
         axios.get(url, config)
             .then((response) => {              
-                this.setState({ precio: response.data.propiedad[0].precio_renta });
+                this.setState({ precio: response.data.propiedad[0].precio_renta, propietario_id: response.data[0].propietario_id });
+                console.log(this.state.propietario_id);
+                
             })
             .catch((error) => {
                 console.log(error);

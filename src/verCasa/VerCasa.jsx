@@ -14,6 +14,7 @@ export default class VerCasa extends Component {
             token: '',
             mostrarHeader: false, 
             casa: null,
+            favoritos: null,
             promedio: 0,
             reseñas: [],
         };
@@ -23,9 +24,30 @@ export default class VerCasa extends Component {
         const token = sessionStorage.getItem('token');
         if (token) {
             this.setState({ mostrarHeader: true, token });
+            this.misFavoritos(token);
         }
 
         this.extraerInfoCasa(this.props.id_casa);          
+    }
+
+    misFavoritos(token) {
+        const url = "http://localhost:4001/api/user/favoritos";
+
+        const config = {
+            headers: {
+                authorization: token,
+            },
+        };
+
+        axios.get(url, config)
+            .then((response) => {
+                this.setState({ favoritos: response.data.favoritos });
+                console.log(response.data.favoritos);
+                
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     extraerInfoCasa(id) {
@@ -82,6 +104,7 @@ export default class VerCasa extends Component {
                             servicios = {this.state.casa.servicios}
                             botonCorazon = {this.state.mostrarHeader}
                             mostrarRuta = {this.state.mostrarHeader}
+                            favoritos = {this.state.favoritos}
                         />
 
                         <CajaDeReseñas
