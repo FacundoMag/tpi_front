@@ -13,6 +13,10 @@ export default class Header extends Component {
         };
     }
 
+    componentDidUpdate() {
+        console.log("usuario ID en header:", this.props.usuario_id);
+    }
+
     toggleMenu = () => {
         this.setState(prevState => ({
             isMenuOpen: !prevState.isMenuOpen
@@ -22,8 +26,8 @@ export default class Header extends Component {
     handleLogout = () => {
         console.log("Logout clicked in Header"); // Verifica el click
         sessionStorage.removeItem("token");
-        if (this.props.onLogout){
-        this.props.onLogout(); // Llama al método que recibe el logout
+        if (this.props.onLogout) {
+            this.props.onLogout(); // Llama al método que recibe el logout
         }
     };
 
@@ -39,7 +43,7 @@ export default class Header extends Component {
                         <div className="Secciones"></div>
 
                         <div className="Secciones" style={{ justifyContent: "right", marginRight: "60px" }}>
-                            <Link to="/publicar-casa">
+                            <Link to={/publicar-casa/}>
                                 <div className="BotonPublicar">
                                     <img 
                                         src={agregar} 
@@ -63,8 +67,8 @@ export default class Header extends Component {
                                     <Link to={`/editar-usuario/${this.props.usuario_id}`} className="MenuLink">Editar usuario</Link>
                                     <Link to="/favoritos" className="MenuLink">Favoritos</Link>
                                     <Link to="/mis-propiedades" className="MenuLink">Mis propiedades</Link>
-                                    <button className="CerrarSesion" onClick={() => this.props.onLogout()}>Cerrar sesión</button>
-                                    </div>
+                                    <button className="CerrarSesion" onClick={this.handleLogout}>Cerrar sesión</button>
+                                </div>
                             )}
                         </div>
                     </>

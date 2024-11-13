@@ -15,6 +15,7 @@ export default class Home extends Component {
     }  
 
     componentDidMount() {
+        console.log("Props en Home - usuario_id:", this.props.usuario_id); 
         const token = sessionStorage.getItem('token');
         if (token) {
             this.setState({ mostrarHeader: true });
@@ -61,7 +62,8 @@ export default class Home extends Component {
         return(
             <>
                 <Header
-                    isAuthenticated={this.state.mostrarHeader}  // Pasara el estado de autenticación
+                    isAuthenticated={this.state.mostrarHeader}
+                    usuario_id={this.props.usuario_id}  // Pasara el estado de autenticación
                     onLogout={this.props.onLogout} // Llamara a la función de logout del padre
                 />
 
