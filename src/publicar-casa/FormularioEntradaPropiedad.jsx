@@ -29,19 +29,27 @@ export default class FormularioEntradaPropiedad extends Component {
       },
       error: null,
       successMessage: '',
+      usuario_id: this.props.usuario_id || null, // Inicializa usuario_id con el prop
     };
   }
 
   componentDidMount() {
-    console.log("usuario_id:",`${this.state.usuario_id}`);
-    const token = localStorage.getItem('token'); // Cambiado a sessionStorage
+    const token = localStorage.getItem('token');
+    const usuario_id = localStorage.getItem('userId'); // Obtener el ID del usuario
     console.log('Token actual:', token);
+    console.log('usuario_id:', usuario_id);
 
     if (!token) {
       console.warn('No hay token almacenado');
       this.setState({
         error: 'No hay sesión activa. Por favor, inicie sesión.'
       });
+    } else {
+      if (usuario_id) {
+        this.setState({ usuario_id }); // Guardar el ID del usuario en el estado
+      } else {
+        console.warn('No hay ID de usuario almacenado');
+      }
     }
   }
 
@@ -84,7 +92,7 @@ export default class FormularioEntradaPropiedad extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const formDataToSend = new FormData();
-    
+
     Object.keys(this.state.formData).forEach(key => {
       if (key === 'caracteristicas') {
         Object.keys(this.state.formData.caracteristicas).forEach(caracteristica => {
@@ -98,9 +106,12 @@ export default class FormularioEntradaPropiedad extends Component {
         formDataToSend.append(key, this.state.formData[key]);
       }
     });
-  
+
+    // Agregar el ID del usuario a los datos del formulario
+    formDataToSend.append('userId', this.state.usuario_id);
+
     try {
-      const token = localStorage.getItem('token'); // Cambiado a sessionStorage
+      const token = localStorage.getItem('token');
       console.log("Token que se envía:", token);
 
       if (!token) {
@@ -111,7 +122,7 @@ export default class FormularioEntradaPropiedad extends Component {
         return;
       }
 
-      const tokenToSend = token.startsWith('Bearer ') ? token : `Bearer ${token}`;
+      const tokenToSend = `Bearer ${token}`;
 
       const response = await axios.post('http://localhost:4001/api/propiedades', formDataToSend, {
         headers: {
@@ -156,16 +167,16 @@ export default class FormularioEntradaPropiedad extends Component {
             ></i>
             <h2>Ingresar Detalles de la Propiedad</h2>
           </div>
-
+  
           {this.state.error && <div className="error-message">{this.state.error}</div>}
           {this.state.successMessage && <div className="success-message">{this.state.successMessage}</div>}
-
+  
           <div className="form-row">
             <div className="form-group">
               <label>Dirección:</label>
               <input type="text" name="direccion" value={this.state.formData.direccion} onChange={this.handleChange} required />
             </div>
-
+  
             <div className="form-group">
               <label>Precio:</label>
               <input
@@ -176,7 +187,7 @@ export default class FormularioEntradaPropiedad extends Component {
                 required
               />
             </div>
-
+  
             <div className="form-group">
               <label>Tipo de Propiedad:</label>
               <select
@@ -191,7 +202,7 @@ export default class FormularioEntradaPropiedad extends Component {
                 <option value="condominio">Condominio</option>
               </select>
             </div>
-
+  
             <div className="form-group">
               <label>Habitaciones:</label>
               <input
@@ -202,7 +213,7 @@ export default class FormularioEntradaPropiedad extends Component {
                 required
               />
             </div>
-
+  
             <div className="form-group">
               <label>Baños:</label>
               <input
@@ -213,7 +224,7 @@ export default class FormularioEntradaPropiedad extends Component {
                 required
               />
             </div>
-
+  
             <div className="form-group">
               <label>Área (m²):</label>
               <input
@@ -224,7 +235,7 @@ export default class FormularioEntradaPropiedad extends Component {
                 required
               />
             </div>
-
+  
             <div className="form-group">
               <label>Ciudad:</label>
               <select
@@ -239,81 +250,81 @@ export default class FormularioEntradaPropiedad extends Component {
               </select>
             </div>
           </div>
-
           <div className="form-group">
-            <label>Descripción:</label>
-            <textarea
-              name="descripcion"
-              value={this.state.formData.descripcion}
+          <label>Descripción:</label>
+          <textarea
+            name="descripcion"
+            value={this.state.formData.descripcion}
+            onChange={this.handleChange}
+            required
+          />
+        </div>
+
+        <label>Características:</label>
+        <div className="checkbox-group">
+          <label>
+            <input
+              type="checkbox"
+              name="aireAcondicionado"
+              checked={this.state.formData.caracteristicas.aireAcondicionado}
               onChange={this.handleChange}
-              required
             />
-          </div>
+            Aire Acondicionado
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="garaje"
+              checked={this.state.formData.caracteristicas.garaje}
+              onChange={this.handleChange}
+            />
+            Garaje
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="patio"
+              checked={this.state.formData.caracteristicas.patio}
+              onChange={this.handleChange}
+            />
+            Patio
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="piscina"
+              checked={this.state.formData.caracteristicas.piscina}
+              onChange={this.handleChange}
+            />
+            Piscina
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="tv"
+              checked={this.state.formData.caracteristicas.tv}
+              onChange={this.handleChange}
+            />
+            Cable
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="wifi"
+              checked={this.state.formData.caracteristicas.wifi}
+              onChange={this.handleChange}
+            />
+            Wifi
+          </label>
+        </div>
 
-          <label>Características:</label>
-          <div className="checkbox-group">
-            <label>
-              <input
-                type="checkbox"
-                name="aireAcondicionado"
-                checked={this.state.formData.caracteristicas.aireAcondicionado}
-                onChange={this.handleChange}
-              />
-              Aire Acondicionado
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="garaje"
-                checked={this.state.formData.caracteristicas.garaje}
-                onChange={this.handleChange}
-              />
-              Garaje
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="patio"
-                checked={this.state.formData.caracteristicas.patio}
-                onChange={this.handleChange}
-              />
-              Patio
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="piscina"
-                checked={this.state.formData.caracteristicas.piscina}
-                onChange={this.handleChange}
-              />
-              Piscina
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="tv"
-                checked={this.state.formData.caracteristicas.tv}
-                onChange={this.handleChange}
-              />
-              Cable
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="wifi"
-                checked={this.state.formData.caracteristicas.wifi}
-                onChange={this.handleChange}
-              />
-              Wifi
-            </label>
-          </div>
+        <label>Imágenes:</label>
+        <input type="file" name="archivos" onChange={this.handleFileChange} multiple />
 
-          <label>Imágenes:</label>
-          <input type="file" name="archivos" onChange={this.handleFileChange} multiple />
-
-          <button type="submit" className="boton-primario">Publicar</button>
-        </form>
-      </div>
+        <button type="submit" className="boton-primario">Publicar</button>
+      </form>
+    </div>
     );
   }
 }
+  
