@@ -75,7 +75,7 @@ export default class Calendario extends Component {
         const { mes, año } = this.state;
         const mesFormateado = (mes + 1).toString().padStart(2, "0");
         const diaFormateado = dia.toString().padStart(2, "0");
-        return `${diaFormateado}-${mesFormateado}-${año}`;
+        return `${año}-${mesFormateado}-${diaFormateado}`;
     };
 
     render() {

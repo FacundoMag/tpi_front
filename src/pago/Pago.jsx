@@ -78,15 +78,20 @@ export default class Pago extends Component {
             const total = this.calcularTotal(this.calendario.calcularDiasSeleccionados());
             this.setState({ 
                 validacionCompleta: true,
-                fechaInicio: `${fechaInicio.getDate().toString().padStart(2, '0')}-${(fechaInicio.getMonth() + 1).toString().padStart(2, '0')}-${fechaInicio.getFullYear()}`,
-                fechaFin: `${fechaFin.getDate().toString().padStart(2, '0')}-${(fechaFin.getMonth() + 1).toString().padStart(2, '0')}-${fechaFin.getFullYear()}`,
+                fechaInicio: `${fechaInicio.getFullYear()}-${(fechaInicio.getMonth() + 1).toString().padStart(2, '0')}-${fechaInicio.getDate().toString().padStart(2, '0')}`,
+                fechaFin: `${fechaFin.getFullYear()}-${(fechaFin.getMonth() + 1).toString().padStart(2, '0')}-${fechaFin.getDate().toString().padStart(2, '0')}`,
                 total 
             }, () => {
                 console.log("Fecha de Inicio:", this.state.fechaInicio);
                 console.log("Fecha de Fin:", this.state.fechaFin);
                 console.log("Total:", this.state.total);
+                const fechaActual = new Date();
+                const dia = String(fechaActual.getDate()).padStart(2, '0');
+                const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
+                const año = fechaActual.getFullYear();
 
-                // window.location.href = "/pago-realizado";
+                const fechaActualFormateada = `${año}-${mes}-${dia}`;
+                
                 const url = "http://localhost:4001/api/reservacion";
 
                 const config = {
@@ -95,8 +100,16 @@ export default class Pago extends Component {
                     },
                     params: {
                         propiedad_id: this.props.id_casa,
+                        propietario_id: this.state.propietario_id
                     },
                 };
+
+                const data = {
+                    fecha_inicio: this.state.fechaInicio, 
+                    fecha_fin: this.state.fechaFin, 
+                    fecha_reserva: fechaActualFormateada, 
+                    monto_total: this.state.total
+                }
 
                 axios.post(url, data, config)
                 .then((response) => {
