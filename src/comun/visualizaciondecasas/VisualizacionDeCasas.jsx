@@ -21,6 +21,7 @@ export default class VisualizacionDeCasas extends Component {
                         {this.props.casas.map((cont, index) => 
                             <Publicacion
                                 key={index}
+                                token = {this.props.token}
                                 id_casa={cont.id}
                                 direccion = {cont.direccion}
                                 ciudad = {cont.ciudad}
@@ -29,7 +30,8 @@ export default class VisualizacionDeCasas extends Component {
                                 baños = {cont.num_banos}
                                 tipo = {cont.tipo}
                                 imagen = {cont.imagenes[0]}
-                                mostrarCorazon = {this.props.mostrarCorazon} 
+                                mostrarCorazon = {this.props.mostrarCorazon}
+                                favoritos = {this.props.favoritos} 
                             />
                         )}
                     </div>

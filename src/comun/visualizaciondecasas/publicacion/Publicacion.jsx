@@ -1,6 +1,8 @@
 import { Component } from "react";
+import axios from "axios";
 import corazonRojo from "../../../assets/corazonRojo.png";
 import corazonBlanco from "../../../assets/corazonBlanco.png";
+import Notificacion from "../../Notificacion";
 import "./Publicacion.css";
 import { Link } from "wouter";
 
@@ -15,18 +17,55 @@ export default class Publicacion extends Component {
     }
 
     componentDidMount() {
+        if (this.props.mostrarCorazon) {
+            this.verificarCorazon();
+        }
+    }
+
+    verificarCorazon() {
+        const { id_casa, favoritos } = this.props;
         
+        for (let i = 0; i < favoritos.length; i++) {
+            if (id_casa == favoritos[i].id) {
+                this.setState({ corazon: corazonRojo })
+            }
+        }
     }
 
     botonCorazon() {
+        const url = "http://localhost:4001/api/user/favoritos";
+
+        const config = {
+            headers: {
+                authorization: this.props.token,
+            },
+            params: {
+                propiedad_id: this.props.id_casa,
+            },
+        };
+
         if (this.state.corazon === corazonBlanco) {
-            this.setState({
-                corazon: corazonRojo
-            });
-        } else {
-            this.setState({
-                corazon: corazonBlanco
-            });
+            axios.post(url, null, config)
+                .then((response) => {
+                    Notificacion.show("Se ha agregado la casa a favoritos.", "success");
+                    this.setState({ corazon: corazonRojo });
+                    console.log(response.data);
+                    
+                })
+                .catch((error) => {
+                    console.log(error);
+                });  
+        } else if (this.state.corazon === corazonRojo) {
+            axios.delete(url, config)
+                .then((response) => {
+                    Notificacion.show("Se eliminó la casa de favoritos.", "success");
+                    this.setState({ corazon: corazonBlanco });
+                    console.log(response.data);
+                    
+                })
+                .catch((error) => {
+                    console.log(error);
+                }); 
         }
     }
 
