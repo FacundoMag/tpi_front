@@ -12,30 +12,36 @@ export default class Pago extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            token: '',
             mostrarHeader: false,
             validacionCompleta: false,
             precio: null,
+            propietario_id: null,
+            fechaInicio: "",
+            fechaFin: "",
+            total: 0,
         };
     }
 
     componentDidMount() {
         const token = sessionStorage.getItem('token');
         if (token) {
-            this.setState({ mostrarHeader: true });
+            this.setState({ mostrarHeader: true, token });
         }
-        this.extraerInfoCasa(this.props.id_casa)
+        this.extraerInfoCasa(this.props.id_casa);
     }
 
     extraerInfoCasa(id) {
         const url = "http://localhost:4001/api/propiedades/propiedad";
         const config = {
-            params: {
-                id
-            }
+            params: { id }
         };
         axios.get(url, config)
             .then((response) => {              
-                this.setState({ precio: response.data.propiedad[0].precio_renta });
+                this.setState({ 
+                    precio: response.data.propiedad[0].precio_renta, 
+                    propietario_id: response.data.propiedad[0].propietario_id 
+                });
             })
             .catch((error) => {
                 console.log(error);
@@ -60,25 +66,68 @@ export default class Pago extends Component {
 
         return camposTarjeta.every((campo) => {
             const input = document.getElementById(campo);
-            return input && input.value.trim() !== ""; // Verifica que el campo existe y no esté vacío
+            return input && input.value.trim() !== "";
         });
     };
 
     handleReservar = () => {
-        const fechaInicio = this.calendario.state.fechaInicio;
-        const fechaFin = this.calendario.state.fechaFin;
+        const { fechaInicio, fechaFin } = this.calendario.state;
         const datosTarjetaCompletos = this.validarDatosTarjeta();
 
         if (fechaInicio !== null && fechaFin !== null && datosTarjetaCompletos) {
-            this.setState({ validacionCompleta: true }, () => {
-                window.location.href = "/pago-realizado";
+            const total = this.calcularTotal(this.calendario.calcularDiasSeleccionados());
+            this.setState({ 
+                validacionCompleta: true,
+                fechaInicio: `${fechaInicio.getFullYear()}-${(fechaInicio.getMonth() + 1).toString().padStart(2, '0')}-${fechaInicio.getDate().toString().padStart(2, '0')}`,
+                fechaFin: `${fechaFin.getFullYear()}-${(fechaFin.getMonth() + 1).toString().padStart(2, '0')}-${fechaFin.getDate().toString().padStart(2, '0')}`,
+                total 
+            }, () => {
+                console.log("Fecha de Inicio:", this.state.fechaInicio);
+                console.log("Fecha de Fin:", this.state.fechaFin);
+                console.log("Total:", this.state.total);
+                const fechaActual = new Date();
+                const dia = String(fechaActual.getDate()).padStart(2, '0');
+                const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
+                const año = fechaActual.getFullYear();
+
+                const fechaActualFormateada = `${año}-${mes}-${dia}`;
+                
+                const url = "http://localhost:4001/api/reservacion";
+
+                const config = {
+                    headers: {
+                        authorization: this.state.token,
+                    },
+                    params: {
+                        propiedad_id: this.props.id_casa,
+                        propietario_id: this.state.propietario_id
+                    },
+                };
+
+                const data = {
+                    fecha_inicio: this.state.fechaInicio, 
+                    fecha_fin: this.state.fechaFin, 
+                    fecha_reserva: fechaActualFormateada, 
+                    monto_total: this.state.total
+                }
+
+                axios.post(url, data, config)
+                .then((response) => {
+                    alert("Se agregó la reservación.")
+                    console.log(response.data);
+                    window.location.href = "/pago-realizado";
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
             });
         } else {
             Notificacion.show("Por favor, complete todos los campos y seleccione un rango de fechas.", "error");
         }
     };
 
-    calcularTotal = (dias) => dias * 100; // Ejemplo de cálculo del total (100 por día)
+    calcularTotal = (dias) => dias * this.state.precio;
 
     render() {
         return (
@@ -86,8 +135,8 @@ export default class Pago extends Component {
                 {this.state.precio !== null ? (
                     <>
                         <Header
-                            isAuthenticated={this.state.mostrarHeader}  // Pasara el estado de autenticación
-                            onLogout={this.props.onLogout} // Llamara a la función de logout del padre
+                            isAuthenticated={this.state.mostrarHeader}
+                            onLogout={this.props.onLogout}
                         />
 
                         <div className="contenedorPago">
@@ -97,7 +146,6 @@ export default class Pago extends Component {
                             <div className="contenedorCalendario">
                                 <Calendario
                                     ref={(calendario) => (this.calendario = calendario)}
-                                    total={this.calcularTotal}
                                     onReservar={this.handleReservar}
                                     precio={this.state.precio}
                                 />

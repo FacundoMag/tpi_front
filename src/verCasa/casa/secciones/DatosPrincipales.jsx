@@ -24,8 +24,19 @@ export default class DatosPrincipales extends Component {
     componentDidMount() {
         if (this.props.mostrarRuta) {
             this.setState({ rutaReservar: `/pago/${this.props.id_casa}` });
+            this.verificarCorazon();
         }
         this.estrellas();
+    }
+
+    verificarCorazon() {
+        const { id_casa, favoritos } = this.props;
+        
+        for (let i = 0; i < favoritos.length; i++) {
+            if (id_casa == favoritos[i].id) {
+                this.setState({ corazon: corazonRojo })
+            }
+        }
     }
 
     estrellas() {

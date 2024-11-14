@@ -9,8 +9,10 @@ export default class Home extends Component {
     constructor(props) {  
         super(props);  
         this.state = {
+            token: '',
             mostrarHeader: false,  
-            casas: [],  
+            casas: [],
+            favoritos: [],  
         };  
     }  
 
@@ -18,7 +20,8 @@ export default class Home extends Component {
         console.log("Props en Home - usuario_id:", this.props.usuario_id); 
         const token = sessionStorage.getItem('token');
         if (token) {
-            this.setState({ mostrarHeader: true });
+            this.setState({ mostrarHeader: true, token });
+            this.misFavoritos(token);
         }
         this.extraerCasas();
     }
@@ -33,6 +36,24 @@ export default class Home extends Component {
             })
             .catch((error) => {
                 console.log(error);
+            });
+    }
+
+    misFavoritos(token) {
+        const url = "http://localhost:4001/api/user/favoritos";
+
+        const config = {
+            headers: {
+                authorization: token,
+            },
+        };
+
+        axios.get(url, config)
+            .then((response) => {
+                this.setState({ favoritos: response.data.favoritos });
+            })
+            .catch((error) => {
+                console.error(error);
             });
     }
 
@@ -71,9 +92,11 @@ export default class Home extends Component {
                     buscador={(ciudad_id, tipo_id) => this.buscador(ciudad_id, tipo_id)}
                 />
 
-                <VisualizacionDeCasas  
+                <VisualizacionDeCasas
+                    token = {this.state.token}  
                     titulo = "Todas las propiedades"  
                     casas = {this.state.casas}
+                    favoritos = {this.state.favoritos}
                     mostrarCorazon = {this.state.mostrarHeader}  
                 />  
 
