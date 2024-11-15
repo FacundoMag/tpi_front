@@ -31,6 +31,7 @@ export default class FormularioEntradaPropiedad extends Component {
       successMessage: '',
       usuario_id: this.props.usuario_id || null, // Inicializa usuario_id con el prop
     };
+    this.imagenes = React.createRef();
   }
 
   componentDidMount() {
@@ -94,66 +95,71 @@ export default class FormularioEntradaPropiedad extends Component {
     const formDataToSend = new FormData();
 
     Object.keys(this.state.formData).forEach(key => {
-      if (key === 'caracteristicas') {
-        Object.keys(this.state.formData.caracteristicas).forEach(caracteristica => {
-          formDataToSend.append(`caracteristicas[${caracteristica}]`, this.state.formData.caracteristicas[caracteristica]);
-        });
-      } else if (key === 'archivos' && this.state.formData.archivos) {
-        Array.from(this.state.formData.archivos).forEach(file => {
-          formDataToSend.append('archivos', file);
-        });
-      } else {
-        formDataToSend.append(key, this.state.formData[key]);
-      }
+        if (key === 'caracteristicas') {
+          const listaServicios = Object.entries(this.state.formData.caracteristicas);
+          const caracteristicas = listaServicios.filter((servicio) => servicio[1] == true).map((servicio) => servicio[0])
+          console.log(caracteristicas);
+          formDataToSend.append('caracteristicas', caracteristicas)
+           // Object.keys(this.state.formData.caracteristicas).forEach(caracteristica => {
+            //    formDataToSend.append(`caracteristicas[${caracteristica}]`, this.state.formData.caracteristicas[caracteristica]);
+            //});
+        } else if (key === 'archivos' && this.state.formData.archivos) {
+            Array.from(this.imagenes.current).forEach(file => {
+                formDataToSend.append('archivos', file);
+            });
+        } else {
+            formDataToSend.append(key, this.state.formData[key]);
+        }
     });
 
     // Agregar el ID del usuario a los datos del formulario
     formDataToSend.append('userId', this.state.usuario_id);
 
     try {
-      const token = localStorage.getItem('token');
-      console.log("Token que se envía:", token);
+        const token = localStorage.getItem('token');
+        console.log("Token que se envía:", token);
 
-      if (!token) {
-        this.setState({
-          error: 'No hay token de autenticación. Por favor, inicie sesión nuevamente.',
-          successMessage: ''
+        if (!token) {
+            this.setState({
+                error: 'No hay token de autenticación. Por favor, inicie sesión nuevamente.',
+                successMessage: ''
+            });
+            return;
+        }
+
+        const tokenToSend = `Bearer ${token}`;
+
+        const response = await axios.post('http://localhost:4001/api/propiedades', formDataToSend, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': tokenToSend,
+            }
         });
-        return;
-      }
 
-      const tokenToSend = `Bearer ${token}`;
-
-      const response = await axios.post('http://localhost:4001/api/propiedades', formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': tokenToSend,
-        }
-      });
-
-      console.log('Respuesta exitosa:', response.data);
-      this.setState({ successMessage: 'Propiedad publicada con éxito', error: null });
-      this.props.history.push('/');
+        console.log('Respuesta exitosa:', response.data);
+        this.setState({ successMessage: 'Propiedad publicada con éxito', error: null });
+        this.props.history.push('/');
     } catch (error) {
-      console.error('Error completo:', error);
-      
-      let mensajeError = 'Hubo un error al publicar la propiedad';
-      
-      if (error.response) {
-        if (error.response.status === 403) {
-          mensajeError = 'No tiene permisos para realizar esta acción. Verifique su sesión.';
-        } else if (error.response.status === 401) {
-          mensajeError = 'Sesión expirada. Por favor, inicie sesión nuevamente.';
-        }
-        console.error('Respuesta del servidor:', error.response.data);
-      } else if (error.request) {
-        mensajeError = 'No se pudo conectar con el servidor. Verifique su conexión.';
-        console.error('Error de conexión:', error.request);
-      }
+        console.error('Error completo:', error);
 
-      this.setState({ error: mensajeError, successMessage: '' });
+        let mensajeError = 'Hubo un error al publicar la propiedad';
+
+        if (error.response) {
+            if (error.response.status === 403) {
+                mensajeError = 'No tiene permisos para realizar esta acción. Verifique su sesión.';
+            } else if (error.response.status === 401) {
+                mensajeError = 'Sesión expirada. Por favor, inicie sesión nuevamente.';
+            }
+            console.error('Respuesta del servidor:', error.response.data);
+        } else if (error.request) {
+            mensajeError = 'No se pudo conectar con el servidor. Verifique su conexión.';
+            console.error('Error de conexión:', error.request);
+        }
+
+        this.setState({ error: mensajeError, successMessage: '' });
     }
-  };
+};
+
 
   render() {
     return (
@@ -319,7 +325,13 @@ export default class FormularioEntradaPropiedad extends Component {
         </div>
 
         <label>Imágenes:</label>
-        <input type="file" name="archivos" onChange={this.handleFileChange} multiple />
+        <input 
+          type="file" 
+          name="archivos" 
+          //onChange={this.handleFileChange} 
+          ref={this.imagenes}
+          multiple 
+        />
 
         <button type="submit" className="boton-primario">Publicar</button>
       </form>
