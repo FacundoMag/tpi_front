@@ -14,18 +14,19 @@ export default class VisualizacionDeCasas extends Component {
         return (
             <div className="Contenedor">
                 <h1 className="Titulo">{this.props.titulo}</h1>
-                {this.props.casa.length > 0 ? (
+                {this.props.casas.length > 0 ? (
                     <div className="VisualizacionCasas">
-                        {this.state.casas.map((cont, index) => 
+                        {this.props.casas.map((cont, index) => 
                             <Publicacion
                                 key = {cont.id}
-                                id = {cont.id} 
+                                id_casa = {cont.id}
+                                ciudad = {cont.ciudad} 
                                 direccion = {cont.direccion}
-                                precio = {cont.precio}
-                                habitaciones = {cont.habitaciones}
-                                baños = {cont.baños}
+                                precio = {cont.precio_renta}
+                                habitaciones = {cont.num_habitaciones}
+                                baños = {cont.num_banos}
                                 tipo = {cont.tipo}
-                                imagen = {cont.imagen}
+                                imagen = {cont.url}
                             />
                         )}
                     </div>
