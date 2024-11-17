@@ -13,7 +13,8 @@ export default class PagoRealizado extends Component {
         return (
             <>
                 <Header
-                    mostrarHeader = {true}
+                    isAuthenticated={true}  // Pasará el estado de autenticación
+                    onLogout={this.props.onLogout}
                 ></Header>
 
                 <div className="CuadroPagoRealizado">

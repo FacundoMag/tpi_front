@@ -21,10 +21,13 @@ export default class Publicacion extends Component {
     }
 
     render() {
+        const rutaCodificada = `/ver-casa/${this.props.id_casa}`;
+        const urlImagen = `http://localhost:4001/api/imagenes/${this.props.imagen}`;
+
         return (
             <div className="Publicacion">
-                <Link to="/ver-casa">
-                    <img src={this.props.imagen} alt="ERROR" className="Imagen" />
+                <Link to = {rutaCodificada}>
+                    <img src={urlImagen} alt="ERROR" className="Imagen" />
                 </Link>
                 <div className="PrecioHome">
                     <h3 style={{color: "#E93740"}}>${this.props.precio}</h3>
@@ -57,8 +60,9 @@ export default class Publicacion extends Component {
                     </button>
                 </div>           
                 
-                <h3 style={{marginLeft: "-155px"}}>{this.props.direccion}</h3>
-                <div className="DatosExtraHome">
+                <h3 style={{marginLeft: "25px", textAlign: "left"}}>{this.props.direccion}, {this.props.ciudad}</h3>
+
+                <div className="DatosExtraHome" style={{marginTop: "40px"}}>
                     <h4>{this.props.habitaciones} Habitaciones</h4>
                     <h4>|</h4>
                     <h4>{this.props.baños} Baños</h4>

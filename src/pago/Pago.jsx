@@ -16,6 +16,7 @@ export default class Pago extends Component {
             mostrarHeader: false,
             validacionCompleta: false,
             precio: null,
+            carga: true,
             propietario_id: null,
             fechaInicio: "",
             fechaFin: "",
@@ -71,68 +72,58 @@ export default class Pago extends Component {
     };
 
     handleReservar = () => {
+        Notificacion.show("Se está procesando la reservación, por favor espere.", "info");
         const { fechaInicio, fechaFin } = this.calendario.state;
         const datosTarjetaCompletos = this.validarDatosTarjeta();
-
+    
         if (fechaInicio !== null && fechaFin !== null && datosTarjetaCompletos) {
+            // Prepara la información antes de la solicitud
             const total = this.calcularTotal(this.calendario.calcularDiasSeleccionados());
-            this.setState({ 
-                validacionCompleta: true,
-                fechaInicio: `${fechaInicio.getFullYear()}-${(fechaInicio.getMonth() + 1).toString().padStart(2, '0')}-${fechaInicio.getDate().toString().padStart(2, '0')}`,
-                fechaFin: `${fechaFin.getFullYear()}-${(fechaFin.getMonth() + 1).toString().padStart(2, '0')}-${fechaFin.getDate().toString().padStart(2, '0')}`,
-                total 
-            }, () => {
-                console.log("Fecha de Inicio:", this.state.fechaInicio);
-                console.log("Fecha de Fin:", this.state.fechaFin);
-                console.log("Total:", this.state.total);
-                const fechaActual = new Date();
-                const dia = String(fechaActual.getDate()).padStart(2, '0');
-                const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
-                const año = fechaActual.getFullYear();
-
-                const fechaActualFormateada = `${año}-${mes}-${dia}`;
-                
-                const url = "http://localhost:4001/api/reservacion";
-
-                const config = {
-                    headers: {
-                        authorization: this.state.token,
-                    },
-                    params: {
-                        propiedad_id: this.props.id_casa,
-                        propietario_id: this.state.propietario_id
-                    },
-                };
-
-                const data = {
-                    fecha_inicio: this.state.fechaInicio, 
-                    fecha_fin: this.state.fechaFin, 
-                    fecha_reserva: fechaActualFormateada, 
-                    monto_total: this.state.total
-                }
-
-                axios.post(url, data, config)
+            const fechaInicioFormateada = `${fechaInicio.getFullYear()}-${(fechaInicio.getMonth() + 1).toString().padStart(2, '0')}-${fechaInicio.getDate().toString().padStart(2, '0')}`;
+            const fechaFinFormateada = `${fechaFin.getFullYear()}-${(fechaFin.getMonth() + 1).toString().padStart(2, '0')}-${fechaFin.getDate().toString().padStart(2, '0')}`;
+            
+            const fechaActual = new Date();
+            const fechaActualFormateada = `${fechaActual.getFullYear()}-${(fechaActual.getMonth() + 1).toString().padStart(2, '0')}-${fechaActual.getDate().toString().padStart(2, '0')}`;
+    
+            // Configuración y datos de solicitud
+            const url = "http://localhost:4001/api/reservacion";
+            const config = {
+                headers: {
+                    authorization: this.state.token,
+                },
+                params: {
+                    propiedad_id: this.props.id_casa,
+                    propietario_id: this.state.propietario_id,
+                },
+            };
+            
+            const data = {
+                fecha_inicio: fechaInicioFormateada,
+                fecha_fin: fechaFinFormateada,
+                fecha_reserva: fechaActualFormateada,
+                monto_total: total,
+            };
+    
+            // Realiza la solicitud inmediatamente
+            axios.post(url, data, config)
                 .then((response) => {
-                    alert("Se agregó la reservación.")
-                    console.log(response.data);
+                    alert("Se agregó la reservación.");
                     window.location.href = "/pago-realizado";
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error("Error en la reserva:", error);
                 });
-
-            });
         } else {
             Notificacion.show("Por favor, complete todos los campos y seleccione un rango de fechas.", "error");
         }
-    };
+    };    
 
     calcularTotal = (dias) => dias * this.state.precio;
 
     render() {
         return (
             <>
-                {this.state.precio !== null ? (
+                {this.state.precio !== null && this.state.carga ? (
                     <>
                         <Header
                             isAuthenticated={this.state.mostrarHeader}

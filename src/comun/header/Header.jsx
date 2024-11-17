@@ -67,8 +67,9 @@ export default class Header extends Component {
                                     <Link to={`/editar-usuario/${this.props.usuario_id}`} className="MenuLink">Editar usuario</Link>
                                     <Link to="/favoritos" className="MenuLink">Favoritos</Link>
                                     <Link to="/mis-propiedades" className="MenuLink">Mis propiedades</Link>
-                                    <button className="CerrarSesion" onClick={this.handleLogout}>Cerrar sesión</button>
-                                </div>
+                                    <Link to="/mis-reservaciones" className="MenuLink">Mis reservaciones</Link>
+                                    <button className="CerrarSesion" onClick={() => this.props.onLogout()}>Cerrar sesión</button>
+                                    </div>
                             )}
                         </div>
                     </>
