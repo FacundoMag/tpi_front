@@ -71,11 +71,11 @@ export default class Publicacion extends Component {
 
     render() {
         const rutaCodificada = `/ver-casa/${this.props.id_casa}`;
-        const urlImagen = `http://localhost:4001/api/imagenes/${this.props.imagen}`;
+        const urlImagen = `http://localhost:4001/public/images/${this.props.imagen}`;
 
         return (
             <div className="Publicacion">
-                <Link to={rutaCodificada}>
+                <Link to = { rutaCodificada }>
                     <img src={urlImagen} alt="ERROR" className="Imagen" />
                 </Link>
 
