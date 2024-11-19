@@ -47,8 +47,6 @@ export default class MisReservaciones extends Component {
                     onLogout={this.props.onLogout}
                 />
 
-                
-
                 <TablaDeReservaciones
                     token = {this.state.token}  
                     titulo = "Acá estan la reservaciones que hiciste en la página"  
