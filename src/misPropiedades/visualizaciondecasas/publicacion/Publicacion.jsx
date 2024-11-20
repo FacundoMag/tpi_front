@@ -33,6 +33,7 @@ export default class Publicacion extends Component {
             .delete(url, config)
             .then((response) => {
                 Notificacion.show("Se eliminó la casa correctamente.", "success");
+                this.props.extraerMisPropiedades(this.props.token)
                 console.log(response.data);
                 // Aquí puedes agregar lógica para actualizar la vista si es necesario
             })

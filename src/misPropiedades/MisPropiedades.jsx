@@ -58,6 +58,7 @@ export default class MisPropiedades extends Component {
                     token={token}
                     titulo="Estas son todas las propiedades que registraste en la página"
                     casas={casas}
+                    extraerMisPropiedades = {(token) => this.extraerMisPropiedades(token)}
                 />
 
                 <Footer />
