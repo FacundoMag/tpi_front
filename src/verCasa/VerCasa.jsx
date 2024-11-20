@@ -113,6 +113,7 @@ export default class VerCasa extends Component {
                             nota = {this.state.promedio}
                             reseñas = {this.state.casa.reseñas}
                             inputComentario = {this.state.mostrarHeader}
+                            extraerInfoCasa={(id) => this.extraerInfoCasa(id)}
                         />
 
                         <Footer />

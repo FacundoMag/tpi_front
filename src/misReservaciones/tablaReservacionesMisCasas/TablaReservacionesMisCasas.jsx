@@ -1,8 +1,7 @@
 import { Component } from "react";
-import FilaReservacion from "./FilaReservacion";
-import "./TablaDeReservaciones.css"
+import FilaReservacionMisCasas from "./FilaReservacionMisCasas";
 
-export default class VisualizacionDeReservaciones extends Component {
+export default class TablaReservacionesMisCasas extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -28,7 +27,7 @@ export default class VisualizacionDeReservaciones extends Component {
                         </thead>
                         <tbody>
                             {this.props.reservaciones.map((cont, index) => 
-                                <FilaReservacion 
+                                <FilaReservacionMisCasas 
                                     key = {index}
                                     id_casa = {cont.propiedad_id}
                                     fecha_inicio = {cont.fecha_inicio}
