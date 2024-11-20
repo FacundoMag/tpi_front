@@ -126,6 +126,16 @@ export default class App extends Component {
                     />  
                 </Route>  
 
+                <Route path="/pago/:id_casa">
+                    {(params) => (
+                        <Pago 
+                            isAuthenticated={this.state.isAuthenticated}
+                            onLogout={this.handleLogout}
+                            id_casa={params.id_casa}
+                        />
+                    )}  
+                </Route>
+
                 <Route path="/pago-realizado">
                     <PagoRealizado />
                 </Route>
