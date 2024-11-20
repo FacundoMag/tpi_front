@@ -2,8 +2,9 @@ import { Component } from 'react';
 import axios from 'axios';
 import Header from '../comun/header/Header';
 import Buscador from './buscador/Buscador';
-import VisualizacionDeCasas from "../comun/visualizaciondecasas/VisualizacionDeCasas"
+import VisualizacionDeCasas from "../comun/visualizaciondecasas/VisualizacionDeCasas";
 import Footer from "../comun/Footer"
+import Notificacion from '../comun/Notificacion';
 
 export default class Home extends Component {  
     constructor(props) {  
@@ -73,6 +74,7 @@ export default class Home extends Component {
         axios.get(url, config)
             .then((response) => { 
                 this.setState({ casas: response.data }); 
+                Notificacion.show("Su busqueda se realizó correctamente", "success")
             })
             .catch((error) => {
                 console.log(error);
