@@ -215,7 +215,7 @@ export default class FormularioEntradaPropiedad extends Component {
             <div className="form-group">
               <label>Tipo de Propiedad:</label>
               <select
-                name="tipo_id" // Cambiado de 'tipoPropiedad' a 'tipo_id'
+                name="tipo_id"
                 value={this.state.formData.tipo_id}
                 onChange={this.handleChange}
                 required
