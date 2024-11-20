@@ -1,68 +1,82 @@
 import { Component } from "react";
+import axios from "axios";
 import editar from "../../../assets/editar.png";
 import eliminar from "../../../assets/eliminar.png";
 import "./Publicacion.css";
 import { Link } from "wouter";
+import Notificacion from "../../../comun/Notificacion";
 
 export default class Publicacion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            // Puedes inicializar valores aquí si son necesarios
         };
+
+        // Enlazar métodos para asegurar el contexto correcto
+        this.botonEliminar = this.botonEliminar.bind(this);
     }
 
-    botonEditar() {
-        window.location.href = '/mis-propiedades/editar-casa'; 
-    }
+    botonEliminar(id) {
+        const url = "http://localhost:4001/api/propiedades";
 
-    botonEliminar() {
-        
+        const config = {
+            headers: {
+                authorization: this.props.token,
+            },
+            params: {
+                id,
+            },
+        };
+
+        axios
+            .delete(url, config)
+            .then((response) => {
+                Notificacion.show("Se eliminó la casa correctamente.", "success");
+                console.log(response.data);
+                // Aquí puedes agregar lógica para actualizar la vista si es necesario
+            })
+            .catch((error) => {
+                console.error("Error al eliminar la propiedad:", error);
+                Notificacion.show("Hubo un error al eliminar la propiedad.", "error");
+            });
     }
 
     render() {
-        const rutaCodificada = `/ver-casa/${this.props.id_casa}`;
-        const urlImagen = `http://localhost:4001/api/public/images/${this.props.imagen}`;
+        const rutaVerCasa = `/ver-casa/${this.props.id_casa}`;
+        const rutaEditarCasa = `/mis-propiedades/editar-casa/${this.props.id_casa}`;
+        const urlImagen = `http://localhost:4001/api/imagenes/${this.props.imagen}`;
 
         return (
             <div className="Publicacion">
-                <Link to = {rutaCodificada}>
+                <Link to={rutaVerCasa}>
                     <img src={urlImagen} alt="ERROR" className="Imagen" />
                 </Link>
                 <div className="PrecioHome">
-                    <h3 style={{color: "#E93740"}}>${this.props.precio}</h3>
+                    <h3 style={{ color: "#E93740" }}>${this.props.precio}</h3>
                     <h3>/ día</h3>
                 </div>
 
-                <div>
-                    <button 
+                <div className="Acciones">
+                    <button
                         className="BotonInvisible"
-                        style={{marginRight: "20px"}}
-                        onClick={this.botonEliminar}
+                        onClick={() => this.botonEliminar(this.props.id_casa)}
                     >
-                        <img
-                            alt="ERROR" 
-                            className="IconoBoton"
-                            src={eliminar}
-                        />
+                        <img alt="Eliminar" className="IconoBoton" src={eliminar} />
                     </button>
 
-                    <button 
-                        className="BotonInvisible"
-                        style={{marginRight: "5px"}}
-                        onClick={this.botonEditar}
-                    >
-                        <img
-                            alt="ERROR" 
-                            className="IconoBoton"
-                            src={editar}
-                        />
-                    </button>
-                </div>           
-                
-                <h3 style={{marginLeft: "25px", textAlign: "left"}}>{this.props.direccion}, {this.props.ciudad}</h3>
+                    <Link to={rutaEditarCasa}>
+                        <button className="BotonInvisible">
+                            <img alt="Editar" className="IconoBoton" src={editar} />
+                        </button>
+                    </Link>
+                </div>
 
-                <div className="DatosExtraHome" style={{marginTop: "40px"}}>
+                <h3 className="Direccion">
+                    {this.props.direccion}, {this.props.ciudad}
+                </h3>
+
+                <div className="DatosExtraHome">
                     <h4>{this.props.habitaciones} Habitaciones</h4>
                     <h4>|</h4>
                     <h4>{this.props.baños} Baños</h4>

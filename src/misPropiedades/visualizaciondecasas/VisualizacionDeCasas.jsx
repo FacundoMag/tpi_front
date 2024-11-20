@@ -18,6 +18,7 @@ export default class VisualizacionDeCasas extends Component {
                     <div className="VisualizacionCasas">
                         {this.props.casas.map((cont, index) => 
                             <Publicacion
+                                token = {this.props.token}
                                 key = {cont.id}
                                 id_casa = {cont.id}
                                 ciudad = {cont.ciudad} 
