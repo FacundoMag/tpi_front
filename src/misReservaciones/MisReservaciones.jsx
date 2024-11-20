@@ -1,23 +1,27 @@
 import { Component } from "react";
 import axios from "axios";
 import Header from "../comun/header/Header";
-import TablaDeReservaciones from "./tablaDeReservaciones/TablaDeReservaciones";
+import TablaDeMisReservaciones from "./tablaDeMisReservaciones/TablaDeMisReservaciones";
+import TablaReservacionesMisCasas from "./tablaReservacionesMisCasas/TablaReservacionesMisCasas";
 import Footer from "../comun/Footer";
 import PantallaDeCarga from "../comun/pantallaDeCarga/PantallaDeCarga"; 
 
 export default class MisReservaciones extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
+            tipoReservacion: "mis_reservaciones",
             reservaciones: [],
-        }
+            reservacionesMisCasas: [],
+        };
     }
 
     componentDidMount() {
-        const token = sessionStorage.getItem('token');
+        const token = sessionStorage.getItem("token");
         if (token) {
             this.extraerReservaciones(token);
-        } 
+            this.extraerReservacionesMisCasas(token);
+        }
     }
 
     extraerReservaciones(token) {
@@ -39,22 +43,68 @@ export default class MisReservaciones extends Component {
             });
     }
 
+    extraerReservacionesMisCasas(token) {
+        const url = "http://localhost:4001/api/reservacion/reservaciones_propietario";
+
+        const config = {
+            headers: {
+                authorization: token,
+            },
+        };
+
+        axios.get(url, config)
+            .then((response) => {
+                this.setState({ reservacionesMisCasas: response.data.results });
+                console.log(this.state.reservacionesMisCasas);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    manejarCambio = (event) => {
+        this.setState({ tipoReservacion: event.target.value });
+    };
+
     render() {
-        return(
+        return (
             <> 
                 <Header
                     isAuthenticated={true}  // Pasará el estado de autenticación
                     onLogout={this.props.onLogout}
                 />
-
                 
+                <div style={{ margin: "20px 0", textAlign: "center" }}>
+                    <label htmlFor="tipoReservacion" style={{ marginRight: "10px" }}>
+                        Selecciona una opción:
+                    </label>
+                    <select
+                        id="tipoReservacion"
+                        value={this.state.tipoReservacion}
+                        onChange={this.manejarCambio}
+                        style={{ padding: "5px", fontSize: "16px" }}
+                    >
+                        <option value="mis_reservaciones">Mis reservaciones</option>
+                        <option value="reservaciones_de_mis_casas">Reservaciones de mis casas</option>
+                    </select>
+                </div>
 
-                <TablaDeReservaciones
-                    token = {this.state.token}  
-                    titulo = "Acá estan la reservaciones que hiciste en la página"  
-                    reservaciones = {this.state.reservaciones}
-                />
+                {this.state.tipoReservacion === "mis_reservaciones" ? (
+                    <TablaDeMisReservaciones
+                        token = {this.state.token}
+                        titulo = "Acá están las reservaciones que hiciste en la página"
+                        reservaciones = {this.state.reservaciones}
+                    />
+                ) : (
+                    <TablaReservacionesMisCasas
+                        token = {this.state.token}
+                        titulo = "Reservaciones de tus casas en la página"
+                        reservaciones = {this.state.reservacionesMisCasas}
+                    />
+                )}
+
+                <Footer />
             </>
-        )
+        );
     }
 }

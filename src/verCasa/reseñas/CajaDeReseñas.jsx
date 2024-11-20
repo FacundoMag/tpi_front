@@ -26,7 +26,7 @@ export default class CajaDeReseñas extends Component {
                     className="Manrope" 
                     style={{ float: "left" }}
                 >
-                    Reseñas: {Math.round(this.state.nota)} 
+                    Puntuación: {Math.round(this.state.nota)} 
                     <img 
                         src={estrellaLlena} 
                         alt="ERROR" 
@@ -36,8 +36,9 @@ export default class CajaDeReseñas extends Component {
 
                 {this.props.inputComentario && (
                     <ComentarioInput 
-                        token={this.props.token}
-                        id_casa={this.props.id_casa}
+                        token = {this.props.token}
+                        id_casa = {this.props.id_casa}
+                        extraerInfoCasa = {this.props.extraerInfoCasa}
                     />
                 )}
 
@@ -45,11 +46,11 @@ export default class CajaDeReseñas extends Component {
                     {this.props.reseñas && this.props.reseñas.length > 0 ? (
                         this.props.reseñas.map((cont) => (
                             <Reseña
-                                key={cont.id}
-                                id_casa={cont.id}
-                                nombre={cont.usuarios}
-                                comentario={cont.comentario}
-                                calificacion={cont.valoracion}
+                                key = {cont.id}
+                                id_casa = {cont.id}
+                                nombre = {cont.usuarios}
+                                comentario = {cont.comentario}
+                                calificacion = {cont.valoracion}
                             />
                         ))
                     ) : (

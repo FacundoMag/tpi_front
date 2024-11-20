@@ -74,14 +74,9 @@ export default class App extends Component {
                     )}  
                 </Route>  
 
-                <Route path="/publicar-casa/:usuario_id">  
-                    {(params) =>(
-                         <FormularioEntradaPropiedad  
-                         isAuthenticated={this.state.isAuthenticated}  
-                         usuario_id={params.usuario_id}  
-                     /> 
-                    )}
-                </Route>  
+                <Route path="/publicar-casa">
+                    <FormularioEntradaPropiedad />
+                </Route>
 
                 <Route path="/favoritos">
                     <Favoritos
@@ -105,7 +100,12 @@ export default class App extends Component {
                 </Route>
                 
                 <Route path="/mis-propiedades/editar-casa">
-                    <EditarPropiedades />
+                    {(params) => {
+                        <EditarPropiedades
+                            id_casa={params.id_casa}
+                            usuario_id = {this.state.usuario_id}
+                        />
+                    }}
                 </Route>
 
                 <Route path="/ver-casa/:id_casa">

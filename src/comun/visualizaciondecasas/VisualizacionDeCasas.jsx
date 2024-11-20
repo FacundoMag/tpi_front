@@ -6,9 +6,6 @@ import "./VisualizacionDeCasas.css"
 export default class VisualizacionDeCasas extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            
-        };
     }
 
     render() {
