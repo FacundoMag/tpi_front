@@ -43,7 +43,7 @@ export default class Header extends Component {
                         <div className="Secciones"></div>
 
                         <div className="Secciones" style={{ justifyContent: "right", marginRight: "60px" }}>
-                            <Link to={`/publicar-casa/${this.props.usuario_id}`}>
+                            <Link to={"/publicar-casa/"}>
                                 <div className="BotonPublicar">
                                     <img 
                                         src={agregar} 

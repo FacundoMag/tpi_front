@@ -109,18 +109,18 @@ export default class FormularioEntradaPropiedad extends Component {
       },
     }));
   }
-
+  
   handleSubmit = async (e) => {
     e.preventDefault();
     const { ciudad_id, ...restoFormulario } = this.state.formData;
-  
+    
     if (!ciudad_id) {
       this.setState({ error: 'El campo "Ciudad" no puede estar vacío.', successMessage: '' });
       return;
     }
-  
+    
     const formDataToSend = new FormData();
-  
+    
     Object.keys(restoFormulario).forEach(key => {
       if (key === 'caracteristicas') {
         const listaServicios = Object.entries(this.state.formData.caracteristicas);
@@ -136,12 +136,12 @@ export default class FormularioEntradaPropiedad extends Component {
         formDataToSend.append(key, this.state.formData[key]);
       }
     });
-  
+    
     formDataToSend.append('ciudad_id', ciudad_id);
     formDataToSend.append('propietario_id', this.state.usuario_id);
-  
+    
     console.log('Datos del formulario a enviar:', Object.fromEntries(formDataToSend.entries()));
-  
+    
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -151,16 +151,16 @@ export default class FormularioEntradaPropiedad extends Component {
         });
         return;
       }
-  
+    
       const tokenToSend = `Bearer ${token}`;
-  
+    
       const response = await axios.post('http://localhost:4001/api/propiedades', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': tokenToSend,
         }
       });
-  
+    
       this.setState({ successMessage: 'Propiedad publicada con éxito', error: null });
       this.props.history.push('/');
     } catch (error) {
@@ -177,6 +177,7 @@ export default class FormularioEntradaPropiedad extends Component {
       this.setState({ error: mensajeError, successMessage: '' });
     }
   };
+  
 
   render() {
     return (
@@ -214,7 +215,7 @@ export default class FormularioEntradaPropiedad extends Component {
             <div className="form-group">
               <label>Tipo de Propiedad:</label>
               <select
-                name="tipo_id" // Cambiado de 'tipoPropiedad' a 'tipo_id'
+                name="tipo_id"
                 value={this.state.formData.tipo_id}
                 onChange={this.handleChange}
                 required
