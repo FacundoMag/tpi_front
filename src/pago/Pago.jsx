@@ -28,6 +28,8 @@ export default class Pago extends Component {
         const token = sessionStorage.getItem('token');
         if (token) {
             this.setState({ mostrarHeader: true, token });
+        } else {
+            window.location.href = "/iniciar-sesion";
         }
         this.extraerInfoCasa(this.props.id_casa);
     }
@@ -87,6 +89,7 @@ export default class Pago extends Component {
     
             // Configuración y datos de solicitud
             const url = "http://localhost:4001/api/reservacion";
+
             const config = {
                 headers: {
                     authorization: this.state.token,
@@ -107,7 +110,7 @@ export default class Pago extends Component {
             // Realiza la solicitud inmediatamente
             axios.post(url, data, config)
                 .then((response) => {
-                    alert("Se agregó la reservación.");
+                    Notificacion.show("Su reservación se registró correctamente.", "success");
                     window.location.href = "/pago-realizado";
                 })
                 .catch((error) => {

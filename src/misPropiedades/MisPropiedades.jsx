@@ -16,21 +16,24 @@ export default class MisPropiedades extends Component {
     componentDidMount() {
         const token = sessionStorage.getItem('token');
         if (token) {
-            this.setState({ token }, () => {
-                this.extraerMisPropiedades(token);
-            });
+            this.setState({ token });
+            this.extraerMisPropiedades(token);
         } else {
             console.error("Token no encontrado en la sesión.");
+            window.location.href = "/iniciar-sesion";
         }
     }
 
     extraerMisPropiedades(token) {
         const url = "http://localhost:4001/api/user/mis_propiedades";
 
-        axios
-            .get(url, {
-                headers: { authorization: token },
-            })
+        const config = {
+            headers: {
+                authorization: token
+            }
+        }
+
+        axios.get(url, config)
             .then((response) => {
                 const { result } = response.data;
                 if (Array.isArray(result)) {
@@ -60,8 +63,6 @@ export default class MisPropiedades extends Component {
                     casas={casas}
                     extraerMisPropiedades = {(token) => this.extraerMisPropiedades(token)}
                 />
-
-                <Footer />
             </>
         );
     }

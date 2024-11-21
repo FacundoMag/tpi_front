@@ -4,7 +4,7 @@ import Home from "./home/Home";
 import Register from "./register/Register";
 import Login from "./login/Login";
 import Favoritos from "./favoritos/Favoritos";
-import MisReservaciones from "./misReservaciones/misReservaciones";
+import MisReservaciones from "./misReservaciones/MisReservaciones";
 import MisPropiedades from "./misPropiedades/MisPropiedades";
 import VerCasa from "./verCasa/VerCasa";
 import Pago from "./pago/Pago";
@@ -117,14 +117,17 @@ export default class App extends Component {
                             usuario_id = {this.state.usuario_id}
                         />
                     )}
-                </Route>  
+                </Route>    
 
-                <Route path="/favoritos">  
-                    <Favoritos  
-                        isAuthenticated={this.state.isAuthenticated}  
-                        onLogout={this.handleLogout}  
-                    />  
-                </Route>  
+                <Route path="/pago/:id_casa">
+                    {(params) => (
+                        <Pago 
+                            isAuthenticated={this.state.isAuthenticated}
+                            onLogout={this.handleLogout}
+                            id_casa={params.id_casa}
+                        />
+                    )}  
+                </Route>
 
                 <Route path="/pago-realizado">
                     <PagoRealizado />
