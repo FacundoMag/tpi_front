@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'wouter';
 import Notificacion from '../comun/Notificacion';
 import './FormularioEntradaPropiedad.css';
 
@@ -184,11 +185,9 @@ export default class FormularioEntradaPropiedad extends Component {
       <div className="contenedor-centro">
         <form onSubmit={this.handleSubmit} className="formulario-entrada-propiedad" method="post">
           <div className="form-header">
-            <i
-              className="bi bi-arrow-left back-icon"
-              title="Ir atrás"
-              onClick={this.handleBackClick}
-            ></i>
+                <Link to ="/" className="back-icon" title='Go Back'>
+                    <i className="bi bi-arrow-left"></i>  
+                </Link>
             <h2>Ingresar Detalles de la Propiedad</h2>
           </div>
   
