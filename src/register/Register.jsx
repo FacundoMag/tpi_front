@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'wouter';  
+import Notificacion from '../comun/Notificacion';
 import './Register.css';
 
 class Register extends Component {
@@ -43,7 +44,7 @@ class Register extends Component {
     const { contraseña, confirmContraseña, nombre, apellido, telefono, correo } = this.state;
 
     if (contraseña !== confirmContraseña) {
-      this.setState({ error: 'Las contraseñas no coinciden' });
+      Notificacion.show("Las contraseñas no coinciden, por favor intente nuevamente.", "error");
       return;
     }
 
@@ -52,8 +53,8 @@ class Register extends Component {
     )
     .then((res) => {
       if (res.data.status === 'ok') {
+        Notificacion.show("Se pudo registrar correctamente. Ya puede Iniciar Sesión", "success");
         this.setState({
-          successMessage: 'Registro exitoso. Puedes iniciar sesión.',
           error: ''
         });
       } else {

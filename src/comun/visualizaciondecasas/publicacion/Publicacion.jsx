@@ -75,7 +75,7 @@ export default class Publicacion extends Component {
 
         return (
             <div className="Publicacion">
-                <Link to={rutaCodificada}>
+                <Link to = { rutaCodificada }>
                     <img src={urlImagen} alt="ERROR" className="Imagen" />
                 </Link>
 

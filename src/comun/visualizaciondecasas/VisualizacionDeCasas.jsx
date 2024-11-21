@@ -6,9 +6,6 @@ import "./VisualizacionDeCasas.css"
 export default class VisualizacionDeCasas extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            
-        };
     }
 
     render() {
@@ -20,7 +17,7 @@ export default class VisualizacionDeCasas extends Component {
                     <div className="VisualizacionCasas">
                         {this.props.casas.map((cont, index) => 
                             <Publicacion
-                                key={index}
+                                key={cont.id}
                                 token = {this.props.token}
                                 id_casa={cont.id}
                                 direccion = {cont.direccion}
@@ -39,7 +36,7 @@ export default class VisualizacionDeCasas extends Component {
                     <div className="CasasNoDisponibles">
                         <h2>Ahora mismo no hay ninguna propiedad de este tipo en la plataforma.</h2>
                         <h2>¿Quiere agregar alguna?</h2>
-                        <Boton ruta="//publicar-casa" estilo="Publicar">Publicar propiedad</Boton>
+                        <Boton ruta="/publicar-casa" estilo="Publicar">Publicar propiedad</Boton>
                     </div>
                 )}
             </div>

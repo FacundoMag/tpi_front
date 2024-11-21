@@ -18,6 +18,7 @@ export default class VisualizacionDeCasas extends Component {
                     <div className="VisualizacionCasas">
                         {this.props.casas.map((cont, index) => 
                             <Publicacion
+                                token = {this.props.token}
                                 key = {cont.id}
                                 id_casa = {cont.id}
                                 ciudad = {cont.ciudad} 
@@ -27,6 +28,7 @@ export default class VisualizacionDeCasas extends Component {
                                 baños = {cont.num_banos}
                                 tipo = {cont.tipo}
                                 imagen = {cont.url}
+                                extraerMisPropiedades = {this.props.extraerMisPropiedades}
                             />
                         )}
                     </div>
@@ -34,7 +36,7 @@ export default class VisualizacionDeCasas extends Component {
                     <div className="CasasNoDisponibles">
                         <h2>Aún no agregaste ninguna propiedad a la página.</h2>
                         <h2>¿Quiere agregar alguna?</h2>
-                        <Boton ruta="/publicar-propiedad" estilo="Publicar">Publicar propiedad</Boton>
+                        <Boton ruta="/publicar-casa" estilo="Publicar">Publicar propiedad</Boton>
                     </div>
                 )}
             </div>

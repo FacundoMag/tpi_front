@@ -50,6 +50,7 @@ export default class ComentarioInput extends Component {
       axios.post(url, data, config)
         .then((response) => {
           Notificacion.show("Comentario publicado.", "success");
+          this.props.extraerInfoCasa(this.props.id_casa);
           console.log(response.data);
         })
         .catch((error) => {
