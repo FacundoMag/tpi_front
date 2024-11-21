@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Notificacion from '../comun/Notificacion';
 import './FormularioEntradaPropiedad.css';
 
 const ciudades = {
@@ -161,10 +162,9 @@ export default class FormularioEntradaPropiedad extends Component {
         }
       });
     
-      this.setState({ successMessage: 'Propiedad publicada con éxito', error: null });
+      Notificacion.show("Se Publico la Propiedad correctamente","success");
       this.props.history.push('/');
     } catch (error) {
-      let mensajeError = 'Hubo un error al publicar la propiedad';
       if (error.response) {
         if (error.response.status === 403) {
           mensajeError = 'No tiene permisos para realizar esta acción. Verifique su sesión.';

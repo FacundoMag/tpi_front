@@ -1,5 +1,3 @@
-/* Editar.css */
-
 .editar-page {
   font-family: 'Poppins', sans-serif;
   background-color: #f3f3f3;
@@ -51,7 +49,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 35px;
 }
 
 .editar-page .input-group {
@@ -86,7 +84,7 @@
   position: absolute;
   left: 10px;
   font-size: 18px;
-  color: #333;
+  color: #333333;
 }
 
 .editar-page .toggle-icon {
@@ -114,7 +112,7 @@
   background-color: #1f57b6;
 }
 
-.back-icon {
+.bi-arrow-left {
   position: absolute;
   top: 20px;
   left: 20px;
@@ -123,6 +121,6 @@
   transition: color 0.3s;
 }
 
-.back-icon:hover {
+.bi-arrow-left:hover {
   color: #1f57b6;
 }
