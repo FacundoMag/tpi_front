@@ -36,7 +36,7 @@ export default class VisualizacionDeCasas extends Component {
                     <div className="CasasNoDisponibles">
                         <h2>Aún no agregaste ninguna propiedad a la página.</h2>
                         <h2>¿Quiere agregar alguna?</h2>
-                        <Boton ruta="/publicar-propiedad" estilo="Publicar">Publicar propiedad</Boton>
+                        <Boton ruta="/publicar-casa" estilo="Publicar">Publicar propiedad</Boton>
                     </div>
                 )}
             </div>
