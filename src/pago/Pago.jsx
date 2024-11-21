@@ -28,6 +28,8 @@ export default class Pago extends Component {
         const token = sessionStorage.getItem('token');
         if (token) {
             this.setState({ mostrarHeader: true, token });
+        } else {
+            window.location.href = "/iniciar-sesion";
         }
         this.extraerInfoCasa(this.props.id_casa);
     }

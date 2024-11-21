@@ -35,7 +35,6 @@ export default class Publicacion extends Component {
                 Notificacion.show("Se eliminó la casa correctamente.", "success");
                 this.props.extraerMisPropiedades(this.props.token)
                 console.log(response.data);
-                // Aquí puedes agregar lógica para actualizar la vista si es necesario
             })
             .catch((error) => {
                 console.error("Error al eliminar la propiedad:", error);

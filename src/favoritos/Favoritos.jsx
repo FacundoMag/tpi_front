@@ -14,10 +14,11 @@ export default class Favoritos extends Component {
     
     componentDidMount() {
         const token = sessionStorage.getItem('token');
-        if (!token) {
-            
-        }
-        this.extraerFavoritos(token);
+        if (token) {
+           this.extraerFavoritos(token); 
+        } else {
+            window.location.href = "/iniciar-sesion";
+        } 
     }
 
     extraerFavoritos(token) {
@@ -47,12 +48,12 @@ export default class Favoritos extends Component {
                 />
 
                 <VisualizacionDeCasas
-                    titulo="Tus propiedades favoritas"
-                    casas={this.state.casas}
-                    mostrarCorazon = {true}
+                    token = {this.state.token}  
+                    titulo = "Acá están tus propiedades favoritas"  
+                    casas = {this.state.casas}
+                    favoritos = {this.state.casas}
+                    mostrarCorazon = {true}  
                 />
-
-                <Footer />
             </>
         );
     }

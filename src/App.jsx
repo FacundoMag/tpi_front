@@ -117,14 +117,7 @@ export default class App extends Component {
                             usuario_id = {this.state.usuario_id}
                         />
                     )}
-                </Route>  
-
-                <Route path="/favoritos">  
-                    <Favoritos  
-                        isAuthenticated={this.state.isAuthenticated}  
-                        onLogout={this.handleLogout}  
-                    />  
-                </Route>  
+                </Route>    
 
                 <Route path="/pago/:id_casa">
                     {(params) => (

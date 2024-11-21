@@ -20,6 +20,7 @@ export default class MisPropiedades extends Component {
             this.extraerMisPropiedades(token);
         } else {
             console.error("Token no encontrado en la sesión.");
+            window.location.href = "/iniciar-sesion";
         }
     }
 

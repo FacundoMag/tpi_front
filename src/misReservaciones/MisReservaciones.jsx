@@ -21,6 +21,8 @@ export default class MisReservaciones extends Component {
         if (token) {
             this.extraerReservaciones(token);
             this.extraerReservacionesMisCasas(token);
+        } else {
+            window.location.href = "/iniciar-sesion";
         }
     }
 
