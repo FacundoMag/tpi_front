@@ -1,6 +1,7 @@
 import React, { Component } from 'react';  
 import { Link, Redirect } from 'wouter';   
 import axios from 'axios';   
+import Notificacion from '../comun/Notificacion';
 import './Login.css';  
 
 class Login extends Component {  
@@ -48,8 +49,10 @@ class Login extends Component {
             this.props.onLogin(data.usuario_id, data.token);
             
             this.setState({ isAuthenticated: true, error: null }); // Limpia errores previos si el inicio es exitoso
+            Notificacion.show("Inicio de Sesión exitosa. Bienvenido a SouthernEscapes", "success");
         } else {
-            this.setState({ error: data.error || 'Error de inicio de sesión' });
+          Notificacion.show("Correo eléctrico o contraseña incorrecto, verifique los datos e inténtelo nuevamente", "error");
+
         }
     } catch (error) {
         // Verifica si el error proviene de la respuesta del servidor o de la conexión
