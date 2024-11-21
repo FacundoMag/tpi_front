@@ -44,7 +44,7 @@ export default class Publicacion extends Component {
 
     render() {
         const rutaVerCasa = `/ver-casa/${this.props.id_casa}`;
-        const rutaEditarCasa = `/mis-propiedades/editar-casa/${this.props.id_casa}`;
+        const rutaEditarCasa = `/mis-propiedades/editar-propiedad/${this.props.id_casa}`;
         const urlImagen = `http://localhost:4001/api/imagenes/${this.props.imagen}`;
 
         return (
