@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "wouter";
 import "./Editar.css"; // Importa tu CSS
 import Boton from "../comun/Boton";
 import Notificacion from "../comun/Notificacion";
@@ -57,9 +58,9 @@ export default class Editar extends Component {
         return (
             <div className="editar-page">
                 <div className="editar-container">
-                <Boton to="/" className="back-icon" title="Go Back">  
-                  <i className="bi bi-arrow-left "></i>  
-                 </Boton>  
+                <Link to ="/">
+                    <i className="bi bi-arrow-left "></i>  
+                </Link>
                     <h2>Editar Usuario</h2>
                     <form className="editar-form" onSubmit={this.handleSubmit}>
                         <div className="input-group">
