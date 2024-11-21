@@ -26,6 +26,7 @@ export default class MisReservaciones extends Component {
         }
     }
 
+    // Esta función va a extraer las reservas que hiciste en otras propiedades de la página.
     extraerReservaciones(token) {
         const url = "http://localhost:4001/api/reservacion/mis_reservaciones";
 
@@ -45,6 +46,7 @@ export default class MisReservaciones extends Component {
             });
     }
 
+    // Esta función va a extraer las reservaciones que hayan hecho otros usuarios a tus propiedades.
     extraerReservacionesMisCasas(token) {
         const url = "http://localhost:4001/api/reservacion/reservaciones_propietario";
 
@@ -64,6 +66,7 @@ export default class MisReservaciones extends Component {
             });
     }
 
+    // Esta función cambia el valor del select.
     manejarCambio = (event) => {
         this.setState({ tipoReservacion: event.target.value });
     };

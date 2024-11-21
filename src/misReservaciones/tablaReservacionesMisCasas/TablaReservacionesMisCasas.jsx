@@ -28,12 +28,13 @@ export default class TablaReservacionesMisCasas extends Component {
                         <tbody>
                             {this.props.reservaciones.map((cont, index) => 
                                 <FilaReservacionMisCasas 
-                                    key = {index}
+                                    key = {cont.id}
                                     id_casa = {cont.propiedad_id}
                                     fecha_inicio = {cont.fecha_inicio}
                                     fecha_final = {cont.fecha_fin}
                                     fecha_reserva = {cont.fecha_reserva}
                                     monto_total = {cont.monto_total}
+                                    direccion = {cont.direccion}
                                 />
                             )}
                         </tbody>
