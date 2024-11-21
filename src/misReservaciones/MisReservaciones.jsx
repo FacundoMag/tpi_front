@@ -102,8 +102,6 @@ export default class MisReservaciones extends Component {
                         reservaciones = {this.state.reservacionesMisCasas}
                     />
                 )}
-
-                <Footer />
             </>
         );
     }

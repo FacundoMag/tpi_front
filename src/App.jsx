@@ -4,7 +4,7 @@ import Home from "./home/Home";
 import Register from "./register/Register";
 import Login from "./login/Login";
 import Favoritos from "./favoritos/Favoritos";
-import MisReservaciones from "./misReservaciones/misReservaciones";
+import MisReservaciones from "./misReservaciones/MisReservaciones";
 import MisPropiedades from "./misPropiedades/MisPropiedades";
 import VerCasa from "./verCasa/VerCasa";
 import Pago from "./pago/Pago";
