@@ -10,7 +10,7 @@ export default class MisReservaciones extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tipoReservacion: "mis_reservaciones", // "mis_reservaciones" por defecto
+            tipoReservacion: "mis_reservaciones",
             reservaciones: [],
             reservacionesMisCasas: [],
         };

@@ -78,10 +78,10 @@ class Login extends Component {
             <i className="bi bi-arrow-left"></i>  
           </Link>  
 
-          <h2 className="login-title">Sign in</h2>  
+          <h2 className="login-title">Iniciar Sesión</h2>  
           <p className="login-text">  
-            If you don't have an account register{' '}  
-            <Link to="/crear-cuenta" className="register-link">Register here!</Link>  
+          Si no tienes una cuenta registrate{' '}  
+            <Link to="/crear-cuenta" className="register-link">Registrarme!</Link>  
           </p>  
 
           {error && <p className="error-text">{error}</p>}  
@@ -90,7 +90,7 @@ class Login extends Component {
             <InputField  
               type="email"  
               id="email"  
-              label="Email"  
+              label="Correo Electronico"  
               placeholder="Enter your email address"  
               iconClass="bi bi-envelope"  
               value={email}  
@@ -100,7 +100,7 @@ class Login extends Component {
             <InputField  
               type={passwordVisible ? 'text' : 'password'}  
               id="password"  
-              label="Password"  
+              label="Contraseña"  
               placeholder="Enter your Password"  
               iconClass="bi bi-lock"  
               toggleIconClass={passwordVisible ? 'bi bi-eye-slash' : 'bi bi-eye'}  
@@ -112,9 +112,8 @@ class Login extends Component {
             <div className="options">  
               <label className="checkbox-container">  
                 <input type="checkbox" id="rememberMe" />  
-                Remember me  
+                Recuerdame  
               </label>  
-              <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>  
             </div>  
 
             <button type="submit" className="login-button">Login</button>  

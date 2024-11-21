@@ -26,7 +26,7 @@ export default class CajaDeReseñas extends Component {
                     className="Manrope" 
                     style={{ float: "left" }}
                 >
-                    Reseñas: {Math.round(this.state.nota)} 
+                    Puntuación: {Math.round(this.state.nota)} 
                     <img 
                         src={estrellaLlena} 
                         alt="ERROR" 
