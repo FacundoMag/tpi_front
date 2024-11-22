@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'wouter';
 import Notificacion from '../comun/Notificacion';
 import './FormularioEntradaPropiedad.css';
 
@@ -49,6 +50,7 @@ export default class FormularioEntradaPropiedad extends Component {
     console.log('usuario_id:', usuario_id);
   
     if (!token) {
+      window.location.href = "/iniciar-sesion";
       console.warn('No hay token almacenado');
       this.setState({
         error: 'No hay sesión activa. Por favor, inicie sesión.'
@@ -162,6 +164,7 @@ export default class FormularioEntradaPropiedad extends Component {
         }
       });
     
+      window.location.href = "/"
       Notificacion.show("Se Publico la Propiedad correctamente","success");
       this.props.history.push('/');
     } catch (error) {
@@ -184,11 +187,9 @@ export default class FormularioEntradaPropiedad extends Component {
       <div className="contenedor-centro">
         <form onSubmit={this.handleSubmit} className="formulario-entrada-propiedad" method="post">
           <div className="form-header">
-            <i
-              className="bi bi-arrow-left back-icon"
-              title="Ir atrás"
-              onClick={this.handleBackClick}
-            ></i>
+                <Link to ="/" className="back-icon" title='Go Back'>
+                    <i className="bi bi-arrow-left"></i>  
+                </Link>
             <h2>Ingresar Detalles de la Propiedad</h2>
           </div>
   
@@ -221,9 +222,9 @@ export default class FormularioEntradaPropiedad extends Component {
                 required
               >
                 <option value="">Seleccione Tipo</option>
-                <option value="1">Departamento</option>
-                <option value="2">Casa</option>
-                <option value="3">Condominio</option>
+                <option value="1">Casa</option>
+                <option value="2">Departamento</option>
+                <option value="3">Hotel</option>
               </select>
             </div>
   

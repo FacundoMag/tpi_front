@@ -3,8 +3,6 @@ import axios from "axios";
 import Header from "../comun/header/Header";
 import TablaDeMisReservaciones from "./tablaDeMisReservaciones/TablaDeMisReservaciones";
 import TablaReservacionesMisCasas from "./tablaReservacionesMisCasas/TablaReservacionesMisCasas";
-import Footer from "../comun/Footer";
-import PantallaDeCarga from "../comun/pantallaDeCarga/PantallaDeCarga"; 
 
 export default class MisReservaciones extends Component {
     constructor(props) {
@@ -16,6 +14,7 @@ export default class MisReservaciones extends Component {
         };
     }
 
+    // Trae el token del sessionStorage, lo verifica y activa las funciones en el caso de que el token existe, sino, lo va a redirigir a /iniciar-sesion
     componentDidMount() {
         const token = sessionStorage.getItem("token");
         if (token) {
@@ -26,6 +25,7 @@ export default class MisReservaciones extends Component {
         }
     }
 
+    // Esta función va a extraer las reservas que hiciste en otras propiedades de la página.
     extraerReservaciones(token) {
         const url = "http://localhost:4001/api/reservacion/mis_reservaciones";
 
@@ -38,13 +38,13 @@ export default class MisReservaciones extends Component {
         axios.get(url, config)
             .then((response) => {
                 this.setState({ reservaciones: response.data.results });
-                console.log(this.state.reservaciones);
             })
             .catch((error) => {
                 console.error(error);
             });
     }
 
+    // Esta función va a extraer las reservaciones que hayan hecho otros usuarios a tus propiedades.
     extraerReservacionesMisCasas(token) {
         const url = "http://localhost:4001/api/reservacion/reservaciones_propietario";
 
@@ -57,13 +57,13 @@ export default class MisReservaciones extends Component {
         axios.get(url, config)
             .then((response) => {
                 this.setState({ reservacionesMisCasas: response.data.results });
-                console.log(this.state.reservacionesMisCasas);
             })
             .catch((error) => {
                 console.error(error);
             });
     }
 
+    // Esta función cambia el valor del select.
     manejarCambio = (event) => {
         this.setState({ tipoReservacion: event.target.value });
     };
@@ -75,7 +75,7 @@ export default class MisReservaciones extends Component {
                     isAuthenticated={true}  // Pasará el estado de autenticación
                     onLogout={this.props.onLogout}
                 />
-                
+
                 <div style={{ margin: "20px 0", textAlign: "center" }}>
                     <label htmlFor="tipoReservacion" style={{ marginRight: "10px" }}>
                         Selecciona una opción:
@@ -100,7 +100,7 @@ export default class MisReservaciones extends Component {
                 ) : (
                     <TablaReservacionesMisCasas
                         token = {this.state.token}
-                        titulo = "Reservaciones de tus casas en la página"
+                        titulo = "Acá estan las reservaciones que hicieron en tus casas registradas en la página"
                         reservaciones = {this.state.reservacionesMisCasas}
                     />
                 )}

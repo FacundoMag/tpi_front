@@ -42,7 +42,8 @@ export default class App extends Component {
 
     handleLogout = () => {  
         this.setState({ isAuthenticated: false, usuario_id: null });  
-        sessionStorage.removeItem("token"); // Limpiar el token del sessionStorage  
+        sessionStorage.removeItem("token"); // Limpiar el token del sessionStorage 
+        localStorage.removeItem("token"); // Limpia el token del localStorage 
         window.location.href = "/"; // Redirigir al usuario a la página principal  
     };  
 
@@ -52,7 +53,6 @@ export default class App extends Component {
                 <Route path="/">  
                     <Home  
                         isAuthenticated={this.state.isAuthenticated}  
-                        usuario_id={this.state.usuario_id}  
                         onLogout={this.handleLogout}  
                     />  
                 </Route>  
@@ -99,13 +99,12 @@ export default class App extends Component {
                     />
                 </Route>
                 
-                <Route path="/mis-propiedades/editar-casa">
-                    {(params) => {
+                <Route path="/mis-propiedades/editar-propiedad/:id_casa">
+                    {(params) => (
                         <EditarPropiedades
                             id_casa={params.id_casa}
-                            usuario_id = {this.state.usuario_id}
                         />
-                    }}
+                    )}
                 </Route>
 
                 <Route path="/ver-casa/:id_casa">

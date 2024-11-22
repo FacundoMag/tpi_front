@@ -13,6 +13,7 @@ export default class Home extends Component {
         };
     }
 
+    // Maneja los cambios que se hagan en el select del buscador
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     };

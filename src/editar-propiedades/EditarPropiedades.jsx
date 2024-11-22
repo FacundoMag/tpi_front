@@ -1,272 +1,228 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
+import { Link } from 'wouter';
+import Notificacion from '../comun/Notificacion';
 import './EditarPropiedades.css';
 
-function EditarPropiedades() {
-  const [formData, setFormData] = useState({
-    nombrePropiedad: '',
-    precio: '',
-    direccion: '',
-    contacto: '',
-    tipoPropiedad: '',
-    habitaciones: '',
-    banos: '',
-    area: '',
-    ciudad: '',
-    descripcion: '',
-    caracteristicas: {
-      cocina: false,
-      aireAcondicionado: false,
-      garaje: false,
-      patio: false,
-      piscina: false,
-      tv: false,
-      wifi: false,
-    },
-    archivos: null,
-  });
+export default class EditarPropiedades extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formData: {
+        direccion: '',
+        ciudad_id: '',
+        num_habitaciones: '',
+        num_banos: '',
+        capacidad: '',
+        tamano_m2: '',
+        precio_renta: '',
+        tipo_id: '',
+        descripcion: '',
+      },
+      error: null,
+      successMessage: '',
+    };
+  }
 
-  const handleBackClick = () => {
-    window.location.href = '/mis-propiedades';
-  };
+  async componentDidMount() {
+    const { id_casa } = this.props;
+    const token = localStorage.getItem('token');
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    if (type === 'checkbox' && formData.caracteristicas.hasOwnProperty(name)) {
-      setFormData((prev) => ({
-        ...prev,
-        caracteristicas: {
-          ...prev.caracteristicas,
-          [name]: checked,
-        },
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: type === 'checkbox' ? checked : value,
-      }));
+    if (!token) {
+      this.setState({ error: 'No hay sesión activa. Por favor, inicie sesión.' });
+      return;
     }
-  };
 
-  const handleFileChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      archivos: e.target.files,
+    try {
+      const response = await axios.get(`http://localhost:4001/api/propiedades/${id_casa}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const propiedad = response.data;
+
+      this.setState({
+        formData: {
+          ...this.state.formData,
+          ...propiedad,
+        },
+      });
+    } catch (error) {
+      console.error('Error al cargar la propiedad:', error);
+    }
+  }
+
+  handleChange = (e) => {
+    const { name, value } = e.target;
+
+    this.setState((prevState) => ({
+      formData: {
+        ...prevState.formData,
+        [name]: value,
+      },
     }));
   };
 
-  const handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
+    const { id_casa } = this.props;
+
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        this.setState({
+          error: 'No hay token de autenticación. Por favor, inicie sesión nuevamente.',
+          successMessage: '',
+        });
+        return;
+      }
+
+      await axios.put(
+        `http://localhost:4001/api/propiedades?propiedad_id=${id_casa}`,
+        this.state.formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      Notificacion.show('Propiedad actualizada correctamente', 'success');
+      this.props.history.push('/'); // Redirige después de editar
+    } catch (error) {
+      this.setState({
+      });
+    }
   };
 
-  return (
-    <div className="contenedor-centro">
-      <form onSubmit={handleSubmit} className="editarpropiedades">
-        <div className="form-header">
-          <i
-            className="bi bi-arrow-left back-icon"
-            title="Go Back"
-            onClick={handleBackClick}
-          ></i>
-          <h2>Editar Propiedad</h2>
-        </div>
+  render() {
+    const { formData, error, successMessage } = this.state;
 
-        <div className="form-row">
-          <div className="form-group">
-            <label>Nombre de la Propiedad:</label>
-            <input
-              type="text"
-              name="nombrePropiedad"
-              value={formData.nombrePropiedad}
-              onChange={handleChange}
-              required
-            />
+    return (
+      <div className="contenedor-centro" style={{position: 'relative'}}>
+        <form onSubmit={this.handleSubmit} className="editarpropiedades">
+          <div className="form-header">
+            <Link href="/" className="back-icon">
+              <i className="bi bi-arrow-left"></i>
+            </Link>
+            <h2>Editar Propiedad</h2>
           </div>
 
-          <div className="form-group">
-            <label>Precio:</label>
-            <input
-              type="number"
-              name="precio"
-              value={formData.precio}
-              onChange={handleChange}
-              required
-            />
+          {error && <div className="error-message">{error}</div>}
+          {successMessage && <div className="success-message">{successMessage}</div>}
+
+          <div className="form-row">
+            <div className="form-group">
+              <label>Dirección:</label>
+              <input
+                type="text"
+                name="direccion"
+                value={formData.direccion}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Ciudad:</label>
+              <select
+                name="ciudad_id"
+                value={formData.ciudad_id}
+                onChange={this.handleChange}
+                required
+              >
+                <option value="">Seleccione Ciudad</option>
+                <option value="1">Ushuaia</option>
+                <option value="2">Tolhuin</option>
+                <option value="3">Rio Grande</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>Habitaciones:</label>
+              <input
+                type="number"
+                name="num_habitaciones"
+                value={formData.num_habitaciones}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Baños:</label>
+              <input
+                type="number"
+                name="num_banos"
+                value={formData.num_banos}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Capacidad:</label>
+              <input
+                type="number"
+                name="capacidad"
+                value={formData.capacidad}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Área (m²):</label>
+              <input
+                type="number"
+                name="tamano_m2"
+                value={formData.tamano_m2}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Precio de Renta:</label>
+              <input
+                type="number"
+                name="precio_renta"
+                value={formData.precio_renta}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Tipo de Propiedad:</label>
+              <select
+                name="tipo_id"
+                value={formData.tipo_id}
+                onChange={this.handleChange}
+                required
+              >
+                <option value="">Seleccione Tipo</option>
+                <option value="1">Departamento</option>
+                <option value="2">Casa</option>
+                <option value="3">Condominio</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>Descripción:</label>
+              <textarea
+                name="descripcion"
+                value={formData.descripcion}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="form-row">
-          <div className="form-group">
-            <label>Dirección:</label>
-            <input
-              type="text"
-              name="direccion"
-              value={formData.direccion}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Información de Contacto:</label>
-            <input
-              type="text"
-              name="contacto"
-              value={formData.contacto}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
-
-        <div className="form-row">
-          <div className="form-group">
-            <label>Tipo de Propiedad:</label>
-            <select
-              name="tipoPropiedad"
-              value={formData.tipoPropiedad}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Seleccione Tipo</option>
-              <option value="departamento">Departamento</option>
-              <option value="casa">Casa</option>
-              <option value="condominio">Condominio</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label>Habitaciones:</label>
-            <input
-              type="number"
-              name="habitaciones"
-              value={formData.habitaciones}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Baños:</label>
-            <input
-              type="number"
-              name="banos"
-              value={formData.banos}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Área (m²):</label>
-            <input
-              type="number"
-              name="area"
-              value={formData.area}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Ciudad:</label>
-            <select
-              name="ciudad"
-              value={formData.ciudad}
-              onChange={handleChange}
-              required
-            >
-              <option value="Ushuaia">Ushuaia</option>
-              <option value="Tolhuin">Tolhuin</option>
-              <option value="Rio Grande">Río Grande</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="form-group">
-          <label>Descripción:</label>
-          <textarea
-            name="descripcion"
-            value={formData.descripcion}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <label>Características:</label>
-        <div className="checkbox-group">
-          <label>
-            <input
-              type="checkbox"
-              name="cocina"
-              checked={formData.caracteristicas.cocina}
-              onChange={handleChange}
-            />
-            Cocina
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="aireAcondicionado"
-              checked={formData.caracteristicas.aireAcondicionado}
-              onChange={handleChange}
-            />
-            Aire Acondicionado
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="garaje"
-              checked={formData.caracteristicas.garaje}
-              onChange={handleChange}
-            />
-            Garaje
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="patio"
-              checked={formData.caracteristicas.patio}
-              onChange={handleChange}
-            />
-            Patio
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="piscina"
-              checked={formData.caracteristicas.piscina}
-              onChange={handleChange}
-            />
-            Piscina
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="tv"
-              checked={formData.caracteristicas.tv}
-              onChange={handleChange}
-            />
-            TV
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="wifi"
-              checked={formData.caracteristicas.wifi}
-              onChange={handleChange}
-            />
-            WI-FI
-          </label>
-        </div>
-
-        <label>Subir Imágenes:</label>
-        <input type="file" name="archivos" multiple onChange={handleFileChange} />
-
-        <button type="submit" className="submit-button">Publicar</button>
-      </form>
-    </div>
-  );
+          <button type="submit" className="submit-button">
+            Actualizar Propiedad
+          </button>
+        </form>
+      </div>
+    );
+  }
 }
-
-export default EditarPropiedades;

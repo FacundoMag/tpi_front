@@ -39,7 +39,11 @@
     color: #3b82f6;
     cursor: pointer;
     transition: color 0.3s ease, transform 0.2s ease;
-  }
+    position: absolute; /* Posiciona la flecha de forma absoluta */
+    top: 20px; /* Ajusta la distancia desde la parte superior */
+    left: 20px; /* Ajusta la distancia desde la parte izquierda */
+}
+
   
   .back-icon:hover {
     color: #2563eb;

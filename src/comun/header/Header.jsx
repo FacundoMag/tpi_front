@@ -13,9 +13,6 @@ export default class Header extends Component {
         };
     }
 
-    componentDidUpdate() {
-    }
-
     toggleMenu = () => {
         this.setState(prevState => ({
             isMenuOpen: !prevState.isMenuOpen
@@ -25,6 +22,8 @@ export default class Header extends Component {
     handleLogout = () => {
         console.log("Logout clicked in Header"); // Verifica el click
         sessionStorage.removeItem("token");
+        localStorage.removeItem("token");
+        
         if (this.props.onLogout) {
             this.props.onLogout(); // Llama al método que recibe el logout
         }

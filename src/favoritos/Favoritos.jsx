@@ -11,7 +11,8 @@ export default class Favoritos extends Component {
             casas: [],
         };
     }
-    
+
+    // Verifica si el usuario tiene la sesión iniciada, sino, lo mandara a /iniciar-sesion.
     componentDidMount() {
         const token = sessionStorage.getItem('token');
         if (token) {
@@ -21,6 +22,7 @@ export default class Favoritos extends Component {
         } 
     }
 
+    // Extrae las casas favoritas del usuario.
     extraerFavoritos(token) {
         const url = "http://localhost:4001/api/user/favoritos";
 

@@ -15,10 +15,10 @@ export default class Home extends Component {
             casas: [],
             favoritos: [],  
         };  
-    }  
+    } 
 
+    // Trae el token de sessionStorage y, si existe, activa la función para traer los favoritos, sino, de todas maneras activa la función para traer las casas.
     componentDidMount() {
-        console.log("Props en Home - usuario_id:", this.props.usuario_id); 
         const token = sessionStorage.getItem('token');
         if (token) {
             this.setState({ mostrarHeader: true, token });
@@ -27,6 +27,7 @@ export default class Home extends Component {
         this.extraerCasas();
     }
 
+    // Función que sirve para extraer las casas
     extraerCasas() {
         const url = "http://localhost:4001/api/propiedades";
 
@@ -40,6 +41,7 @@ export default class Home extends Component {
             });
     }
 
+    // Función que sirve para extraer los favoritos del usuario
     misFavoritos(token) {
         const url = "http://localhost:4001/api/user/favoritos";
 
@@ -58,6 +60,7 @@ export default class Home extends Component {
             });
     }
 
+    // Este es el buscador para traer una propiedad/lugar específico
     buscador(ciudad_id, tipo_id) {
         console.log(ciudad_id, tipo_id);
         
