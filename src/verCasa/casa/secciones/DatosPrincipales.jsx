@@ -10,12 +10,15 @@ import corazonRojo from "../../../assets/corazonRojo.png";
 export default class DatosPrincipales extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             estrellas: [estrellaVacia, estrellaVacia, estrellaVacia, estrellaVacia, estrellaVacia],
             rutaReservar: "/iniciar-sesion",
             corazon: corazonBlanco,
             imagenActual: 0,
+            primeraLetra: "",
         };
+
         this.botonCorazon = this.botonCorazon.bind(this);
         this.siguienteImagen = this.siguienteImagen.bind(this);
         this.anteriorImagen = this.anteriorImagen.bind(this);
@@ -27,8 +30,17 @@ export default class DatosPrincipales extends Component {
             this.verificarCorazon();
         }
         this.estrellas();
+        this.extraerPrimeraLetra(this.props.nombre)
     }
 
+    // Extrae la primera letra del nombre propietario de la casa
+    extraerPrimeraLetra(nombre) {
+        if (nombre && nombre.length > 0) {
+            this.setState({ primeraLetra: nombre[0] });
+        }
+    }
+
+    // Verifica si la casa está en los favoritos del usuario
     verificarCorazon() {
         const { id_casa, favoritos } = this.props;
         
@@ -39,6 +51,7 @@ export default class DatosPrincipales extends Component {
         }
     }
 
+    // Muestra la calificación promedio de la casa
     estrellas() {
         let { nota } = this.props;
 
@@ -56,6 +69,7 @@ export default class DatosPrincipales extends Component {
         this.setState({ estrellas: estrellasActualizadas });
     }
 
+    // agrega o elimina la casa de favoritos
     botonCorazon() {
         const url = "http://localhost:4001/api/user/favoritos";
 
@@ -93,12 +107,14 @@ export default class DatosPrincipales extends Component {
         }
     }
 
+    // Pasa a la siguiente imagen del carrousel
     siguienteImagen() {
         this.setState((prevState) => ({
             imagenActual: (prevState.imagenActual + 1) % this.props.imagenes.length,
         }));
     }
 
+    // Pasa a la anterior imagen del carrousel
     anteriorImagen() {
         this.setState((prevState) => ({
             imagenActual: (prevState.imagenActual - 1 + this.props.imagenes.length) % this.props.imagenes.length,
@@ -187,6 +203,17 @@ export default class DatosPrincipales extends Component {
                     <span className="PublicSans" style={{ fontSize: "x-large", fontWeight: "bold" }}>
                         {direccion}, {ciudad}
                     </span>
+
+                    <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
+                        <div className="Usuario" style={{ width: "25px", textAlign: "center" }}>
+                            <span style={{ fontSize: "x-large", color: "white" }}>
+                                {this.state.primeraLetra}
+                            </span>
+                        </div>
+                        <span className="PublicSans" style={{ fontSize: "x-large", margin: "4px 0 0 6px" }}>
+                            {this.props.nombre} {this.props.apellido}
+                        </span>
+                    </div>  
                     
                     <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
                         <span style={{ color: "black" }}>

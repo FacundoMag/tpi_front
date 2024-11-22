@@ -14,6 +14,8 @@ export default class Casa extends Component {
                     token = {this.props.token}
                     id_casa = {this.props.id_casa} 
                     telefono = {this.props.telefono}
+                    nombre = {this.props.nombre}
+                    apellido = {this.props.apellido}
                     direccion = {this.props.direccion}
                     ciudad = {this.props.ciudad}
                     precio = {this.props.precio} 

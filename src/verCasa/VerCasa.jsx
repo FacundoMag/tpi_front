@@ -90,6 +90,8 @@ export default class VerCasa extends Component {
                             token = {this.state.token}
                             id_casa = {this.props.id_casa}
                             telefono = {this.state.casa.propiedad[0].telefono_propietario}
+                            nombre = {this.state.casa.propiedad[0].nombre}
+                            apellido = {this.state.casa.propiedad[0].apellido}
                             direccion = {this.state.casa.propiedad[0].direccion}
                             ciudad = {this.state.casa.propiedad[0].ciudades}
                             precio = {this.state.casa.propiedad[0].precio_renta} 
