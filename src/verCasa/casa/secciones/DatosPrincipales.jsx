@@ -122,7 +122,7 @@ export default class DatosPrincipales extends Component {
     }
 
     render() {
-        const { telefono, direccion, ciudad, tamaño, habitaciones, baños, precio } = this.props;
+        const { telefono, nombre, apellido, direccion, ciudad, tamaño, habitaciones, baños, capacidad, precio } = this.props;
         const { estrellas, corazon, rutaReservar, imagenActual } = this.state;
 
         return (
@@ -200,20 +200,20 @@ export default class DatosPrincipales extends Component {
                         ))}
                     </div>
 
-                    <span className="PublicSans" style={{ fontSize: "x-large", fontWeight: "bold" }}>
-                        {direccion}, {ciudad}
-                    </span>
-
                     <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
-                        <div className="Usuario" style={{ width: "25px", textAlign: "center" }}>
-                            <span style={{ fontSize: "x-large", color: "white" }}>
+                        <div className="Usuario" style={{height: "20px", width: "20px", textAlign: "center" }}>
+                            <span style={{ fontSize: "large", color: "white" }}>
                                 {this.state.primeraLetra}
                             </span>
                         </div>
-                        <span className="PublicSans" style={{ fontSize: "x-large", margin: "4px 0 0 6px" }}>
-                            {this.props.nombre} {this.props.apellido}
+                        <span className="PublicSans" style={{ fontSize: "large", margin: "4px 0 0 6px" }}>
+                            {nombre} {apellido}
                         </span>
-                    </div>  
+                    </div> 
+
+                    <span className="PublicSans" style={{ fontSize: "x-large", fontWeight: "bold" }}>
+                        {direccion}, {ciudad}
+                    </span>
                     
                     <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
                         <span style={{ color: "black" }}>
@@ -230,6 +230,13 @@ export default class DatosPrincipales extends Component {
                         </span>
                         <span style={{ color: "black", marginLeft: "100px" }}>
                             Baños: <span style={{ fontWeight: "bold" }}>{baños}</span>
+                        </span>
+                        
+                    </div>
+
+                    <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
+                        <span style={{ color: "black" }}>
+                            Capacidad: <span style={{ fontWeight: "bold" }}>{capacidad}</span>
                         </span>
                     </div>
 

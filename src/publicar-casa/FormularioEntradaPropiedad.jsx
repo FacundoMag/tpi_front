@@ -45,9 +45,6 @@ export default class FormularioEntradaPropiedad extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem('token');
-    const usuario_id = localStorage.getItem('userId');
-    console.log('Token actual:', token);
-    console.log('usuario_id:', usuario_id);
   
     if (!token) {
       window.location.href = "/iniciar-sesion";
@@ -55,18 +52,8 @@ export default class FormularioEntradaPropiedad extends Component {
       this.setState({
         error: 'No hay sesión activa. Por favor, inicie sesión.'
       });
-    } else {
-      if (usuario_id) {
-        this.setState({ usuario_id }); // Guardar el ID del usuario en el estado
-      } else {
-        console.warn('No hay ID de usuario almacenado');
-      }
     }
   }
-  
-  handleBackClick = () => {
-    this.props.history.push('/');
-  };
 
   handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -181,7 +168,6 @@ export default class FormularioEntradaPropiedad extends Component {
     }
   };
   
-
   render() {
     return (
       <div className="contenedor-centro">

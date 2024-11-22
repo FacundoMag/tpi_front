@@ -97,6 +97,7 @@ export default class VerCasa extends Component {
                             precio = {this.state.casa.propiedad[0].precio_renta} 
                             habitaciones = {this.state.casa.propiedad[0].num_habitaciones}
                             baños = {this.state.casa.propiedad[0].num_banos}
+                            capacidad = {this.state.casa.propiedad[0].capacidad}
                             imagenes = {this.state.casa.urls}
                             nota = {this.state.promedio}
                             tamaño = {this.state.casa.propiedad[0].tamano_m2}
