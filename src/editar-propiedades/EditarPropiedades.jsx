@@ -87,7 +87,7 @@ export default class EditarPropiedades extends Component {
       );
 
       Notificacion.show('Propiedad actualizada correctamente', 'success');
-      this.props.history.push('/'); // Redirige después de editar
+       window.location.href ("/") // Redirige después de editar
     } catch (error) {
       this.setState({
       });
@@ -101,7 +101,7 @@ export default class EditarPropiedades extends Component {
       <div className="contenedor-centro" style={{position: 'relative'}}>
         <form onSubmit={this.handleSubmit} className="editarpropiedades">
           <div className="form-header">
-            <Link href="/" className="back-icon">
+            <Link href="/mis-propiedades" className="back-icon">
               <i className="bi bi-arrow-left"></i>
             </Link>
             <h2>Editar Propiedad</h2>
