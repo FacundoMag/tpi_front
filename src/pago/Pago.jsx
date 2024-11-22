@@ -78,15 +78,14 @@ export default class Pago extends Component {
 
     // Acá está la función para proceder con la reserva.
     handleReservar = () => {
-
-        // cambia la variable carga a false para aparezca la pantalla de carga, además, aparece una notificación para avisar al usuario de que espere.
-        this.setState({ carga: false });
-        Notificacion.show("Se está procesando la reservación, por favor espere.", "info");
-
         const { fechaInicio, fechaFin } = this.calendario.state;
         const datosTarjetaCompletos = this.validarDatosTarjeta();
     
         if (fechaInicio !== null && fechaFin !== null && datosTarjetaCompletos) {
+            // cambia la variable carga a false para aparezca la pantalla de carga, además, aparece una notificación para avisar al usuario de que espere.
+            this.setState({ carga: false });
+            Notificacion.show("Se está procesando la reservación, por favor espere.", "info");
+
             // Prepara la información antes de la solicitud
             const total = this.calcularTotal(this.calendario.calcularDiasSeleccionados());
             const fechaInicioFormateada = `${fechaInicio.getFullYear()}-${(fechaInicio.getMonth() + 1).toString().padStart(2, '0')}-${fechaInicio.getDate().toString().padStart(2, '0')}`;
@@ -128,6 +127,8 @@ export default class Pago extends Component {
             Notificacion.show("Por favor, complete todos los campos y seleccione un rango de fechas.", "error");
         }
     };
+
+    calcularTotal = (dias) => dias * this.state.precio;
 
     render() {
         return (
