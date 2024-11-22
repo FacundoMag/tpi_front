@@ -163,6 +163,7 @@ export default class FormularioEntradaPropiedad extends Component {
         }
       });
     
+      window.location.href = "/"
       Notificacion.show("Se Publico la Propiedad correctamente","success");
       this.props.history.push('/');
     } catch (error) {
@@ -220,9 +221,9 @@ export default class FormularioEntradaPropiedad extends Component {
                 required
               >
                 <option value="">Seleccione Tipo</option>
-                <option value="1">Departamento</option>
-                <option value="2">Casa</option>
-                <option value="3">Condominio</option>
+                <option value="1">Casa</option>
+                <option value="2">Departamento</option>
+                <option value="3">Hotel</option>
               </select>
             </div>
   

@@ -28,10 +28,10 @@ export default class Pago extends Component {
         const token = sessionStorage.getItem('token');
         if (token) {
             this.setState({ mostrarHeader: true, token });
+            this.extraerInfoCasa(this.props.id_casa);
         } else {
             window.location.href = "/iniciar-sesion";
         }
-        this.extraerInfoCasa(this.props.id_casa);
     }
 
     extraerInfoCasa(id) {
@@ -74,6 +74,7 @@ export default class Pago extends Component {
     };
 
     handleReservar = () => {
+        this.setState({ carga: false })
         Notificacion.show("Se está procesando la reservación, por favor espere.", "info");
         const { fechaInicio, fechaFin } = this.calendario.state;
         const datosTarjetaCompletos = this.validarDatosTarjeta();

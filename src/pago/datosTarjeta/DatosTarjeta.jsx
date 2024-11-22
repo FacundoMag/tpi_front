@@ -94,7 +94,7 @@ export default class DatosTarjeta extends Component {
                         />
                     </div>
                     <div className="halfColumn">
-                        <label htmlFor="codigoPostal">Código postal o zip:</label>
+                        <label htmlFor="codigoPostal">Código postal:</label>
                         <input 
                             id="codigoPostal" 
                             type="number" 
