@@ -100,11 +100,11 @@ export default class App extends Component {
                 </Route>
                 
                 <Route path="/mis-propiedades/editar-propiedad/:id_casa">
-                    {(params) => {
+                    {(params) => (
                         <EditarPropiedades
                             id_casa={params.id_casa}
                         />
-                    }}
+                    )}
                 </Route>
 
                 <Route path="/ver-casa/:id_casa">

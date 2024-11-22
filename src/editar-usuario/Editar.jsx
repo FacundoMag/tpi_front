@@ -27,7 +27,7 @@ export default class Editar extends Component {
         const token = localStorage.getItem("token");
 
         if (!nombre || !apellido || !telefono || !correo) {
-            alert("Por favor, completa todos los campos.");
+            Notificacion.show("Por favor, completa todos los campos.","warn");
             return;
         }
 
