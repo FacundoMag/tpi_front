@@ -16,12 +16,14 @@ export default class Publicacion extends Component {
         this.botonCorazon = this.botonCorazon.bind(this);
     }
 
+    // Verifica si tiene que mostrar el corazón dependiendo si el usuario inició sesión o no
     componentDidMount() {
         if (this.props.mostrarCorazon) {
             this.verificarCorazon();
         }
     }
 
+    // Recorre el array de favoritos venida de las props para ver que casas son de las favoritas del usuario
     verificarCorazon() {
         const { id_casa, favoritos } = this.props;
         
@@ -32,6 +34,7 @@ export default class Publicacion extends Component {
         }
     }
 
+    // Sirve para agregar o eliminar una casa de favoritos dependiendo de que corazón está apareciendo
     botonCorazon() {
         const url = "http://localhost:4001/api/user/favoritos";
 

@@ -13,10 +13,6 @@ export default class Header extends Component {
         };
     }
 
-    componentDidUpdate() {
-        console.log("usuario ID en header:", this.props.usuario_id);
-    }
-
     toggleMenu = () => {
         this.setState(prevState => ({
             isMenuOpen: !prevState.isMenuOpen

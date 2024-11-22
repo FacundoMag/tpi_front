@@ -24,6 +24,7 @@ export default class Pago extends Component {
         };
     }
 
+    // Verifica si el usuario tiene sesión iniciada para activar las funciones, porque sino lo mandará a /iniciar-sesion.
     componentDidMount() {
         const token = sessionStorage.getItem('token');
         if (token) {
@@ -34,6 +35,7 @@ export default class Pago extends Component {
         }
     }
 
+    // Sirve para extraer el id del propietario y el precio de la casa.
     extraerInfoCasa(id) {
         const url = "http://localhost:4001/api/propiedades/propiedad";
         const config = {
@@ -51,6 +53,7 @@ export default class Pago extends Component {
             });
     }
 
+    // Verifica si todos los datos de la tarjeta estan completos.
     validarDatosTarjeta = () => {
         const camposTarjeta = [
             "tipoTarjeta",
@@ -73,9 +76,13 @@ export default class Pago extends Component {
         });
     };
 
+    // Acá está la función para proceder con la reserva.
     handleReservar = () => {
-        this.setState({ carga: false })
+
+        // cambia la variable carga a false para aparezca la pantalla de carga, además, aparece una notificación para avisar al usuario de que espere.
+        this.setState({ carga: false });
         Notificacion.show("Se está procesando la reservación, por favor espere.", "info");
+
         const { fechaInicio, fechaFin } = this.calendario.state;
         const datosTarjetaCompletos = this.validarDatosTarjeta();
     
@@ -120,9 +127,7 @@ export default class Pago extends Component {
         } else {
             Notificacion.show("Por favor, complete todos los campos y seleccione un rango de fechas.", "error");
         }
-    };    
-
-    calcularTotal = (dias) => dias * this.state.precio;
+    };
 
     render() {
         return (

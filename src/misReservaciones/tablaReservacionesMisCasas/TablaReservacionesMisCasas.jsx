@@ -4,9 +4,6 @@ import FilaReservacionMisCasas from "./FilaReservacionMisCasas";
 export default class TablaReservacionesMisCasas extends Component {
     constructor(props){
         super(props);
-        this.state = {
-
-        }
     }
 
     render() {
@@ -19,6 +16,7 @@ export default class TablaReservacionesMisCasas extends Component {
                         <thead>
                             <tr>
                                 <th>Dirección</th>
+                                <th>Nombre del inquilino</th>
                                 <th>Fecha de incio</th>
                                 <th>Fecha de fin</th>
                                 <th>Fecha de la reservacion</th>
@@ -35,6 +33,8 @@ export default class TablaReservacionesMisCasas extends Component {
                                     fecha_reserva = {cont.fecha_reserva}
                                     monto_total = {cont.monto_total}
                                     direccion = {cont.direccion}
+                                    nombre = {cont.nombre}
+                                    apellido = {cont.apellido}
                                 />
                             )}
                         </tbody>

@@ -3,6 +3,8 @@ import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default class Notificacion extends Component {
+
+    //Acá se define el mensaje que va a tener la notificación y que tipo de notificación es.
     static show(message, type) {
         switch (type) {
             case "success":

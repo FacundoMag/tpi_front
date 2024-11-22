@@ -26,7 +26,6 @@ export default class VerCasa extends Component {
             this.setState({ mostrarHeader: true, token });
             this.misFavoritos(token);
         }
-
         this.extraerInfoCasa(this.props.id_casa);          
     }
 
@@ -42,7 +41,6 @@ export default class VerCasa extends Component {
         axios.get(url, config)
             .then((response) => {
                 this.setState({ favoritos: response.data.favoritos });
-                console.log(response.data.favoritos);
                 
             })
             .catch((error) => {

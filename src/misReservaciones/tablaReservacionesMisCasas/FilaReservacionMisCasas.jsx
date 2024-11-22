@@ -1,13 +1,9 @@
 import { Component } from "react";
-import axios from "axios";
 import { Link } from "wouter";
 
 export default class FilaReservacionMisCasas extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            direccion: ''
-        }
     }
 
     render() {
@@ -16,6 +12,7 @@ export default class FilaReservacionMisCasas extends Component {
         return(
             <tr>
                 <th><Link to = {rutaCodificada}>{ this.props.direccion }</Link></th>
+                <th>{this.props.nombre} {this.props.apellido}</th>
                 <th>{this.props.fecha_inicio.slice(0, 10)}</th>
                 <th>{this.props.fecha_final.slice(0, 10)}</th>
                 <th>{this.props.fecha_reserva.slice(0, 10)}</th>

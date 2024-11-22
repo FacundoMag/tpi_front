@@ -52,7 +52,6 @@ export default class App extends Component {
                 <Route path="/">  
                     <Home  
                         isAuthenticated={this.state.isAuthenticated}  
-                        usuario_id={this.state.usuario_id}  
                         onLogout={this.handleLogout}  
                     />  
                 </Route>  

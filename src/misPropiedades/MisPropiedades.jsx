@@ -13,17 +13,18 @@ export default class MisPropiedades extends Component {
         };
     }
 
+    // Verifica si el usuario tiene sesión iniciada para activar las funciones, porque sino, lo manda a /iniciar-sesion.
     componentDidMount() {
         const token = sessionStorage.getItem('token');
         if (token) {
             this.setState({ token });
             this.extraerMisPropiedades(token);
         } else {
-            console.error("Token no encontrado en la sesión.");
             window.location.href = "/iniciar-sesion";
         }
     }
 
+    // Extrae las propiedades que le pertenecen al usuario.
     extraerMisPropiedades(token) {
         const url = "http://localhost:4001/api/user/mis_propiedades";
 
