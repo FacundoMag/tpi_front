@@ -42,7 +42,8 @@ export default class App extends Component {
 
     handleLogout = () => {  
         this.setState({ isAuthenticated: false, usuario_id: null });  
-        sessionStorage.removeItem("token"); // Limpiar el token del sessionStorage  
+        sessionStorage.removeItem("token"); // Limpiar el token del sessionStorage 
+        localStorage.removeItem("token"); // Limpia el token del localStorage 
         window.location.href = "/"; // Redirigir al usuario a la página principal  
     };  
 

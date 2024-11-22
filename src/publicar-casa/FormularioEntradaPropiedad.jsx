@@ -50,6 +50,7 @@ export default class FormularioEntradaPropiedad extends Component {
     console.log('usuario_id:', usuario_id);
   
     if (!token) {
+      window.location.href = "/iniciar-sesion";
       console.warn('No hay token almacenado');
       this.setState({
         error: 'No hay sesión activa. Por favor, inicie sesión.'
